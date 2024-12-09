@@ -1,0 +1,66 @@
+<ng-container *ngIf="isLoggedOut()">
+  <app-navbar></app-navbar>
+</ng-container>
+
+<ng-container *ngIf="isUser()">
+  <app-user-navbar></app-user-navbar>
+</ng-container>
+
+<ng-container *ngIf="isManager()">
+  <app-manager-navbar></app-manager-navbar>
+</ng-container>
+
+<ng-container *ngIf="isAdmin()">
+  <app-admin-navbar></app-admin-navbar>
+</ng-container>
+
+<router-outlet></router-outlet>
+
+
+<!-- <footer class=""  style="background: linear-gradient(to right, #636c6b, #000d10 50%, #636c6b);">
+  <div class="">
+
+<footer class="bg-body-tertiary text-center text-lg-start"  style="background: linear-gradient(to right, #636c6b, #000d10 50%, #636c6b);">
+  <div class="container p-4">
+
+    <div class="row">
+      <div class="col-lg-6 col-md-12 mb-4 mb-md-0" style="color: aliceblue;">
+        <h5 class="text-uppercase" style="color: aliceblue;">About Us</h5>
+        <p style="color: aliceblue;">
+          Welcome to BlogPortal! Discover diverse and engaging content on tech, travel, lifestyle, and more. Join our community and get inspired!
+        </p>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <h5 class="text-uppercase" style="color: aliceblue;">Links</h5>
+        <ul class="list-unstyled mb-0">
+          <li>
+            <a routerLink="/"  class="text-white" style="color: aliceblue;">Home</a>
+          </li>
+          <li>
+            <a routerLink="/register" class="text-white" style="color: aliceblue;">Register</a>
+          </li>
+          <li>
+            <a routerLink="/login" class="text-white" style="color: aliceblue;">Login</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6 mb-4 mb-md-0 ">
+        <h5 class="text-uppercase mb-0" style="color: aliceblue;">Contact Us</h5>
+        <ul class="list-unstyled" >
+
+          <li class="text-white"  style="color: aliceblue;"> Aravinth S</li>
+          <li class="text-white"  style="color: aliceblue;">Virender Gupta</li>
+          <li class="text-white"  style="color: aliceblue;">Bokka Nithya</li>
+          <li class="text-white"  style="color: aliceblue;">Satyam Thakur</li>
+          <li class="text-white"  style="color: aliceblue;">Rik Hait</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</footer>
+
+  <div class="text-center p-3 text-white" style="color: rgba(0, 0, 0, 0.2);">
+    © 2024 LtiMindtree
+    <a class="text-white" href="" style="text-decoration: none; background-color: rgba(0, 0, 0, 0.2);">BlogPortal.com</a>
+  </div> -->
