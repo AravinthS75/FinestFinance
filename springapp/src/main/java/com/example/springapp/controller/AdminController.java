@@ -13,7 +13,7 @@ import com.example.springapp.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin(allowedHeaders = "*", origins = "http://localhost:8081")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class AdminController {
 
     @Autowired

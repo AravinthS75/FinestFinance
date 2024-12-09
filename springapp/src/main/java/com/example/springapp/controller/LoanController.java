@@ -12,7 +12,7 @@ import com.example.springapp.service.LoanServiceImpl;
 
 @RestController
 @RequestMapping("/api/loans")
-@CrossOrigin(allowedHeaders = "*", origins = "http://localhost:8081")
+@CrossOrigin(allowedHeaders = "*", origins = "*")
 public class LoanController {
 
     @Autowired

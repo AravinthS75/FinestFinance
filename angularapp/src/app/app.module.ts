@@ -30,7 +30,8 @@ import { UserViewLoanComponent } from './components/user-view-loan/user-view-loa
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserStoreService } from './services/user-store.service';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth-interceptor.service';
 
 @NgModule({
@@ -66,7 +67,8 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [
     UserStoreService,
@@ -75,7 +77,8 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    provideHttpClient(withInterceptorsFromDi())
   ],
   bootstrap: [AppComponent]
 })

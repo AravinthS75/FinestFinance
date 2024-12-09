@@ -21,31 +21,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtUtils jwtService;
 
     @Autowired
-    UserDetailsServiceImpl userDetailsServiceImpl;
+    private UserDetailsServiceImpl userDetailsServiceImpl;
 
     @SuppressWarnings("null")
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-
         String authHeader = request.getHeader("Authorization");
-        logger.info("Bearer Token : "+authHeader);
+        logger.info("Bearer Token : " + authHeader);
         String token = null;
         String username = null;
-        if(authHeader != null && authHeader.startsWith("Bearer")){
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7);
-            logger.info("Token : "+token);
+            logger.info("Token : " + token);
             username = jwtService.extractUsername(token);
-            logger.info("Username from token : "+username);
+            logger.info("Username from token : " + username);
         }
 
-        if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsServiceImpl.loadUserByUsername(username);
-            if(jwtService.validateToken(token, userDetails)){
+            if (jwtService.validateToken(token, userDetails)) {
                 logger.info("Filter validated successfully");
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
                 authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-            }else{
+            } else {
                 logger.info("Filter validate failed");
             }
         }
