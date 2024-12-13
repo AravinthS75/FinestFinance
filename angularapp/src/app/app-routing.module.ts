@@ -20,11 +20,19 @@ import { UserPayEmiComponent } from './components/user-pay-emi/user-pay-emi.comp
 import { UserViewLoanComponent } from './components/user-view-loan/user-view-loan.component';
 import { AuthguardComponent } from './components/authguard/authguard.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
+import { ManagerViewUsersComponent } from './components/manager-view-users/manager-view-users.component';
+import { ManagerEditProfileComponent } from './components/manager-edit-profile/manager-edit-profile.component';
+import { AdminEditProfileComponent } from './components/admin-edit-profile/admin-edit-profile.component';
+import { UserEditProfileComponent } from './components/user-edit-profile/user-edit-profile.component';
+import { NoAuthGuardComponent } from './components/no-auth-guard/no-auth-guard.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'login',
+    component: LoginComponent,
+    canActivate: [NoAuthGuardComponent]
+  },
   { path: 'error', component: ErrorComponent },
   { path: 'admin/dashboard',
     component: AdminDashboardComponent,
@@ -39,7 +47,11 @@ const routes: Routes = [
   { path: 'admin/view-managers',
     component: AdminViewManagersComponent,
     canActivate: [AuthguardComponent], 
-    data: { expectedRole: 'MANAGER' } 
+    data: { expectedRole: 'ADMIN' } 
+  },  { path: 'admin/edit-profile',
+    component: AdminEditProfileComponent,
+    canActivate: [AuthguardComponent], 
+    data: { expectedRole: 'ADMIN' } 
   },
   { path: 'admin/view-users',
     component: AdminViewUsersComponent,
@@ -53,6 +65,15 @@ const routes: Routes = [
   },
   { path: 'manager/evaluate',
     component: ManagerLoanActionComponent,
+    canActivate: [AuthguardComponent], 
+    data: { expectedRole: 'MANAGER' } 
+  },
+  { path: 'manager/view-users',
+    component: ManagerViewUsersComponent,
+    canActivate: [AuthguardComponent], 
+    data: { expectedRole: 'MANAGER' } 
+  },  { path: 'manager/edit-profile',
+    component: ManagerEditProfileComponent,
     canActivate: [AuthguardComponent], 
     data: { expectedRole: 'MANAGER' } 
   },
@@ -98,6 +119,10 @@ const routes: Routes = [
    },
   { path: 'user/view-loan',
     component: UserViewLoanComponent,
+    canActivate: [AuthguardComponent], 
+    data: { expectedRole: 'USER' } 
+   },  { path: 'user/edit-profile',
+    component: UserEditProfileComponent,
     canActivate: [AuthguardComponent], 
     data: { expectedRole: 'USER' } 
    },

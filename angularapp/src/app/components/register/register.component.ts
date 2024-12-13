@@ -26,7 +26,7 @@ export class RegisterComponent implements OnInit {
       password: ['', [Validators.required, Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*(),.?":{}|<>]).+$')]],
       confirmPassword: ['', Validators.required],
       mobileNumber: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-      role: ['', Validators.required]
+      // role: ['', Validators.required]
     });
   }
 
@@ -35,11 +35,11 @@ export class RegisterComponent implements OnInit {
   register(): void {
     if (this.registrationForm.valid) {
       const user: User = {
-        username: this.registrationForm.get('username')?.value,
+        name: this.registrationForm.get('username')?.value,
         email: this.registrationForm.get('email')?.value,
         password: this.registrationForm.get('password')?.value,
-        mobileNumber: this.registrationForm.get('mobileNumber')?.value,
-        role: this.registrationForm.get('role')?.value
+        phone: this.registrationForm.get('mobileNumber')?.value,
+        // role: this.registrationForm.get('role')?.value
       };
       this.service.signUp(user).subscribe({
         next: response => {

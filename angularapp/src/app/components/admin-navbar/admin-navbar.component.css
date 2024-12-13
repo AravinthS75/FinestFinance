@@ -1,0 +1,7 @@
+.logout-link {
+    cursor: pointer;
+}
+
+.caret-up {
+   transform: rotate(180deg);
+}

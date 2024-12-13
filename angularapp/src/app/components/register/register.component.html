@@ -151,7 +151,7 @@
                 <div *ngIf="registrationForm.get('mobileNumber')?.errors?.['pattern']">Enter 10-Digit number</div>
             </div>
 
-            <label for="role">Role<span style="color: red;">*</span></label> <br>
+            <!-- <label for="role">Role<span style="color: red;">*</span></label> <br>
             <select id="role" formControlName="role">
                 <option value="" disabled selected>Select a role</option>
                 <option value="ADMIN">ADMIN</option>
@@ -160,7 +160,7 @@
             </select><br>
             <div *ngIf="registrationForm.get('role')?.invalid && (registrationForm.get('role')?.dirty || registrationForm.get('role')?.touched)" class="error-message">
                 Role is required
-            </div>
+            </div> -->
 
             <button type="submit" [disabled]="registrationForm.invalid" class="register">Register</button>
         </form>

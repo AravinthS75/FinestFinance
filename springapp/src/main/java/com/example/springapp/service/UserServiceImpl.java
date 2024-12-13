@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
         if (authentication.isAuthenticated()) {
             User user = userRepository.findByEmail(loginUser.getEmail());
             String token = jwtUtils .generateToken(loginUser.getEmail());
-            return new AuthUser(user.getEmail(), token, user.getRole(), user.getId());
+            return new AuthUser(user.getEmail(), token, user.getRole(), user.getId(), user.getName());
         }
 
         throw new UserNameNotFoundException("Invalid username or password");

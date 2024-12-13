@@ -33,6 +33,11 @@ import { UserStoreService } from './services/user-store.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth-interceptor.service';
+import { ManagerViewUsersComponent } from './components/manager-view-users/manager-view-users.component';
+import { AdminEditProfileComponent } from './components/admin-edit-profile/admin-edit-profile.component';
+import { ManagerEditProfileComponent } from './components/manager-edit-profile/manager-edit-profile.component';
+import { UserEditProfileComponent } from './components/user-edit-profile/user-edit-profile.component';
+import { NoAuthGuardComponent } from './components/no-auth-guard/no-auth-guard.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +65,12 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
     UserDashboardComponent,
     UserNavbarComponent,
     UserPayEmiComponent,
-    UserViewLoanComponent
+    UserViewLoanComponent,
+    ManagerViewUsersComponent,
+    AdminEditProfileComponent,
+    ManagerEditProfileComponent,
+    UserEditProfileComponent,
+    NoAuthGuardComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +82,7 @@ import { AuthInterceptor } from './services/auth-interceptor.service';
   ],
   providers: [
     UserStoreService,
+    NoAuthGuardComponent,
     AuthguardComponent,
     { 
       provide: HTTP_INTERCEPTORS,

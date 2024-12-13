@@ -6,7 +6,6 @@ import { UserStoreService } from '../../services/user-store.service';
 @Component({
   selector: 'app-authguard',
   standalone: false,
-  
   templateUrl: './authguard.component.html',
   styleUrl: './authguard.component.css'
 })

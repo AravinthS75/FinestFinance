@@ -51,6 +51,9 @@ throw new Error('Method not implemented.');
         } else if (authUser.role === 'USER') {
           this.router.navigate(['']);
         }
+        else if (authUser.role === 'MANAGER'){
+          this.router.navigate(['']);
+        }
       },(errorResponse: HttpErrorResponse)=>{
         this.isNoData = true;
         this.error = localStorage.getItem('error');

@@ -17,7 +17,8 @@ public class CorsConfig {
                 registry.addMapping("/api/**")
                         .allowedOrigins("https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev")
                         .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*");
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
             }
         };
     }

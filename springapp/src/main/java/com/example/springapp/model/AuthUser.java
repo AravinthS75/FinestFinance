@@ -5,13 +5,15 @@ public class AuthUser {
     String token;
     String role;
     Long userId;
+    String name;
     public AuthUser() {
     }
-    public AuthUser(String email, String token, String role, Long userId) {
+    public AuthUser(String email, String token, String role, Long userId, String name) {
         this.email = email;
         this.token = token;
         this.role = role;
         this.userId = userId;
+        this.name = name;
     }
     public String getEmail() {
         return email;
@@ -36,6 +38,12 @@ public class AuthUser {
     }
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
  
 }
