@@ -13,7 +13,7 @@ import com.example.springapp.repository.UserRepository;
 
 @RestController
 @RequestMapping("/api/admin")
-@CrossOrigin(allowedHeaders = "*", origins = "*")
+@CrossOrigin( allowedHeaders = "*", origins = "https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev" )
 public class AdminController {
 
     @Autowired

@@ -1,4 +1,16 @@
 {
     "java.compile.nullAnalysis.mode": "automatic",
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "sqlite.setupDatabase": {
+        "path": "/workspaces/codespaces-blank/finestfinance.db"
+    },
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "name": "FinestFinance",
+            "dialect": "SQLite",
+            "database": "${workspaceFolder:codespaces-blank}/finestfinance.db",
+            "driver": "SQLite"
+        }
+    ]
 }
