@@ -25,12 +25,52 @@ import { ManagerEditProfileComponent } from './components/manager-edit-profile/m
 import { AdminEditProfileComponent } from './components/admin-edit-profile/admin-edit-profile.component';
 import { UserEditProfileComponent } from './components/user-edit-profile/user-edit-profile.component';
 import { NoAuthGuardComponent } from './components/no-auth-guard/no-auth-guard.component';
+import { PersonalLoanDescriptionComponent } from './components/view-dummy/personal-loan-description/personal-loan-description.component';
+import { HomeLoanDescriptionComponent } from './components/view-dummy/home-loan-description/home-loan-description.component';
+import { CarLoanDescriptionComponent } from './components/view-dummy/car-loan-description/car-loan-description.component';
+import { BikeLoanDescriptionComponent } from './components/view-dummy/bike-loan-description/bike-loan-description.component';
+import { BusinessLoanDescriptionComponent } from './components/view-dummy/business-loan-description/business-loan-description.component';
+import { BikeEmiDescriptionComponent } from './components/view-dummy/bike-emi-description/bike-emi-description.component';
+import { ElectronicsEmiDescriptionComponent } from './components/view-dummy/electronics-emi-description/electronics-emi-description.component';
+import { ElectronicsEmiComponent } from './components/electronics-emi/electronics-emi.component';
+import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register',
+    component: RegisterComponent,
+    canActivate: [NoAuthGuardComponent]
+  },
   { path: 'login',
     component: LoginComponent,
+    canActivate: [NoAuthGuardComponent]
+  },
+  { path: 'loan/personal/description',
+    component: PersonalLoanDescriptionComponent,
+    canActivate: [NoAuthGuardComponent]
+  },
+  { path: 'loan/home/description',
+    component: HomeLoanDescriptionComponent,
+    canActivate: [NoAuthGuardComponent]
+  },
+  { path: 'loan/car/description',
+    component: CarLoanDescriptionComponent,
+    canActivate: [NoAuthGuardComponent]
+  },
+  { path: 'loan/bike/description',
+    component: BikeLoanDescriptionComponent,
+    canActivate: [NoAuthGuardComponent]
+  },
+  { path: 'loan/business/description',
+    component: BusinessLoanDescriptionComponent,
+    canActivate: [NoAuthGuardComponent]
+  },
+  { path: 'emi/bike-description',
+    component: BikeEmiDescriptionComponent,
+    canActivate: [NoAuthGuardComponent]
+  },
+  { path: 'emi/electronics-description',
+    component: ElectronicsEmiDescriptionComponent,
     canActivate: [NoAuthGuardComponent]
   },
   { path: 'error', component: ErrorComponent },
@@ -104,6 +144,16 @@ const routes: Routes = [
   },
   { path: 'user/home-loan',
     component: UserApplyHomeLoanComponent,
+    canActivate: [AuthguardComponent], 
+    data: { expectedRole: 'USER' } 
+  },
+  { path: 'user/emi-electronics',
+    component: ElectronicsEmiComponent,
+    canActivate: [AuthguardComponent], 
+    data: { expectedRole: 'USER' }
+  },
+  { path: 'user/emi-bike',
+    component: BikeEmiComponent,
     canActivate: [AuthguardComponent], 
     data: { expectedRole: 'USER' } 
   },

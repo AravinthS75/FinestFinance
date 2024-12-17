@@ -1,26 +1,25 @@
 <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" routerLink="/" style="color: antiquewhite;">FinestFinance</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li [ngClass]="{ 'active': isActive('/') }"><a routerLink="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-        <li [ngClass]="{ 'active': isActive('/admin/view-loans') }"><a routerLink="admin/view-loans">Loans</a></li>
-        <li [ngClass]="{ 'active': isActive('/admin/view-managers') }"><a routerLink="admin/view-managers">Managers</a></li>
-        <li [ngClass]="{ 'active': isActive('/admin/view-users') }"><a routerLink="admin/view-users">Users</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" [ngClass]="{ 'open': isDropdownOpen }">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#" (click)="toggleDropdown()">
-            <span class="glyphicon glyphicon-user"></span> Profile
-            <span class="caret" [ngClass]="{ 'caret-up': isDropdownOpen }"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a routerLink="admin/dashboard">Profile</a></li>
-            <li><a routerLink="admin/edit-profile">Edit Profile</a></li>
-            <li><a class="logout-link" (click)="logout()">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
-          </ul>
-        </li>
-      </ul>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand center-navbar-brand" routerLink="/" style="color: antiquewhite;">FinestFinance</a>
     </div>
-  </nav>
+    <ul class="nav navbar-nav">
+      <li [ngClass]="{ 'active': isActive('/') }"><a routerLink="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+      <li [ngClass]="{ 'active': isActive('/admin/view-loans') }"><a routerLink="admin/view-loans">Loans</a></li>
+      <li [ngClass]="{ 'active': isActive('/admin/view-managers') }"><a routerLink="admin/view-managers">Managers</a></li>
+      <li [ngClass]="{ 'active': isActive('/admin/view-users') }"><a routerLink="admin/view-users">Users</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+          <span class="glyphicon glyphicon-user"></span> Profile
+        </a>
+        <ul class="dropdown-menu">
+          <li><a routerLink="admin/dashboard">Profile</a></li>
+          <li><a routerLink="admin/edit-profile">Edit Profile</a></li>
+          <li><a class="logout-link" (click)="logout()">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

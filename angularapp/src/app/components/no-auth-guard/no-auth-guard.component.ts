@@ -16,7 +16,7 @@ export class NoAuthGuardComponent implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
-    if (!this.authService.isAuthenticated()) {
+    if (this.authService.isAuthenticated()) {
       this.router.navigate(['/']);
       return false;
     }

@@ -1,11 +1,11 @@
-.logout-link {
-    cursor: pointer;
-  }
-  
-  .navbar-nav > .dropdown:hover > .dropdown-menu {
+.dropdown:hover .dropdown-menu {
     display: block;
-  }
-  
-  .navbar-nav > .dropdown > .dropdown-toggle {
-    pointer-events: none;
-  }
+}
+.logout-link:hover {
+    cursor: pointer;
+}
+.center-navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}

@@ -1,7 +1,12 @@
-.logout-link {
-    cursor: pointer;
+.dropdown:hover .dropdown-menu {
+    display: block;
 }
 
-.caret-up {
-   transform: rotate(180deg);
+.logout-link:hover {
+    cursor: pointer;
+}
+.center-navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }

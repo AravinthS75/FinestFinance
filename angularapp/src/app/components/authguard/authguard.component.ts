@@ -24,14 +24,14 @@ export class AuthguardComponent implements CanActivate{
     const token = this.userStoreService.getJwtToken();
     
     if (!this.authService.isAuthenticated() || !token) {
-      this.router.navigate(['error']);
+      this.router.navigate(['login']);
       return false;
     }
 
     const userRole = this.userStoreService.getUserRole();
     
     if (userRole !== expectedRole) {
-      this.router.navigate(['error']);
+      this.router.navigate(['login']);
       return false;
     }
 

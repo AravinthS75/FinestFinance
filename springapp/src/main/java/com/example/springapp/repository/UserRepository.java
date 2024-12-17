@@ -8,4 +8,3 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findByRole(String role);
     User findById(int userId);
 }
-

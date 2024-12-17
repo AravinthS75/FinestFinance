@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>springapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>springapp</name>
+    <name>FinestFinance</name>
     <description>Finest Finance WebApp backend</description>
     <url/>
     <properties>

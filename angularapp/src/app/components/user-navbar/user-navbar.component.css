@@ -1,0 +1,11 @@
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.logout-link:hover {
+    cursor: pointer;
+}
+.center-navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}

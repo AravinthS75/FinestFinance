@@ -1,0 +1,8 @@
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+.center-navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
