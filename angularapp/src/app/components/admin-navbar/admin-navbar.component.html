@@ -5,9 +5,9 @@
     </div>
     <ul class="nav navbar-nav">
       <li [ngClass]="{ 'active': isActive('/') }"><a routerLink="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-      <li [ngClass]="{ 'active': isActive('/admin/view-loans') }"><a routerLink="admin/view-loans">Loans</a></li>
-      <li [ngClass]="{ 'active': isActive('/admin/view-managers') }"><a routerLink="admin/view-managers">Managers</a></li>
-      <li [ngClass]="{ 'active': isActive('/admin/view-users') }"><a routerLink="admin/view-users">Users</a></li>
+      <li [ngClass]="{ 'active': isActive('/admin/view-loans') }"><a routerLink="admin/view-loans"><span class="glyphicon glyphicon-usd"></span> Loans</a></li>
+      <li [ngClass]="{ 'active': isActive('/admin/view-managers') }"><a routerLink="admin/view-managers"><span class="glyphicon glyphicon-star"></span> Managers</a></li>
+      <li [ngClass]="{ 'active': isActive('/admin/view-users') }"><a routerLink="admin/view-users"><span class="glyphicon glyphicon-star-empty"></span> Users</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
@@ -15,9 +15,9 @@
           <span class="glyphicon glyphicon-user"></span> Profile
         </a>
         <ul class="dropdown-menu">
-          <li><a routerLink="admin/dashboard">Profile</a></li>
-          <li><a routerLink="admin/edit-profile">Edit Profile</a></li>
-          <li><a class="logout-link" (click)="logout()">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+          <li><a routerLink="admin/dashboard"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+          <li><a routerLink="admin/edit-profile"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a></li>
+          <li><a class="logout-link" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
         </ul>
       </li>
     </ul>

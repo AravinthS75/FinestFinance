@@ -4,9 +4,9 @@
         <a class="navbar-brand center-navbar-brand" routerLink="/">FinestFinance</a>
       </div>
       <ul class="nav navbar-nav">
-        <li><a routerLink="/">Home</a></li>
+        <li><a routerLink="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Loans
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-usd"></span> Loans
           </a>
           <ul class="dropdown-menu">
             <li><a routerLink="user/personal-loan">Personal Loan</a></li>
@@ -17,15 +17,15 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#">EMI
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-tag"></span> EMI
           </a>
           <ul class="dropdown-menu">
             <li><a routerLink="user/emi-electronics">Electronics</a></li>
             <li><a routerLink="user/emi-bike">Bike</a></li>
           </ul>
         </li>
-        <li><a routerLink="user/view-loan">My Loans</a></li>
-        <li><a routerLink="user/pay-emi">Pay EMI</a></li>
+        <li><a routerLink="user/view-loan"><span class="glyphicon glyphicon-piggy-bank"></span> My Loans</a></li>
+        <li><a routerLink="user/pay-emi"><span class="glyphicon glyphicon-flash"></span> Pay EMI</a></li>
       </ul> 
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -33,9 +33,9 @@
             <span class="glyphicon glyphicon-user"></span> Profile
           </a>
           <ul class="dropdown-menu">
-            <li><a routerLink="user/dashboard">Profile</a></li>
-            <li><a routerLink="user/edit-profile">Edit Profile</a></li>
-            <li><a class="logout-link" (click)="logout()">Logout <span class="glyphicon glyphicon-log-out"></span></a></li>
+            <li><a routerLink="user/dashboard"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+            <li><a routerLink="user/edit-profile"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a></li>
+            <li><a class="logout-link" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
           </ul>
         </li>
       </ul>
