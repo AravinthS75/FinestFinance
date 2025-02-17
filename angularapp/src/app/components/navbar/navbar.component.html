@@ -1,32 +1,52 @@
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand center-navbar-brand" routerLink="/">FinestFinance</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li><a routerLink="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-usd"></span> Loans</a>
-          <ul class="dropdown-menu">
-            <li><a routerLink="loan/personal/description">Personal Loan</a></li>
-            <li><a routerLink="loan/business/description">Business Loan</a></li>
-            <li><a routerLink="loan/home/description">Home Loan</a></li>
-            <li><a routerLink="loan/car/description">Car Loan</a></li>
-            <li><a routerLink="loan/bike/description">Bike Loan</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-tag"></span> EMI
-          </a>
-          <ul class="dropdown-menu">
-            <li><a routerLink="emi/electronics-description">Electronics</a></li>
-            <li><a routerLink="emi/bike-description">Bike</a></li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a routerLink="register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a routerLink="login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+<!-- Navbar HTML -->
+<nav class="main-nav">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a routerLink="/" class="logo-link">FinestFinance</a>
     </div>
-  </nav>
+    
+    <div class="nav-main">
+      <div class="nav-group left">
+        <div class="nav-item">
+          <a routerLink="/" class="nav-link">Home</a>
+        </div>
+
+        <!-- Loans Dropdown -->
+        <div class="nav-item dropdown">
+          <div class="dropdown-trigger">
+            <span class="nav-link">Loans</span>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+          <div class="dropdown-menu">
+            <a routerLink="loan/personal/description" class="dropdown-item">Personal Loan</a>
+            <a routerLink="loan/business/description" class="dropdown-item">Business Loan</a>
+            <a routerLink="loan/home/description" class="dropdown-item">Home Loan</a>
+            <a routerLink="loan/car/description" class="dropdown-item">Car Loan</a>
+            <a routerLink="loan/bike/description" class="dropdown-item">Bike Loan</a>
+          </div>
+        </div>
+
+        <!-- EMI Dropdown -->
+        <div class="nav-item dropdown">
+          <div class="dropdown-trigger">
+            <span class="nav-link">EMI</span>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+          <div class="dropdown-menu">
+            <a routerLink="emi/electronics-description" class="dropdown-item">Electronics</a>
+            <a routerLink="emi/bike-description" class="dropdown-item">Bike</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-group right">
+        <a routerLink="/apply" class="cta-button">Apply Now</a>
+        <div class="auth-links">
+          <a routerLink="register" class="auth-link">Sign Up</a>
+          <span class="divider">|</span>
+          <a routerLink="login" class="auth-link">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

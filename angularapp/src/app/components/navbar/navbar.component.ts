@@ -23,4 +23,15 @@ export class NavbarComponent {
     isActive(url: string): boolean {
       return this.currentUrl === url;
     }
+    dropdowns: { [key: string]: boolean } = {};
+
+    toggleDropdown(menu: string) {
+      // Close other dropdowns before opening the clicked one
+      Object.keys(this.dropdowns).forEach(key => {
+        if (key !== menu) this.dropdowns[key] = false;
+      });
+  
+      // Toggle the clicked dropdown
+      this.dropdowns[menu] = !this.dropdowns[menu];
+    }
 }

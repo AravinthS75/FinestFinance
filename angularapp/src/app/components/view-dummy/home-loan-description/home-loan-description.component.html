@@ -1,1 +1,149 @@
-<p>home-loan-description works!</p>
+<!-- home-loan-description.component.html -->
+<div class="home-loan-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">Dream Home Made Reality</h1>
+        <p class="hero-subtitle">Get up to ₹5 Crore home loan at attractive interest rates starting from 8.40% p.a.</p>
+        <a routerLink="/apply" class="cta-button">Apply Now</a>
+      </div>
+    </section>
+  
+    <!-- Key Features -->
+    <section class="features-section animate">
+      <h2>Why Choose Our Home Loan?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🏡</div>
+          <h3>High Loan Amount</h3>
+          <p>Get up to 90% of property value</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📅</div>
+          <h3>Long Tenure</h3>
+          <p>Flexible repayment up to 30 years</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💸</div>
+          <h3>Low Interest Rates</h3>
+          <p>Starting from 8.40% p.a.</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- EMI Calculator -->
+    <section class="calculator-section animate">
+      <h2>EMI Calculator</h2>
+      <div class="calculator-card">
+        <div class="calculator-form">
+          <div class="form-group">
+            <label>Loan Amount (₹)</label>
+            <input type="range" min="500000" max="50000000" [(ngModel)]="loanAmount">
+            <span>{{ loanAmount | currency:'INR' }}</span>
+          </div>
+          <div class="form-group">
+            <label>Tenure (years)</label>
+            <input type="range" min="5" max="30" [(ngModel)]="tenure">
+            <span>{{ tenure }} Years</span>
+          </div>
+          <div class="form-group">
+            <label>Interest Rate (%)</label>
+            <input type="range" min="8.4" max="12" step="0.1" [(ngModel)]="interestRate">
+            <span>{{ interestRate }}%</span>
+          </div>
+        </div>
+        <div class="calculator-result">
+          <h3>Estimated EMI</h3>
+          <p class="emi-amount">{{ calculateEMI() | currency:'INR' }}</p>
+          <small>*Exclusive of GST and processing fees</small>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Eligibility Criteria -->
+    <section class="eligibility-section animate">
+      <h2>Eligibility Requirements</h2>
+      <div class="eligibility-grid">
+        <div class="eligibility-card">
+          <h3>👨💼 Salaried Individuals</h3>
+          <ul>
+            <li>Minimum age: 23 years</li>
+            <li>Maximum age: 62 years at loan maturity</li>
+            <li>Minimum income: ₹25,000/month</li>
+          </ul>
+        </div>
+        <div class="eligibility-card">
+          <h3>👨💼 Self-Employed</h3>
+          <ul>
+            <li>Minimum age: 25 years</li>
+            <li>Business continuity: 5+ years</li>
+            <li>ITR filed for last 3 years</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Documents Required -->
+    <section class="documents-section animate">
+      <h2>Required Documents</h2>
+      <div class="documents-grid">
+        <div class="doc-card">
+          <h3>📄 Identity & Address Proof</h3>
+          <ul>
+            <li>PAN Card</li>
+            <li>Aadhaar Card</li>
+            <li>Passport/Driving License</li>
+          </ul>
+        </div>
+        <div class="doc-card">
+          <h3>🏦 Financial Documents</h3>
+          <ul>
+            <li>Last 6 months bank statements</li>
+            <li>Salary slips (3 months)</li>
+            <li>Form 16/ITR (2 years)</li>
+          </ul>
+        </div>
+        <div class="doc-card">
+          <h3>🏠 Property Documents</h3>
+          <ul>
+            <li>Sale agreement</li>
+            <li>Occupancy certificate</li>
+            <li>NOC from society</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Interest Rates -->
+    <section class="rates-section animate">
+      <h2>Current Interest Rates</h2>
+      <div class="rates-grid">
+        <div class="rate-card">
+          <h3>Salaried Individuals</h3>
+          <div class="rate-badge">8.40% - 10.15%</div>
+          <p>Floating Rate | Reset every 3 years</p>
+        </div>
+        <div class="rate-card">
+          <h3>Self-Employed</h3>
+          <div class="rate-badge">8.65% - 10.50%</div>
+          <p>Flexible repayment options</p>
+        </div>
+      </div>
+    </section>
+  
+    <!-- FAQ Section -->
+    <section class="faq-section animate">
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-container">
+        <div class="faq-item" *ngFor="let faq of faqs; let i = index" (click)="toggleFAQ(i)">
+          <div class="faq-question">
+            <h3>{{ faq.question }}</h3>
+            <span class="faq-icon">{{ activeFAQIndex === i ? '▲' : '▼' }}</span>
+          </div>
+          <div class="faq-answer" *ngIf="activeFAQIndex === i">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
