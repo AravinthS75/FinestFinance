@@ -33,6 +33,7 @@
     background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
     color: var(--white);
     padding: 100px 20px;
+    margin-top: var(--nav-height);
     text-align: center;
   }
   

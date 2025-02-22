@@ -1,7 +1,7 @@
 -- SQLite
 DELETE FROM users;
 
-DELETE FROM users WHERE name = 'User';
+DELETE FROM users WHERE name = 'Aravinth S';
 
 DELETE FROM loans;
 

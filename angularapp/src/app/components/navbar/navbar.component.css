@@ -6,14 +6,21 @@
   --nav-height: 70px;
 }
 
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+  background-color: var(--off-white);
+}
+
+
+/* Global Navbar Styles */
 .main-nav {
   background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)) !important;
   height: var(--nav-height);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  width: 100%;
   z-index: 1000;
 }
 
@@ -32,7 +39,7 @@
   font-size: 1.8rem;
   font-weight: 700;
   text-decoration: none;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .nav-brand .logo-link:hover {
@@ -61,7 +68,6 @@
   position: relative;
 }
 
-/* Gold Hover Effect on Home, Loans, and EMI */
 .nav-link {
   color: var(--white);
   text-decoration: none;
@@ -77,6 +83,7 @@
   color: var(--gold);
 }
 
+/* Dropdown Styles */
 .dropdown-trigger {
   cursor: pointer;
   height: 100%;
@@ -111,6 +118,7 @@
   display: block;
 }
 
+/* Dropdown Item */
 .dropdown-item {
   color: var(--white);
   text-decoration: none;
@@ -124,6 +132,7 @@
   color: var(--gold);
 }
 
+/* CTA Button */
 .cta-button {
   background: var(--gold);
   color: var(--primary-blue);
@@ -140,6 +149,7 @@
   box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
 }
 
+/* Auth Links */
 .auth-links {
   display: flex;
   gap: 1rem;
