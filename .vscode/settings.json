@@ -12,5 +12,6 @@
             "database": "${workspaceFolder:codespaces-blank}/finestfinance.db",
             "driver": "SQLite"
         }
-    ]
+    ],
+    "sqltools.useNodeRuntime": true
 }

@@ -1,6 +1,11 @@
 :root {
     --primary-red: #FF3B3F; /* Vibrant red */
     --accent-yellow: #FFD700; /* Gold */
+    --primary-blue: #0a1f44;
+    --accent-blue: #1e88e5;
+    --gold: #ffc107;
+    --white: #ffffff;
+    --light-bg: #f8f9fa;
     --neon-green: #39FF14; /* Neon green */
     --dark-bg: #1A1A1A; /* Dark background */
     --glass-bg: rgba(255, 255, 255, 0.1);
