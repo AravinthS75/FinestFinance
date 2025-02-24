@@ -1,65 +1,64 @@
 <div class="login-wrapper">
-    <div class="login-container" [class.blurred]="formProcessing">
-      <div class="auth-header">
-        <h1 class="auth-title">Welcome Back</h1>
-        <div class="auth-decoration">
-          <div class="decoration-line"></div>
-          <div class="decoration-dot"></div>
-          <div class="decoration-line"></div>
-        </div>
-      </div>
-  
-      <form [formGroup]="loginForm" (ngSubmit)="signIn()" class="auth-form">
-        <div class="input-group">
-          <input type="email" id="email" formControlName="email" required>
-          <label for="email">Email Address</label>
-          <div class="underline"></div>
-          <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
-            <div *ngIf="loginForm.get('email')?.errors?.['required']">✖ Email required</div>
-            <div *ngIf="loginForm.get('email')?.errors?.['email']">✖ Invalid email format</div>
-          </div>
-        </div>
-  
-        <div class="input-group">
-          <input type="password" id="password" formControlName="password" required>
-          <label for="password">Password</label>
-          <div class="underline"></div>
-          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
-            <div *ngIf="loginForm.get('password')?.errors?.['required']">✖ Password required</div>
-          </div>
-        </div>
-  
-        <button type="submit" [disabled]="loginForm.invalid || formProcessing" class="auth-button">
-          <span *ngIf="!formProcessing">Sign In</span>
-          <div class="button-loader" *ngIf="formProcessing"></div>
-        </button>
-      </form>
-  
-      <div class="auth-footer">
-        <p>New here? <a routerLink="/register" class="auth-link">Create Account</a></p>
+  <div class="login-container" [class.blurred]="formProcessing">
+    <div class="auth-header">
+      <h1 class="auth-title">Welcome Back</h1>
+      <div class="auth-decoration">
+        <div class="decoration-line"></div>
+        <div class="decoration-dot"></div>
+        <div class="decoration-line"></div>
       </div>
     </div>
-  
-    <div class="login-particles">
-      <div class="particle" *ngFor="let particle of particles" 
-           [ngStyle]="{'top': particle.top + '%', 'left': particle.left + '%', 'width': particle.size + 'px', 'height': particle.size + 'px', 'animation-duration': particle.duration + 's', 'animation-delay': particle.delay + 's'}">
+
+    <form [formGroup]="loginForm" (ngSubmit)="signIn()" class="auth-form">
+      <div class="input-group">
+        <input type="email" id="email" formControlName="email" required>
+        <label for="email">Email Address</label>
+        <div class="underline"></div>
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+          <div *ngIf="loginForm.get('email')?.errors?.['required']">✖ Email required</div>
+          <div *ngIf="loginForm.get('email')?.errors?.['email']">✖ Invalid email format</div>
+        </div>
       </div>
-    </div>
-  
-    <!-- Success message -->
-    <div class="auth-success" *ngIf="loginSuccess">
-      <svg class="success-check" viewBox="0 0 76 76">
-        <circle class="success-circle" cx="38" cy="38" r="36"/>
-        <path class="success-checkmark" d="M17.7,40.9l10.9,10.9l28.7-28.7"/>
-      </svg>
-    </div>
-  
-    <!-- Failure message -->
-    <div class="auth-failure" *ngIf="loginFail">
-      <svg class="failure-cross" viewBox="0 0 76 76">
-        <circle class="failure-circle" cx="38" cy="38" r="36"/>
-        <path class="failure-crossmark" d="M25,25 L51,51 M51,25 L25,51"/>
-      </svg>
+
+      <div class="input-group">
+        <input type="password" id="password" formControlName="password" required>
+        <label for="password">Password</label>
+        <div class="underline"></div>
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+          <div *ngIf="loginForm.get('password')?.errors?.['required']">✖ Password required</div>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="loginForm.invalid || formProcessing" class="auth-button">
+        <span *ngIf="!formProcessing">Sign In</span>
+        <div class="button-loader" *ngIf="formProcessing"></div>
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>New here? <a routerLink="/register" class="auth-link">Create Account</a></p>
     </div>
   </div>
-  
+
+  <div class="login-particles">
+    <div class="particle" *ngFor="let particle of particles" 
+         [ngStyle]="{'top': particle.top + '%', 'left': particle.left + '%', 'width': particle.size + 'px', 'height': particle.size + 'px', 'animation-duration': particle.duration + 's', 'animation-delay': particle.delay + 's'}">
+    </div>
+  </div>
+
+  <!-- Success message -->
+  <div class="auth-success" *ngIf="loginSuccess">
+    <svg class="success-check" viewBox="0 0 76 76">
+      <circle class="success-circle" cx="38" cy="38" r="36"/>
+      <path class="success-checkmark" d="M17.7,40.9l10.9,10.9l28.7-28.7"/>
+    </svg>
+  </div>
+
+<!-- Failure message -->
+<div class="auth-failure" *ngIf="loginFail">
+  <svg class="failure-cross" viewBox="0 0 76 76" width="80" height="80">
+    <circle class="failure-circle" cx="38" cy="38" r="34"/>
+    <path class="failure-crossmark" d="M25,25 L51,51 M51,25 L25,51"/>
+  </svg>
+  <p class="failure-text">Invalid Credentials!</p>
+</div>

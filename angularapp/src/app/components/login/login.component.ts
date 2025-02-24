@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private userStore: UserStoreService
+    private userStore: UserStoreService,
+    private cdr: ChangeDetectorRef // Added ChangeDetectorRef
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -61,7 +62,8 @@ export class LoginComponent implements OnInit {
           this.userStore.saveUser(response);
           this.formProcessing = false;
           this.loginSuccess = true;
-          
+          this.cdr.detectChanges(); // Ensure UI updates
+
           setTimeout(() => {
             this.router.navigate(['/admin/view-loans']);
           }, 1500);
@@ -69,10 +71,12 @@ export class LoginComponent implements OnInit {
         error: (error: HttpErrorResponse) => {
           this.formProcessing = false;
           this.loginFail = true;
+          this.cdr.detectChanges(); // Force UI update for animation
 
           // Hide error message after 3 seconds
           setTimeout(() => {
             this.loginFail = false;
+            this.cdr.detectChanges(); // Update UI again
           }, 3000);
 
           console.error('Login error:', error);
