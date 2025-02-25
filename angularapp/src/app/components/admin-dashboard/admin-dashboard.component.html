@@ -1,1 +1,6 @@
-<p>admin-dashboard works!</p>
+<div  *ngIf="user">
+    <p>{{ user.name }}</p>
+    <p>{{user.email}}</p>
+    <p>{{user.phone}}</p>
+</div>
+<p *ngIf="!user">Loading user details...</p>

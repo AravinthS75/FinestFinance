@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.springapp.model.User;
 
-public class CustomUserDetails extends User implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
     private String email;
     private String password;
@@ -36,11 +36,6 @@ public class CustomUserDetails extends User implements UserDetails {
     }
 
     @Override
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
@@ -62,6 +57,6 @@ public class CustomUserDetails extends User implements UserDetails {
 
     @Override
     public String getUsername() {
-        throw new UnsupportedOperationException("Unimplemented method 'getUsername'");
+        return email;
     }
 }

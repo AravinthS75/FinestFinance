@@ -1,25 +1,62 @@
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand center-navbar-brand" routerLink="/" style="color: antiquewhite;">FinestFinance</a>
+<nav class="main-nav admin-nav">
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a routerLink="/" class="logo-link">FinestFinance</a>
     </div>
-    <ul class="nav navbar-nav">
-      <li [ngClass]="{ 'active': isActive('/') }"><a routerLink="/"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-      <li [ngClass]="{ 'active': isActive('/admin/view-loans') }"><a routerLink="admin/view-loans"><span class="glyphicon glyphicon-usd"></span> Loans</a></li>
-      <li [ngClass]="{ 'active': isActive('/admin/view-managers') }"><a routerLink="admin/view-managers"><span class="glyphicon glyphicon-star"></span> Managers</a></li>
-      <li [ngClass]="{ 'active': isActive('/admin/view-users') }"><a routerLink="admin/view-users"><span class="glyphicon glyphicon-star-empty"></span> Users</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-          <span class="glyphicon glyphicon-user"></span> Profile
-        </a>
-        <ul class="dropdown-menu">
-          <li><a routerLink="admin/dashboard"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-          <li><a routerLink="admin/edit-profile"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a></li>
-          <li><a class="logout-link" (click)="logout()"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
-        </ul>
-      </li>
-    </ul>
+    
+    <div class="nav-main">
+      <div class="nav-group left">
+        <div class="nav-item">
+          <a routerLink="/" class="nav-link">Home</a>
+        </div>
+
+        <!-- Loans Dropdown -->
+        <div class="nav-item dropdown">
+          <div class="dropdown-trigger">
+            <span class="nav-link">Loans</span>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+          <div class="dropdown-menu">
+            <a routerLink="admin/view-loans" class="dropdown-item">View Loans</a>
+          </div>
+        </div>
+
+        <!-- Managers Dropdown -->
+        <div class="nav-item dropdown">
+          <div class="dropdown-trigger">
+            <span class="nav-link">Managers</span>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+          <div class="dropdown-menu">
+            <a routerLink="admin/view-managers" class="dropdown-item">View Managers</a>
+          </div>
+        </div>
+
+        <!-- Users Dropdown -->
+        <div class="nav-item dropdown">
+          <div class="dropdown-trigger">
+            <span class="nav-link">Users</span>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+          <div class="dropdown-menu">
+            <a routerLink="admin/view-users" class="dropdown-item">View Users</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-group right">
+        <div class="nav-item dropdown">
+          <div class="dropdown-trigger">
+            <span class="nav-link">Profile</span>
+            <span class="dropdown-arrow">▼</span>
+          </div>
+          <div class="dropdown-menu">
+            <a routerLink="admin/dashboard" class="dropdown-item">Profile</a>
+            <a routerLink="admin/edit-profile" class="dropdown-item">Edit Profile</a>
+            <a class="dropdown-item logout-link" (click)="logout()">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>

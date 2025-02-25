@@ -1,9 +1,8 @@
 export interface User {
-    userId?:number
+    id?:number
     email?:String
     password?:String
     name?:String
     phone?:String
     role?: "ADMIN" | "MANAGER" | "USER";
-
 }

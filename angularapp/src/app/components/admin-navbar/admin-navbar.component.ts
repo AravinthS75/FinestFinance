@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserStoreService } from '../../services/user-store.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthUser } from '../../models/auth-user.model';
@@ -6,7 +6,7 @@ import { AuthUser } from '../../models/auth-user.model';
 @Component({
   selector: 'app-admin-navbar',
   standalone: false,
-  
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './admin-navbar.component.html',
   styleUrl: './admin-navbar.component.css'
 })
