@@ -1,5 +1,19 @@
-/* Root Variables */
-:root {
+/* Ensure full height for the viewport */
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  /* Fullscreen container centers its content */
+  .fullscreen-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  
+  /* Root Variables */
+  :root {
     --primary-bg: #0a192f;
     --secondary-bg: #112240;
     --highlight: #64ffda;
@@ -7,13 +21,13 @@
     --text-muted: #8892b0;
     --border-radius: 12px;
     --transition-speed: 0.3s;
-}
-
-/* Profile Card */
-.profile-card {
+  }
+  
+  /* Profile Card */
+  .profile-card {
     background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
     border-radius: var(--border-radius);
-    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     padding: 2rem;
     max-width: 400px;
     text-align: center;
@@ -21,14 +35,14 @@
     position: relative;
     overflow: hidden;
     transition: transform var(--transition-speed) ease-in-out;
-}
-
-.profile-card:hover {
+  }
+  
+  .profile-card:hover {
     transform: translateY(-5px) scale(1.02);
-}
-
-/* Glowing Border Effect */
-.profile-card::before {
+  }
+  
+  /* Glowing Border Effect */
+  .profile-card::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -36,10 +50,10 @@
     background: linear-gradient(135deg, rgba(100, 255, 218, 0.3), rgba(100, 255, 218, 0));
     z-index: -1;
     animation: pulseGlow 2s infinite alternate;
-}
-
-/* Profile Picture */
-.profile-preview {
+  }
+  
+  /* Profile Picture */
+  .profile-preview {
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -47,46 +61,51 @@
     border: 3px solid var(--highlight);
     box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
     transition: transform var(--transition-speed) ease-in-out;
-}
-
-.profile-preview:hover {
+  }
+  
+  .profile-preview:hover {
     transform: scale(1.1);
-}
-
-/* User Details */
-.user-details {
+  }
+  
+  /* User Details */
+  .user-details {
     margin-top: 1.5rem;
-}
-
-.user-details p {
+  }
+  
+  .user-details p {
     color: var(--text-light);
     font-size: 1.1rem;
     margin: 0.5rem 0;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.material-icons-outlined {
+  }
+  
+  .username {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  
+  .material-icons-outlined {
     color: var(--highlight);
     margin-right: 8px;
     transition: transform var(--transition-speed) ease-in-out;
-}
-
-.user-details p:hover .material-icons-outlined {
+  }
+  
+  .material-icons-outlined:hover {
     transform: scale(1.2);
-}
-
-/* Loading Animation */
-.loading-message {
+  }
+  
+  /* Loading Animation */
+  .loading-message {
     text-align: center;
     color: var(--text-muted);
     font-size: 1.2rem;
     padding: 2rem;
     animation: fadeIn 1s ease-in-out;
-}
-
-.loading-spinner {
+  }
+  
+  .loading-spinner {
     width: 50px;
     height: 50px;
     border: 5px solid rgba(100, 255, 218, 0.2);
@@ -94,10 +113,14 @@
     border-radius: 50%;
     margin: 0 auto;
     animation: spin 1s linear infinite;
-}
-
-/* Error Message */
-.error-message {
+  }
+  
+  .loading-text {
+    margin-top: 1rem;
+  }
+  
+  /* Error Message */
+  .error-message {
     color: #ff6b6b;
     text-align: center;
     font-size: 1.2rem;
@@ -105,41 +128,42 @@
     background: rgba(255, 107, 107, 0.2);
     border-radius: var(--border-radius);
     animation: shake 0.5s ease-in-out;
-}
-
-/* Keyframe Animations */
-@keyframes fadeIn {
+  }
+  
+  /* Keyframe Animations */
+  @keyframes fadeIn {
     from {
-        opacity: 0;
-        transform: translateY(-20px);
+      opacity: 0;
+      transform: translateY(-20px);
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
-}
-
-@keyframes spin {
+  }
+  
+  @keyframes spin {
     from {
-        transform: rotate(0deg);
+      transform: rotate(0deg);
     }
     to {
-        transform: rotate(360deg);
+      transform: rotate(360deg);
     }
-}
-
-@keyframes shake {
+  }
+  
+  @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
     50% { transform: translateX(5px); }
     75% { transform: translateX(-5px); }
-}
-
-@keyframes pulseGlow {
+  }
+  
+  @keyframes pulseGlow {
     from {
-        box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
+      box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
     }
     to {
-        box-shadow: 0 0 25px rgba(100, 255, 218, 1);
+      box-shadow: 0 0 25px rgba(100, 255, 218, 1);
     }
-}
+  }
+  

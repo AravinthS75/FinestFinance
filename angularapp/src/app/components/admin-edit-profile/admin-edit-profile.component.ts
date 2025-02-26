@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import { UserStoreService } from '../../services/user-store.service';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-edit-profile',
   standalone: false,
-  
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './admin-edit-profile.component.html',
   styleUrl: './admin-edit-profile.component.css'
 })
@@ -16,6 +16,7 @@ export class AdminEditProfileComponent implements OnInit{
   editForm: FormGroup;
   // This is used for the preview image
   profileImage: string | ArrayBuffer | null = 'assets/images/default-profile.png';
+  // uploadImage: string | null = 'assets/images/Upload-Silhouettes.png';
   // Store user id and token for API calls
   userId: number = 0;
   token: string = '';
