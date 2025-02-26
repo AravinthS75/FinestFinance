@@ -101,6 +101,7 @@
 .dropdown-item {
   color: var(--white);
   text-decoration: none;
+  cursor: pointer;
   display: block;
   padding: 0.8rem 2rem;
   transition: all 0.2s ease;
