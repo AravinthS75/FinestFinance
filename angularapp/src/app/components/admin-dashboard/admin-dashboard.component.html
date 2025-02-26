@@ -1,6 +1,27 @@
-<div  *ngIf="user">
-    <p>{{ user.name }}</p>
-    <p>{{user.email}}</p>
-    <p>{{user.phone}}</p>
-</div>
-<p *ngIf="!user">Loading user details...</p>
+<div *ngIf="user" class="profile-card">
+    <img [src]="profileImage" alt="Profile Preview" class="profile-preview">
+    <div class="user-details">
+      <p class="text-xl font-semibold text-gray-800 mb-4">{{ user.name }}</p>
+      <p class="text-gray-600">
+        <span class="material-icons-outlined text-sm mr-2">mail</span>
+        {{ user.email }}
+      </p>
+      <p class="text-gray-600">
+        <span class="material-icons-outlined text-sm mr-2">phone</span>
+        {{ user.phone }}
+      </p>
+      <p class="text-gray-600">
+        <span class="material-icons-outlined text-sm mr-2">location_on</span>
+        {{ user.address }}
+      </p>
+    </div>
+  </div>
+  
+  <div *ngIf="!user && !error" class="loading-message">
+    <div class="loading-spinner"></div>
+    <p class="mt-4">Loading user details...</p>
+  </div>
+  
+  <div *ngIf="error" class="error-message">
+    ⚠️ {{ error }}
+  </div>

@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { UserStoreService } from '../../services/user-store.service';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   standalone: false,
-  
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
-})
+})  
 export class NavbarComponent {
   currentUrl: string | null = null;
   

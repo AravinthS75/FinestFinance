@@ -1,10 +1,12 @@
 package com.example.springapp.model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -30,10 +32,18 @@ public class User {
     @JsonManagedReference
     private List<Loan> loans;
 
+    private String address;
+    
+    @Column(name = "profile_picture", columnDefinition = "TEXT")
+    private String profilePicture;
+
+    @Column(name = "mime_type")
+    private String mimeType;
+
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, String phone, String role, List<Loan> loans) {
+    public User(Long id, String name, String email, String password, String phone, String role, List<Loan> loans, String address, String profilePicture, String mimeType) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -41,6 +51,9 @@ public class User {
         this.phone = phone;
         this.role = role;
         this.loans = loans;
+        this.address = address;
+        this.profilePicture = profilePicture;
+        this.mimeType = mimeType;
     }
 
 
@@ -100,5 +113,18 @@ public class User {
         this.loans = loans;
     }
 
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
     
+    public String getProfilePicture() { return profilePicture; }
+    public void setProfilePicture(String profilePicture) { this.profilePicture = profilePicture; 
+    }
+
+    public String getMimeType() {
+        return mimeType;
+    }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
 }

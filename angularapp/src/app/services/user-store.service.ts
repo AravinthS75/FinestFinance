@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthUser } from '../models/auth-user.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,4 +51,22 @@ export class UserStoreService {
     const user = this.getUser();
     return user ? user.token : null;
   }
+
+  // In your user-store.service.ts
+updateUserProfile(updatedUser: User): void {
+  const currentUser = this.getUser();
+  if (currentUser) {
+      const updatedAuthUser = new AuthUser(
+          currentUser.email,
+          currentUser.token,
+          currentUser.role,
+          currentUser.userId,
+          updatedUser.name || currentUser.name,
+          updatedUser.profilePicture || currentUser.profilePicture
+      );
+      sessionStorage.setItem('authUser', JSON.stringify(updatedAuthUser));
+      this.userSubject.next(updatedAuthUser);
+  }
+}
+
 }

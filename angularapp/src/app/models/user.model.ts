@@ -1,8 +1,11 @@
 export interface User {
-    id?:number
-    email?:String
-    password?:String
-    name?:String
-    phone?:String
+    id?: number;
+    email?: string;
+    password?: string;
+    name?: string;
+    phone?: string;
+    address?: string;
+    profilePicture?: string;
+    mimeType?: string;
     role?: "ADMIN" | "MANAGER" | "USER";
 }

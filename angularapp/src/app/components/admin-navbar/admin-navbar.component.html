@@ -3,7 +3,7 @@
     <div class="nav-brand">
       <a routerLink="/" class="logo-link">FinestFinance</a>
     </div>
-    
+
     <div class="nav-main">
       <div class="nav-group left">
         <div class="nav-item">
@@ -42,15 +42,15 @@
             <a routerLink="admin/view-users" class="dropdown-item">View Users</a>
           </div>
         </div>
-      </div>
 
-      <div class="nav-group right">
+        <!-- Profile Dropdown -->
         <div class="nav-item dropdown">
-          <div class="dropdown-trigger">
+          <div class="dropdown-trigger profile-container">
+            <img [src]="userProfilePic" alt="Profile" class="profile-pic">
             <span class="nav-link">Profile</span>
             <span class="dropdown-arrow">▼</span>
           </div>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu right">
             <a routerLink="admin/dashboard" class="dropdown-item">Profile</a>
             <a routerLink="admin/edit-profile" class="dropdown-item">Edit Profile</a>
             <a class="dropdown-item logout-link" (click)="logout()">Logout</a>

@@ -3,6 +3,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserStoreService } from '../../services/user-store.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -18,8 +19,9 @@ export class AdminDashboardComponent implements OnInit {
     userData: string | null = null;
     userId: number = 0;
     token: string = '';
+    profileImage: SafeResourceUrl | ArrayBuffer | null = 'assets/images/default-profile.png';
 
-    constructor(private userService: UserService, private userStoreService: UserStoreService) {
+    constructor(private userService: UserService, private userStoreService: UserStoreService, private sanitizer: DomSanitizer) {
       this.userData = sessionStorage.getItem('authUser');
     
       if (this.userData) {
@@ -44,11 +46,18 @@ export class AdminDashboardComponent implements OnInit {
             (data) => {
                 this.user = data;
                 this.userDetailsAvailable = true;
+                if (data.profilePicture) {
+                  const imageUrl = `data:image/jpeg;base64,${data.profilePicture}`;
+                  this.profileImage = this.sanitizer.bypassSecurityTrustResourceUrl(imageUrl);
+                } else {
+                  this.profileImage = 'assets/images/default-profile.png';
+                }
             },
             (errorResponse: HttpErrorResponse) => {
                 this.userDetailsAvailable = false;
-                this.error = errorResponse.error;
+                this.error = errorResponse.error.message || 'Failed to load user details';
             }
         );
+        
     }
 }

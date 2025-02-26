@@ -45,13 +45,19 @@ public class UserServiceImpl implements UserService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginUser.getEmail(), loginUser.getPassword())
         );
-
+    
         if (authentication.isAuthenticated()) {
             User user = userRepository.findByEmail(loginUser.getEmail());
-            String token = jwtUtils .generateToken(loginUser.getEmail());
-            return new AuthUser(user.getEmail(), token, user.getRole(), user.getId(), user.getName());
+            String token = jwtUtils.generateToken(loginUser.getEmail());
+            return new AuthUser(
+                user.getEmail(), 
+                token, 
+                user.getRole(), 
+                user.getId(), 
+                user.getName(),
+                user.getProfilePicture()
+            );
         }
-
         throw new UserNameNotFoundException("Invalid username or password");
     }
 

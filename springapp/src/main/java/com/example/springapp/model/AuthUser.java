@@ -6,14 +6,16 @@ public class AuthUser {
     String role;
     Long userId;
     String name;
+    String profilePicture;
     public AuthUser() {
     }
-    public AuthUser(String email, String token, String role, Long userId, String name) {
+    public AuthUser(String email, String token, String role, Long userId, String name, String profilePicture) {
         this.email = email;
         this.token = token;
         this.role = role;
         this.userId = userId;
         this.name = name;
+        this.profilePicture = profilePicture;
     }
     public String getEmail() {
         return email;
