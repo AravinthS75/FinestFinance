@@ -52,7 +52,7 @@ export class AdminEditProfileComponent implements OnInit{
   }
 
   loadUserData(): void {
-    this.userService.getAdminDetails(this.userId, this.token).subscribe({
+    this.userService.getUserDetails(this.userId, this.token).subscribe({
       next: (user) => {
         // Patch the text fields from the loaded user data.
         this.editForm.patchValue({
@@ -125,7 +125,7 @@ export class AdminEditProfileComponent implements OnInit{
         }
       }
       
-      this.userService.updateAdminProfile(this.userId, updatedUser, this.token).subscribe({
+      this.userService.updateUserProfile(this.userId, updatedUser, this.token).subscribe({
         next: (response) => {
           // Update the user store and navigate back to the dashboard.
           this.userStore.updateUserProfile(response);

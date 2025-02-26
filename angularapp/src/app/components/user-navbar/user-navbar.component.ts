@@ -1,44 +1,65 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { UserStoreService } from '../../services/user-store.service';
 import { AuthUser } from '../../models/auth-user.model';
+import { User } from '../../models/user.model';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-navbar',
   standalone: false,
-  
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './user-navbar.component.html',
   styleUrl: './user-navbar.component.css'
 })
 export class UserNavbarComponent {
-  currentUrl: string | null = null;
-  isDropdownOpen: boolean = false;
-
-  constructor(private store: UserStoreService, private router: Router) {
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.currentUrl = event.url;
+  welcomeMessage: string = 'Welcome! USER';
+      currentUrl: string | null = null;
+      userProfilePic: string = 'assets/images/default-profile.png';
+      authUser: AuthUser | null = null;
+      user: User | null = null;
+    
+      constructor(
+        private store: UserStoreService,
+        private router: Router,
+        private userService: UserService
+      ) {
+        this.router.events.subscribe((event) => {
+          if (event instanceof NavigationEnd) {
+            this.currentUrl = event.url;
+          }
+        });
       }
-    });
-  }
-
-  ngOnInit(): void {
-  }
-
-  logout(): void {
-    this.store.logout();
-    this.router.navigate(['/login']);
-  }
-
-  isActive(url: string): boolean {
-    return this.currentUrl === url;
-  }
-
-  openDropdown(): void {
-    this.isDropdownOpen = true;
-  }
-
-  closeDropdown(): void {
-    this.isDropdownOpen = false;
-  }
+    
+      ngOnInit(): void {
+        this.store.userChanges.subscribe((authUser: AuthUser | null) => {
+          if (authUser) {
+            this.welcomeMessage = `Welcome ${authUser.name} (USER)`;
+            this.authUser = authUser;
+            this.userService.getUserDetails(authUser.userId, authUser.token).subscribe({
+              next: (user: User) => {
+                this.user = user;
+                this.userProfilePic = user.profilePicture
+                  ? `data:image/jpeg;base64,${user.profilePicture}`
+                  : 'assets/images/default-profile.png';
+              },
+              error: (err) => {
+                console.error('Failed to retrieve user details', err);
+                this.userProfilePic = authUser.profilePicture
+                  ? `data:image/jpeg;base64,${authUser.profilePicture}`
+                  : 'assets/images/default-profile.png';
+              }
+            });
+          }
+        });
+      }
+    
+      logout(): void {
+        this.store.logout();
+        this.router.navigate(['/login']);
+      }
+    
+      isActive(url: string): boolean {
+        return this.currentUrl === url;
+      }
 }

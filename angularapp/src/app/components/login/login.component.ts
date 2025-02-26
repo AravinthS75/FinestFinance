@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { UserStoreService } from '../../services/user-store.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthUser } from '../../models/auth-user.model';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   loginFail = false;
   loginSuccess = false;
   particles: { top: number; left: number; size: number; duration: number; delay: number }[] = [];
+  userRole: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -63,9 +65,21 @@ export class LoginComponent implements OnInit {
           this.formProcessing = false;
           this.loginSuccess = true;
           this.cdr.detectChanges(); // Ensure UI updates
-
+          this.userStore.userChanges.subscribe((user: AuthUser | null) => {
+            this.userRole = user ? user.role : null;
+          });
+      
+          const user: AuthUser | null = this.userStore.getUser();
+          if (user) {
+            this.userRole = user.role;
+          }
           setTimeout(() => {
+            if(this.userRole == 'ADMIN')
             this.router.navigate(['/admin/view-loans']);
+            else if(this.userRole == 'MANAGER')
+            this.router.navigate(['/manager/view-loans']);
+            else if(this.userRole == 'USER')
+            this.router.navigate(['/user/view-loan']);
           }, 1500);
         },
         error: (error: HttpErrorResponse) => {

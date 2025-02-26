@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { UserStoreService } from '../../services/user-store.service';
 import { NavigationEnd, Router } from '@angular/router';
 import { AuthUser } from '../../models/auth-user.model';
@@ -36,7 +36,7 @@ export class AdminNavbarComponent implements OnInit {
       if (authUser) {
         this.welcomeMessage = `Welcome ${authUser.name} (ADMIN)`;
         this.authUser = authUser;
-        this.userService.getAdminDetails(authUser.userId, authUser.token).subscribe({
+        this.userService.getUserDetails(authUser.userId, authUser.token).subscribe({
           next: (user: User) => {
             this.user = user;
             this.userProfilePic = user.profilePicture

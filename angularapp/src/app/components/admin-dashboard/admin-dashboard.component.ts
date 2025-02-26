@@ -45,7 +45,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   getUserDetails(userId: number, token: string): void {
-    this.userService.getAdminDetails(userId, token).subscribe(
+    this.userService.getUserDetails(userId, token).subscribe(
       (data) => {
         this.user = data;
         this.userDetailsAvailable = true;

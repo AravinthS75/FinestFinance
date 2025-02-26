@@ -12,24 +12,16 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getAdminDetails(userId: number, token: string): Observable<User> {
+  getUserDetails(userId: number, token: string): Observable<User> {
     const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-    });
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+  });
 
-    return this.http.get<User>(`${this.apiUrl}/admin/${userId}`, { headers });
+  return this.http.get<User>(`${this.apiUrl}/user/${userId}`, { headers });
   }
 
-  getManagerDetails(userEmail: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/manager?email=${userEmail}`);
-  }
-
-  getUserDetails(userEmail: string): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}?email=${userEmail}`);
-  }
-
-  updateAdminProfile(userId: number, user: User, token: string): Observable<User> {
+  updateUserProfile(userId: number, user: User, token: string): Observable<User> {
     const headers = new HttpHeaders({
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json'
@@ -41,4 +33,5 @@ export class UserService {
         { headers: headers }
     );
   }
+
 }
