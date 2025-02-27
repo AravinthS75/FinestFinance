@@ -16,7 +16,6 @@ import com.example.springapp.repository.UserRepository;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -84,6 +83,7 @@ public class JwtUtils {
         return token;
     }
     
+    @SuppressWarnings("unused")
     private String createToken(Map<String, Object> claims, String username) {
         return Jwts.builder()
                 .setClaims(claims)

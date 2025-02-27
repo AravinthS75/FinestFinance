@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.springapp.config.JwtUtils;
 import com.example.springapp.model.Loan;
 import com.example.springapp.service.LoanServiceImpl;
 
@@ -17,6 +18,9 @@ public class LoanController {
 
     @Autowired
     private LoanServiceImpl loanService;
+
+    @Autowired
+    private JwtUtils jwtService;
 
     @PostMapping("/user/{userId}") // all users
     public ResponseEntity<?> applyForLoan(@PathVariable int userId, @RequestBody Loan loan) {
@@ -33,9 +37,17 @@ public class LoanController {
         return ResponseEntity.status(200).body(loanService.getLoansByApproverName(approverName));
     }
 
-    @GetMapping //admin alone
-    public ResponseEntity<?> getAllLoans() {
+    @GetMapping
+    public ResponseEntity<?> getAllLoans(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+
+        String role = jwtService.extractRole(token);
+        System.out.println(role);
+
+        if(role.equals("ROLE_ADMIN"))        
         return ResponseEntity.status(200).body(loanService.getAllLoans());
+
+        return ResponseEntity.status(403).body("Only Admin has access!");
     }
 
     @PatchMapping("/manager/{loanId}/status") // manager alone

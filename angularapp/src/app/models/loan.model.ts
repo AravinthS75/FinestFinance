@@ -3,9 +3,9 @@ import { User } from "./user.model";
 export class Loan {
     id?:number;
     user?: User;
-    amount?:number;
+    loanAmount?:number;
     purpose?:string;
-    loanVariant?:string;
+    loanVarient?:string;
     interestRatePerAnnum?:number;
     tenure?:string;
     emiAmount?:number;

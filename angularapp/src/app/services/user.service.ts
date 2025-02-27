@@ -18,7 +18,7 @@ export class UserService {
       'Content-Type': 'application/json'
   });
 
-  return this.http.get<User>(`${this.apiUrl}/user/${userId}`, { headers });
+  return this.http.get<User>(`${this.apiUrl}/${userId}`, { headers });
   }
 
   updateUserProfile(userId: number, user: User, token: string): Observable<User> {
@@ -28,7 +28,7 @@ export class UserService {
     });
     
     return this.http.put<User>(
-        `${this.apiUrl}/admin/${userId}`,
+        `${this.apiUrl}/${userId}`,
         user,
         { headers: headers }
     );

@@ -1,1 +1,39 @@
-<p>admin-view-users works!</p>
+<div class="user-container">
+  <div *ngFor="let user of users" class="user-card">
+    <div class="profile-pic-user" [style.backgroundImage]="getProfileImage(user)"></div>
+    <div class="user-info">
+      <h2 class="user-name">{{ user.name }}</h2>
+      <p class="user-email"><strong>Email:</strong> {{ user.email }}</p>
+      <p class="user-phone"><strong>Phone:</strong> {{ user.phone }}</p>
+      <p class="user-address" *ngIf="user.address">
+        <strong>Address:</strong> {{ user.address }}
+      </p>
+      <p class="user-role"><strong>Role:</strong> {{ user.role }}</p>
+      <!-- View Loans Button -->
+      <button class="view-loans-btn" (click)="openLoanModal(user)">View Loans</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" [class.show]="showModal">
+  <div class="modal-content">
+    <span class="close" (click)="closeLoanModal()">&times;</span>
+    <h2>Loans for {{ selectedUser?.name }}</h2>
+    <div *ngIf="(selectedUser?.loans?.length || 0) > 0; else noLoans">
+      <div class="loan" *ngFor="let loan of selectedUser?.loans">
+        <p><strong>Purpose:</strong> {{ loan.purpose }}</p>
+        <p><strong>Loan Amount:</strong> {{ loan.loanAmount }}</p>
+        <p><strong>Status:</strong> {{ loan.status }}</p>
+        <p><strong>Approver :</strong> {{ loan.approverName }} </p>
+        <p><strong>Due Date:</strong> {{ loan.dueDate | date: 'dd-MM-yyyy' }} </p>
+        <p><strong>Emi Amount:</strong> {{ loan.emiAmount}} </p>
+        <p><strong>Interest Rate:</strong> {{ loan.interestRatePerAnnum }}% </p>
+        <p><strong>Loan Varient:</strong> {{ loan.loanVarient }} </p>
+        <p><strong>Tenure:</strong> {{ loan.tenure}} </p>
+      </div>
+    </div>
+    <ng-template #noLoans>
+      <p>No loans available.</p>
+    </ng-template>
+  </div>
+</div>
