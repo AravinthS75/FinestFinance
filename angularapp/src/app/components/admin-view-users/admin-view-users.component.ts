@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AdminService } from '../../services/admin.service';
 import { User } from '../../models/user.model';
 import { DomSanitizer, SafeResourceUrl, SafeStyle } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-view-users',
@@ -13,7 +14,9 @@ import { DomSanitizer, SafeResourceUrl, SafeStyle } from '@angular/platform-brow
 export class AdminViewUsersComponent implements OnInit{
   users: User[] = [];
   userData: string | null = null;
+  isLoading: boolean  = false;
   token: string = '';
+  error: string = '';
   selectedUser: User | null = null;
   isModalOpen: boolean = false;
   modalState: 'open' | 'closed' = 'closed';
@@ -32,10 +35,17 @@ export class AdminViewUsersComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.adminService.getAllUsers(this.token).subscribe((data) => {
       this.users = data;
       console.log(this.users);
-    });
+      this.isLoading = false;
+    },
+    (errorResponse: HttpErrorResponse) => {
+            this.error = errorResponse.error.message || 'Failed to load user details';
+            this.isLoading = false;
+          }
+  );
   }
 
   getProfileImage(user: User): SafeStyle {
