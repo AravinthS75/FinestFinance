@@ -1,1 +1,1 @@
-Add 2 components -> Admin edit profile & manager view users
+Work on adding the loading animation in created working codes

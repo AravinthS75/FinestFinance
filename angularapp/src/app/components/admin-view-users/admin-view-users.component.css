@@ -34,7 +34,7 @@
 }
 
 .loans-user-name{
-  color: #333;
+  color: #ffffff;
   text-align: center;
 }
 
@@ -145,6 +145,7 @@
 
 .modal-content {
   color: #fff;
+  background-color: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)) !important;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
 }
 

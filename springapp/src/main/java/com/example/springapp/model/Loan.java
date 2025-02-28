@@ -22,9 +22,14 @@ public class Loan {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("user-loans")
     private User user;
-    
+
+    @ManyToOne
+    @JoinColumn(name = "manager_id")
+    @JsonBackReference("manager-loans")
+    private User assignedManager;
+
     private Double loanAmount;
     private Double pendingAmount;
     private String purpose;
@@ -37,15 +42,16 @@ public class Loan {
     private Date createdAt;
     private Date updatedAt;
     private String approverName;
-   
+
     public Loan() {
     }
 
-    public Loan(Long id, User user, Double loanAmount, Double pendingAmount, String purpose, String loanVarient,
-            Double interestRatePerAnnum, String tenure, Double emiAmount, Date dueDate, String status, Date createdAt,
-            Date updatedAt, String approverName) {
+    public Loan(Long id, User user, User assignedManager, Double loanAmount, Double pendingAmount, String purpose, 
+                String loanVarient, Double interestRatePerAnnum, String tenure, Double emiAmount, Date dueDate, 
+                String status, Date createdAt, Date updatedAt, String approverName) {
         this.id = id;
         this.user = user;
+        this.assignedManager = assignedManager;
         this.loanAmount = loanAmount;
         this.pendingAmount = pendingAmount;
         this.purpose = purpose;
@@ -171,6 +177,11 @@ public class Loan {
     public void setLoanAmount(Double loanAmount) {
         this.loanAmount = loanAmount;
     }
-    
-        
+    public User getAssignedManager() {
+        return assignedManager;
+    }
+
+    public void setAssignedManager(User assignedManager) {
+        this.assignedManager = assignedManager;
+    }    
 }

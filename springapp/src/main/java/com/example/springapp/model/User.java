@@ -28,8 +28,12 @@ public class User {
     private String role; // 'USER', 'MANAGER', 'ADMIN'
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference
+    @JsonManagedReference("user-loans")
     private List<Loan> loans;
+
+    @OneToMany(mappedBy = "assignedManager")
+    @JsonManagedReference("manager-loans")
+    private List<Loan> managedLoans;
 
     private String address;
     
@@ -42,7 +46,8 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String name, String email, String password, String phone, String role, List<Loan> loans, String address, String profilePicture, String mimeType) {
+    public User(Long id, String name, String email, String password, String phone, String role, List<Loan> loans, 
+                String address, String profilePicture, String mimeType, List<Loan> managedLoans) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -53,6 +58,7 @@ public class User {
         this.address = address;
         this.profilePicture = profilePicture;
         this.mimeType = mimeType;
+        this.managedLoans = managedLoans;
     }
 
 
@@ -125,5 +131,12 @@ public class User {
 
     public void setMimeType(String mimeType) {
         this.mimeType = mimeType;
+    }
+    public List<Loan> getManagedLoans() {
+        return managedLoans;
+    }
+
+    public void setManagedLoans(List<Loan> managedLoans) {
+        this.managedLoans = managedLoans;
     }
 }

@@ -42,4 +42,13 @@ export class AdminService {
     return this.http.get<Loan[]>(`${this.loanUrl}`, { headers });
     }
 
-}
+    getManagerAssignedLoan(token: string, managerName: string): Observable<Loan[]>{
+      const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+    });
+  
+      return this.http.get<Loan[]>(`${this.loanUrl}/manager/${managerName}`, { headers });
+    }
+
+  }
