@@ -1,39 +1,41 @@
-<div class="user-container">
-  <div *ngFor="let user of users" class="user-card">
-    <div class="profile-pic-user" [style.backgroundImage]="getProfileImage(user)"></div>
-    <div class="user-info">
-      <h2 class="user-name">{{ user.name }}</h2>
-      <p class="user-email"><strong>Email:</strong> {{ user.email }}</p>
-      <p class="user-phone"><strong>Phone:</strong> {{ user.phone }}</p>
-      <p class="user-address" *ngIf="user.address">
-        <strong>Address:</strong> {{ user.address }}
-      </p>
-      <p class="user-role"><strong>Role:</strong> {{ user.role }}</p>
-      <!-- View Loans Button -->
+<div class="users-container">
+  <div class="user-card" *ngFor="let user of users">
+    <div class="profile-pic-admin-view-user" [style.backgroundImage]="getProfileImage(user)"></div>
+
+    <!-- Info section -->
+    <div class="info">
+      <h3>{{ user.name }}</h3>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Phone:</strong> {{ user.phone }}</p>
+      <p *ngIf="user.address"><strong>Address:</strong> {{ user.address }}</p>
+      <p><strong>Role:</strong> {{ user.role }}</p>
       <button class="view-loans-btn" (click)="openLoanModal(user)">View Loans</button>
     </div>
   </div>
 </div>
 
-<div class="modal" [class.show]="showModal">
+<!-- Modal Backdrop -->
+<div class="modal-backdrop" *ngIf="isModalOpen"></div>
+<div class="modal-window" *ngIf="isModalOpen">
   <div class="modal-content">
-    <span class="close" (click)="closeLoanModal()">&times;</span>
-    <h2>Loans for {{ selectedUser?.name }}</h2>
-    <div *ngIf="(selectedUser?.loans?.length || 0) > 0; else noLoans">
-      <div class="loan" *ngFor="let loan of selectedUser?.loans">
+    <button class="close-btn" (click)="closeLoanModal()">X</button>
+    <h2 class="loans-user-name">Loans for {{ selectedUser?.name }}</h2>
+    <ng-container *ngIf="selectedUser && selectedUser.loans && selectedUser.loans.length > 0; else noLoans">
+      <div class="loan-item" *ngFor="let loan of selectedUser.loans">
+        <p><strong><hr></strong></p>
         <p><strong>Purpose:</strong> {{ loan.purpose }}</p>
         <p><strong>Loan Amount:</strong> {{ loan.loanAmount }}</p>
         <p><strong>Status:</strong> {{ loan.status }}</p>
-        <p><strong>Approver :</strong> {{ loan.approverName }} </p>
-        <p><strong>Due Date:</strong> {{ loan.dueDate | date: 'dd-MM-yyyy' }} </p>
-        <p><strong>Emi Amount:</strong> {{ loan.emiAmount}} </p>
-        <p><strong>Interest Rate:</strong> {{ loan.interestRatePerAnnum }}% </p>
-        <p><strong>Loan Varient:</strong> {{ loan.loanVarient }} </p>
-        <p><strong>Tenure:</strong> {{ loan.tenure}} </p>
+        <p><strong>Approver:</strong> {{ loan.approverName }}</p>
+        <p><strong>Due Date:</strong> {{ loan.dueDate | date:'dd-MM-yyyy' }}</p>
+        <p><strong>EMI Amount:</strong> {{ loan.emiAmount }}</p>
+        <p><strong>Interest Rate:</strong> {{ loan.interestRatePerAnnum }}%</p>
+        <p><strong>Loan Variant:</strong> {{ loan.loanVarient }}</p>
+        <p><strong>Tenure:</strong> {{ loan.tenure }}</p>
       </div>
-    </div>
+    </ng-container>
     <ng-template #noLoans>
-      <p>No loans available.</p>
+      <p class="loan-item">No loans available.</p>
     </ng-template>
   </div>
 </div>

@@ -8,14 +8,15 @@ import { DomSanitizer, SafeResourceUrl, SafeStyle } from '@angular/platform-brow
   standalone: false,
   encapsulation: ViewEncapsulation.None,
   templateUrl: './admin-view-users.component.html',
-  styleUrl: './admin-view-users.component.css'
+  styleUrls: ['./admin-view-users.component.css']
 })
 export class AdminViewUsersComponent implements OnInit{
   users: User[] = [];
   userData: string | null = null;
   token: string = '';
   selectedUser: User | null = null;
-  showModal: boolean = false;
+  isModalOpen: boolean = false;
+  modalState: 'open' | 'closed' = 'closed';
 
   constructor(
     private adminService: AdminService,
@@ -42,16 +43,20 @@ export class AdminViewUsersComponent implements OnInit{
       const style = `url(data:image/jpeg;base64,${user.profilePicture})`;
       return this.sanitizer.bypassSecurityTrustStyle(style);
     }
-    // Make sure the default image exists at the specified location
     return this.sanitizer.bypassSecurityTrustStyle(`url(assets/images/default-profile.png)`);
   }
   
   openLoanModal(user: User): void {
     this.selectedUser = user;
-    this.showModal = true;
+    this.isModalOpen = true;
+    this.modalState = 'open';
+    document.body.style.overflow = 'hidden';
   }
   
   closeLoanModal(): void {
-    this.showModal = false;
+    this.isModalOpen = false;
+    this.selectedUser = null;
+    document.body.style.overflow = '';
+    this.modalState = 'closed';
   }
 }
