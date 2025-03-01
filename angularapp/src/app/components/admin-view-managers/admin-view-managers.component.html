@@ -1,3 +1,7 @@
+<div *ngIf="isLoading && !error" class="loading-message">
+  <div class="loading-spinner"></div>
+  <p class="loading-text">Loading user details...</p>
+</div>
 <div class="users-container">
     <div class="user-card" *ngFor="let manager of managers">
       <div class="profile-pic-admin-view-user" [style.backgroundImage]="getProfileImage(manager)"></div>
@@ -39,4 +43,7 @@
       </ng-template>
     </div>
   </div>
-  
+
+<div *ngIf="error" class="error-message">
+    ⚠️ {{ error }}
+</div>
