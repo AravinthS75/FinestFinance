@@ -5,12 +5,15 @@
     --primary-blue: #0a1f44;
     --accent-blue: #1e88e5;
     --gold: #ffc107;
-    --neon-blue: #00f3ff;
+    --neon-blue: #00f3ff;        
+    --text-muted: #8892b0;
+    --border-radius: 12px;
     --blur-intensity: blur(20px);
     --hologram-gradient: linear-gradient(135deg, 
     rgba(110, 231, 249, 0.8) 0%, 
     rgba(255, 93, 217, 0.6) 50%, 
     rgba(131, 238, 255, 0.7) 100%);
+    --highlight: #64ffda;
     --neon-accent: #ff00ff;
     --cyber-border: 1px solid rgba(255, 255, 255, 0.2);
   }
@@ -83,6 +86,80 @@
     40% { clip-path: polygon(5% 0, 95% 10%, 90% 90%, 10% 100%); }
     100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
   }
+
+  .loading-message {
+    position: fixed; /* Changed from default positioning */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background: rgba(255, 255, 255, 0.9); */
+    z-index: 999; /* Ensure it's above other content but below modal (1000-1001) */
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 5px solid rgba(100, 255, 218, 0.2);
+    border-top: 5px solid var(--highlight);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .loading-text {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+
+    .error-message {
+    color: #ff6b6b;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 1rem;
+    background: rgba(255, 107, 107, 0.2);
+    border-radius: var(--border-radius);
+    animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+    }
+
+    @keyframes pulseGlow {
+        from {
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
+        }
+        to {
+            box-shadow: 0 0 25px rgba(100, 255, 218, 1);
+        }
+    }
   
   .modal-backdrop {
     position: fixed;        /* Make sure the backdrop covers the entire screen */

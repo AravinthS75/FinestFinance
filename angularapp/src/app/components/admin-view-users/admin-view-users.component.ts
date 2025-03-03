@@ -38,7 +38,7 @@ export class AdminViewUsersComponent implements OnInit{
     this.isLoading = true;
     this.adminService.getAllUsers(this.token).subscribe((data) => {
       this.users = data;
-      console.log(this.users);
+      // console.log(this.users);
       this.isLoading = false;
     },
     (errorResponse: HttpErrorResponse) => {

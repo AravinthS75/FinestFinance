@@ -2,6 +2,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 import { User } from '../../models/user.model';
 import { AdminService } from '../../services/admin.service';
 import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-view-managers',
@@ -14,6 +15,8 @@ export class AdminViewManagersComponent {
    managers: User[] = [];
    managerData: string | null = null;
    token: string = '';
+   isLoading: boolean  = false;
+   error: string = '';
    selectedManager: User | null = null;
    isModalOpen: boolean = false;
    modalState: 'open' | 'closed' = 'closed';
@@ -32,10 +35,17 @@ export class AdminViewManagersComponent {
    }
  
    ngOnInit(): void {
+    this.isLoading = true;
      this.adminService.getAllManagers(this.token).subscribe((data) => {
        this.managers = data;
        console.log(this.managers);
-     });
+       this.isLoading = false;
+     },
+     (errorResponse: HttpErrorResponse) => {
+             this.error = errorResponse.error.message || 'Failed to load manager details';
+             this.isLoading = false;
+     }
+    );
    }
  
    getProfileImage(manager: User): SafeStyle {

@@ -246,7 +246,7 @@
 
 .close-btn:hover {
   /* background: var(--neon-blue); */
-  transform: rotate(180deg) scale(1.1);
+  transform: rotate(360deg) scale(1.1);
   color: var(--neon-accent);
   text-shadow: 0 0 20px var(--neon-accent);
 }
