@@ -22,9 +22,16 @@ public class LoanController {
     @Autowired
     private JwtUtils jwtService;
 
-    @PostMapping("/user/{userId}") // all users
-    public ResponseEntity<?> applyForLoan(@PathVariable int userId, @RequestBody Loan loan) {
-        return ResponseEntity.status(201).body(loanService.applyForLoan(userId,loan));
+    @PostMapping("/user/{userId}")
+    public ResponseEntity<?> applyForLoan(@PathVariable int userId, @RequestBody Loan loan, @RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        String role = jwtService.extractRole(token);
+        System.out.println(role);
+        if (role.equals("ROLE_USER")) { 
+            Loan savedLoan = loanService.applyForLoan(userId, loan);
+            return ResponseEntity.status(201).body(savedLoan);
+        }
+        return ResponseEntity.status(403).body("Only users can apply for loans");
     }
 
     @GetMapping("/user/{userId}") // all users

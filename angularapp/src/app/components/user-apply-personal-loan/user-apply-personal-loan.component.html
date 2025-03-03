@@ -1,1 +1,50 @@
-<p>user-apply-personal-loan works!</p>
+<form [formGroup]="loanForm" (ngSubmit)="onSubmit()" class="cyber-form">
+    <div class="cyber-container">
+      <div class="grid-container">
+        <h2 class="neon-title">APPLY FOR PERSONAL CYBERLOAN</h2>
+        
+        <div class="cyber-input">
+          <label class="hologram-label">Loan Amount (CR)</label>
+          <input type="number" formControlName="loanAmount" class="glow-input">
+          <div class="cyber-bar"></div>
+          <div *ngIf="loanForm.get('loanAmount')?.errors" class="error-message">
+            <span *ngIf="loanForm.get('loanAmount')?.hasError('required')">Required</span>
+            <span *ngIf="loanForm.get('loanAmount')?.hasError('min')">Min ₹10,000</span>
+            <span *ngIf="loanForm.get('loanAmount')?.hasError('max')">Max ₹1,000,000</span>
+          </div>
+        </div>
+  
+        <div class="cyber-input">
+          <label class="hologram-label">Purpose</label>
+          <input type="text" formControlName="purpose" class="glow-input" placeholder="Enter loan purpose">
+          <div class="cyber-bar"></div>
+          <div *ngIf="loanForm.get('purpose')?.errors" class="error-message">
+            <span *ngIf="loanForm.get('purpose')?.hasError('required')">Required</span>
+          </div>
+        </div>
+  
+        <div class="cyber-input">
+          <label class="hologram-label">Tenure (Years)</label>
+          <input type="range" formControlName="tenure" min="1" max="10" class="cyber-range">
+          <div class="range-value">{{loanForm.value.tenure || 5}}</div>
+          <div class="cyber-bar"></div>
+        </div>
+  
+        <div class="cyber-display">
+          <div class="display-segment">
+            <span class="segment-label">Estimated EMI</span>
+            <span class="segment-value neon-cyan">{{emiAmount | number:'1.0-0'}} CR</span>
+          </div>
+          <div class="display-segment">
+            <span class="segment-label">Interest Rate</span>
+            <span class="segment-value neon-pink">{{interestRatePerAnnum}}%</span>
+          </div>
+        </div>
+  
+        <button type="submit" [disabled]="!loanForm.valid" class="cyber-button">
+          <span class="cyber-text">SUBMIT APPLICATION</span>
+          <div class="cyber-loader"></div>
+        </button>
+      </div>
+    </div>
+  </form>

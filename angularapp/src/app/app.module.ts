@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -96,7 +97,8 @@ import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     UserStoreService,

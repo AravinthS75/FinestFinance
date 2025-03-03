@@ -52,7 +52,7 @@ public class SecurityConfig {
             .cors(withDefaults()).csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorizeRequests ->
                 authorizeRequests
-                    .requestMatchers("/api/register", "/api/login", "/api/user/admin/**").permitAll()
+                    .requestMatchers("/api/register", "/api/login", "/api/user/admin/**", "/api/loans/**").permitAll()
                     .anyRequest().authenticated()
             )
             .sessionManagement(sessionManagement ->

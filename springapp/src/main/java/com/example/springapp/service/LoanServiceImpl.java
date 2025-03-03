@@ -11,6 +11,7 @@ import com.example.springapp.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -23,13 +24,40 @@ public class LoanServiceImpl implements LoanService{
 
     public Loan applyForLoan(int userId, Loan loan) {
         User user = userRepository.findById(userId);
+        List<User> managers = userRepository.findByRole("MANAGER");
+    
+        if (loan.getLoanAmount() == null) {
+            throw new RuntimeException("Loan amount is required");
+        }
+
+        if (!managers.isEmpty()) {
+            User manager = managers.get(0); // Simplistic assignment; adjust as needed
+            loan.setAssignedManager(manager);
+            loan.setApproverName(manager.getName());
+        }
+    
         loan.setStatus("PENDING");
-        loan.setApproverName("Not Assigned Yet");
         loan.setUser(user);
+        loan.setPendingAmount(loan.getLoanAmount());
+        loan.setInterestRatePerAnnum(loan.getInterestRatePerAnnum() != null ? loan.getInterestRatePerAnnum() : 12.5);
+        loan.setEmiAmount(loan.getEmiAmount());
+        loan.setLoanVarient(loan.getLoanVarient());
+        loan.setPurpose(loan.getPurpose());
         LocalDate currentDate = LocalDate.now();
         Date date = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         loan.setCreatedAt(date);
-        return loanRepository.save(loan);
+        loan.setUpdatedAt(null);
+        loan.setDueDate(null);
+    
+        Loan savedLoan = loanRepository.save(loan);
+
+        if (user.getLoans() == null) {
+            user.setLoans(new ArrayList<>());
+        }
+        user.getLoans().add(savedLoan);
+        userRepository.save(user);
+
+        return savedLoan;
     }
 
     public List<Loan> getLoansByUserId(Long userId) {

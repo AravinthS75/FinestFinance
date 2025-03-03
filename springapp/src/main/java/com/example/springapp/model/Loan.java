@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
@@ -22,12 +23,12 @@ public class Loan {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference("user-loans")
+    @JsonIgnoreProperties({"loans", "managedLoans"})
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    @JsonBackReference("manager-loans")
+    @JsonIgnoreProperties({"loans", "managedLoans"})
     private User assignedManager;
 
     private Double loanAmount;

@@ -1,1 +1,70 @@
-<p>admin-view-loans works!</p>
+<div class="dashboard-container">
+  
+    <h1 class="cyberpunk-heading">LOAN MANAGEMENT CONSOLE</h1>
+  
+    <button class="cyber-button export-btn" (click)="exportToCSV()">
+      <i class="fas fa-file-export"></i> EXPORT CSV
+    </button>
+  
+    <div class="filters-container neon-glow">
+      <div class="filter-group">
+        <label class="hologram-label">Status:</label>
+        <select class="cyber-input" [(ngModel)]="statusFilter">
+          <option value="">All</option>
+          <option *ngFor="let status of statusOptions" [value]="status">{{status}}</option>
+        </select>
+      </div>
+  
+      <div class="filter-group">
+        <label class="hologram-label">Variant:</label>
+        <select class="cyber-input" [(ngModel)]="variantFilter">
+          <option value="">All</option>
+          <option *ngFor="let variant of variantOptions" [value]="variant">{{variant}}</option>
+        </select>
+      </div>
+  
+      <div class="filter-group">
+        <label class="hologram-label">Amount Range:</label>
+        <input type="range" class="cyber-slider" min="0" max="100000"
+               [(ngModel)]="amountRange" (input)="updateAmountFilter($event)">
+        <span class="range-value">{{amountFilter | currency}}</span>
+      </div>
+    </div>
+  
+    <div class="loan-grid">
+      <div *ngFor="let loan of displayedLoans" class="loan-card neon-glow" [@cardAnim]>
+        <div class="card-header">
+          <h3 class="loan-variant">{{loan.loanVarient}}</h3>
+          <span class="status-badge" [ngClass]="getStatusClass(loan.status)">
+            {{loan.status}}
+          </span>
+        </div>
+  
+        <div class="card-body">
+          <div class="data-row">
+            <span class="data-label">Amount:</span>
+            <span class="data-value glowing-text">{{loan.loanAmount | currency}}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">Manager:</span>
+            <span class="data-value">{{loan.approverName}}</span>
+          </div>
+          <div class="data-row">
+            <span class="data-label">Interest Rate:</span>
+            <span class="data-value">{{loan.interestRatePerAnnum}}%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="pagination-container">
+      <button class="cyber-button" (click)="previousPage()" [disabled]="currentPage === 1">
+        « PREV
+      </button>
+      <span class="page-indicator">PAGE {{currentPage}} / {{totalPages}}</span>
+      <button class="cyber-button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+        NEXT »
+      </button>
+    </div>
+  </div>
+  

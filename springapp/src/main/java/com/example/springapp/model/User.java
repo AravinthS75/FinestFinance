@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
@@ -28,11 +29,11 @@ public class User {
     private String role; // 'USER', 'MANAGER', 'ADMIN'
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference("user-loans")
+    @JsonIgnoreProperties("user")
     private List<Loan> loans;
 
     @OneToMany(mappedBy = "assignedManager")
-    @JsonManagedReference("manager-loans")
+    @JsonIgnoreProperties("assignedManager")
     private List<Loan> managedLoans;
 
     private String address;
