@@ -52,14 +52,14 @@ export class AdminViewLoansComponent {
     this.adminService.getAllLoans(this.token).subscribe(
       (data) => {
         this.loans = data;
-        console.log(data); 
+        if(data)
+        this.isLoading = false;
       },
       (errorResponse: HttpErrorResponse) => {
         this.error = errorResponse.error.message || 'Failed to load manager details';
         this.isLoading = false;
       }
     );
-    this.isLoading = false;
   }
 
   get statusOptions(): string[] {
