@@ -1,6 +1,5 @@
 <div *ngIf="isLoading && !error" class="loading-message">
-  <div class="loading-spinner"></div>
-  <p class="loading-text">Loading user details...</p>
+  <div class="loader">loading...</div>
 </div>
 <div class="users-container">
     <div class="user-card" *ngFor="let manager of managers">
