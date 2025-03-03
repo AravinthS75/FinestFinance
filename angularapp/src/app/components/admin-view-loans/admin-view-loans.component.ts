@@ -106,9 +106,9 @@ export class AdminViewLoansComponent {
   }
 
   exportToCSV() {
-    let csvContent = 'Loan Variant, Status, Loan Amount, Approver Name, Interest Rate\n';
+    let csvContent = 'Borrower Name, Borrower Email, Borrower Phone, Loan Variant, Status, Loan Amount, Purpose, Approver Name, Interest Rate, Tenure, EMI Ammount\n';
     this.loans.forEach(loan => {
-      csvContent += `${loan.loanVarient},${loan.status},${loan.loanAmount},${loan.approverName},${loan.interestRatePerAnnum}\n`;
+      csvContent += `${loan.user?.name},${loan.user?.email},${loan.user?.phone},${loan.loanVarient},${loan.status},${loan.loanAmount},${loan.purpose},${loan.approverName},${loan.interestRatePerAnnum}% p.a,${loan.tenure} months,${loan.emiAmount}\n`;
     });
     const blob = new Blob([csvContent], { type: 'text/csv' });
     saveAs(blob, 'loans_data.csv');

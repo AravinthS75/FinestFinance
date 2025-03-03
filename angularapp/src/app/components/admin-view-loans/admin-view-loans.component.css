@@ -58,6 +58,7 @@
   
   .approved {
     background: linear-gradient(45deg, #00ff88, #00ccff);
+    color: black;
   }
   
   .pending {
