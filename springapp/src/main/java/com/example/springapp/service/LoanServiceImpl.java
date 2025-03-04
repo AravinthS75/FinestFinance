@@ -24,7 +24,6 @@ public class LoanServiceImpl implements LoanService{
 
     public Loan applyForLoan(int userId, Loan loan) {
         User user = userRepository.findById(userId);
-        List<User> managers = userRepository.findByRole("MANAGER");
     
         if (loan.getLoanAmount() == null) {
             throw new RuntimeException("Loan amount is required");
