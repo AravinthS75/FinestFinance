@@ -23,10 +23,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class AdminViewLoansComponent {
   loans: Loan[] = [];
   loanUser: any = {};
+  selectedLoan: Loan | null = null;
   loanManager: any = {};
   userData: string | null = null;
   token: string = '';
   error: string = '';
+  userProfilePicture: string | ArrayBuffer | null = 'assets/images/default-profile.png';
+  managerProfilePicture: string | ArrayBuffer | null = 'assets/images/default-profile.png';
   isLoading: boolean = false;
   currentPage = 1;
   itemsPerPage = 2;
@@ -52,6 +55,7 @@ export class AdminViewLoansComponent {
     this.adminService.getAllLoans(this.token).subscribe(
       (data) => {
         this.loans = data;
+        console.log(data);
         if(data)
         this.isLoading = false;
       },
@@ -82,6 +86,18 @@ export class AdminViewLoansComponent {
   get displayedLoans(): Loan[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     return this.filteredLoans.slice(start, start + this.itemsPerPage);
+  }
+
+  openLoanDetails(loan: Loan): void {
+    this.selectedLoan = loan;
+    if (loan.user?.profilePicture) 
+      this.userProfilePicture = `data:image/jpeg;base64,${loan.user.profilePicture}`;
+    if(loan.assignedManager?.profilePicture)
+      this.managerProfilePicture = `data:image/jpeg;base64,${loan.assignedManager.profilePicture}`;
+  }
+
+  closeLoanDetails(): void {
+    this.selectedLoan = null;
   }
 
   get totalPages(): number {

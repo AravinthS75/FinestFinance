@@ -6,6 +6,7 @@ export class Loan {
     loanAmount?:number;
     purpose?:string;
     loanVarient?:string;
+    assignedManager?: User;
     interestRatePerAnnum?:number;
     tenure?:string;
     emiAmount?:number;
