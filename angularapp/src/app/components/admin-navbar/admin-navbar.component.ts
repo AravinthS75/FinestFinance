@@ -16,6 +16,8 @@ export class AdminNavbarComponent implements OnInit {
   welcomeMessage: string = 'Welcome! ADMIN';
   currentUrl: string | null = null;
   userProfilePic: string = 'assets/images/default-profile.png';
+  isMobileMenuOpen = false;
+  dropdownState: { [key: string]: boolean } = {};
   authUser: AuthUser | null = null;
   user: User | null = null;
 
@@ -27,6 +29,7 @@ export class AdminNavbarComponent implements OnInit {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
+        this.isMobileMenuOpen = false;
       }
     });
   }
@@ -52,6 +55,20 @@ export class AdminNavbarComponent implements OnInit {
         });
       }
     });
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  toggleDropdown(dropdownName: string): void {
+    this.dropdownState[dropdownName] = !this.dropdownState[dropdownName];
+    Object.keys(this.dropdownState).forEach(key => {
+      if (key !== dropdownName) {
+        this.dropdownState[key] = false;
+      }
+    });
+    document.body.style.overflow = this.isMobileMenuOpen ? 'hidden' : 'auto';
   }
 
   logout(): void {

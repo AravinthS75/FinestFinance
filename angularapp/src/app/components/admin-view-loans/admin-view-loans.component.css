@@ -424,42 +424,87 @@
   box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
 }
 
-/* Manager Select Popup */
+/* Manager Selection Popup */
 .manager-select-popup {
   max-width: 800px;
-  background: rgba(0, 0, 0, 0.9);
+  width: 90%;
+  padding: 2rem;
+  background: #0a1f44;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
 }
 
 .manager-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
+/* Manager Card Styling */
 .manager-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
   padding: 1.5rem;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .manager-card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+}
+
+/* Manager Image Container */
+.manager-image-container {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #00ffff;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* Manager Image */
+.manager-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Manager Info */
+.manager-info {
+  flex: 1;
 }
 
 .manager-info h3 {
-  color: #00ff88;
+  color: #00ffff;
+  font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
-.manager-email {
+.manager-email, .manager-phone {
+  color: #ffffff;
   font-size: 0.9rem;
-  color: #00a3ff;
+  margin: 0.2rem 0;
 }
 
-.manager-phone {
-  font-family: 'Orbitron', sans-serif;
-  color: #ff00ff;
-  margin: 0.5rem 0;
+/* Assign Button */
+.assign-btn {
+  background: linear-gradient(135deg, #00ffff, #00bcd4);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.assign-btn:hover {
+  transform: scale(1.05);
+}
+
+.assign-btn i {
+  margin-right: 0.5rem;
 }

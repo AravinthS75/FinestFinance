@@ -152,6 +152,11 @@
     
     <div class="manager-grid">
       <div *ngFor="let manager of managers" class="manager-card neon-glow">
+        <div class="manager-image-container">
+          <img [src]="manager.profilePicture || 'assets/images/default-profile.png'" 
+               alt="Manager Image" 
+               class="manager-image">
+        </div>
         <div class="manager-info">
           <h3>{{manager.name}}</h3>
           <p class="manager-email">{{manager.email}}</p>

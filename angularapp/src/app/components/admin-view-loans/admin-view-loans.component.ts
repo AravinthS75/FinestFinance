@@ -105,12 +105,20 @@ export class AdminViewLoansComponent {
   }
 
   openManagerPopup() {
-  this.showManagerPopup = true;
-  this.adminService.getAllManagers(this.token).subscribe(
-    (managers) => this.managers = managers,
-    (error) => this.error = 'Failed to fetch managers'
-  );
-}
+    this.showManagerPopup = true;
+    this.adminService.getAllManagers(this.token).subscribe(
+      (managers) => {
+        this.managers = managers.map(manager => {
+          if (manager.profilePicture && !manager.profilePicture.startsWith('data:')) {
+            manager.profilePicture = `data:image/jpeg;base64,${manager.profilePicture}`;
+          }
+          return manager;
+        });
+        console.log('Managers:', managers); // Debugging
+      },
+      (error) => this.error = 'Failed to fetch managers'
+    );
+  }
 
 assignManager(managerId: number) {
   if (!this.selectedLoan) return;
