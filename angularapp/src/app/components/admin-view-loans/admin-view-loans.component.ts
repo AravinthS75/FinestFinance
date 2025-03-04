@@ -4,6 +4,7 @@ import { AdminService } from '../../services/admin.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { saveAs } from 'file-saver';
 import { HttpErrorResponse } from '@angular/common/http';
+import { LoanService } from '../../services/loan.service';
 
 @Component({
   selector: 'app-admin-view-loans',
@@ -24,7 +25,8 @@ export class AdminViewLoansComponent {
   loans: Loan[] = [];
   loanUser: any = {};
   selectedLoan: Loan | null = null;
-  loanManager: any = {};
+  showManagerPopup = false;
+  managers: any[] = [];
   userData: string | null = null;
   token: string = '';
   error: string = '';
@@ -40,7 +42,7 @@ export class AdminViewLoansComponent {
   statusChart: any;
   amountChart: any;
 
-  constructor(private adminService: AdminService) {
+  constructor(private adminService: AdminService, private loanService: LoanService) {
     this.userData = sessionStorage.getItem('authUser');
     if (this.userData) {
       const userDetails = JSON.parse(this.userData);
@@ -94,11 +96,45 @@ export class AdminViewLoansComponent {
       this.userProfilePicture = `data:image/jpeg;base64,${loan.user.profilePicture}`;
     if(loan.assignedManager?.profilePicture)
       this.managerProfilePicture = `data:image/jpeg;base64,${loan.assignedManager.profilePicture}`;
+    else
+      this.managerProfilePicture = 'assets/images/default-profile.png';
   }
 
   closeLoanDetails(): void {
     this.selectedLoan = null;
   }
+
+  openManagerPopup() {
+  this.showManagerPopup = true;
+  this.adminService.getAllManagers(this.token).subscribe(
+    (managers) => this.managers = managers,
+    (error) => this.error = 'Failed to fetch managers'
+  );
+}
+
+assignManager(managerId: number) {
+  if (!this.selectedLoan) return;
+  const userId = this.selectedLoan.user?.id;
+  const loanId = this.selectedLoan.id;
+  console.log("userId: ",userId);
+  console.log("loanId: ",loanId);
+  console.log("managerId: ",managerId);
+  if (!userId || !loanId) {
+    this.error = 'Invalid user or loan ID';
+    return;
+  }
+
+  this.loanService.adminSetAssignedManager(this.token, userId, loanId, managerId)
+    .subscribe({
+      next: (updatedLoan) => {
+        this.selectedLoan = updatedLoan;
+        this.showManagerPopup = false;
+        // Refresh the loans list
+        this.adminService.getAllLoans(this.token).subscribe(loans => this.loans = loans);
+      },
+      error: (err) => this.error = err.message || 'Failed to assign manager'
+    });
+}
 
   get totalPages(): number {
     return Math.ceil(this.filteredLoans.length / this.itemsPerPage);

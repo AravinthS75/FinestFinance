@@ -30,11 +30,8 @@ public class LoanServiceImpl implements LoanService{
             throw new RuntimeException("Loan amount is required");
         }
 
-        if (!managers.isEmpty()) {
-            User manager = managers.get(0); // Simplistic assignment; adjust as needed
-            loan.setAssignedManager(manager);
-            loan.setApproverName(manager.getName());
-        }
+        loan.setAssignedManager(null);
+        loan.setApproverName("Not Assigned Yet!");
     
         loan.setStatus("PENDING");
         loan.setUser(user);
@@ -84,6 +81,20 @@ public class LoanServiceImpl implements LoanService{
 
     public List<Loan> getLoansByApproverName(String approverName){
         return loanRepository.findByApproverName(approverName);
+    }
+
+    public Loan setLoanApprover(int userId, int loanId, int managerId ){
+        User user = userRepository.findById(userId);
+        Loan loanOfUser = loanRepository.findById(loanId).get();
+        User manager = userRepository.findById(managerId);
+        if(manager.getId() == managerId){
+            loanOfUser.setAssignedManager(manager);
+            loanOfUser.setApproverName(manager.getName());
+        }
+        Loan savedLoan = loanRepository.save(loanOfUser);
+        user.getLoans().add(savedLoan);
+        user = userRepository.save(user);
+        return savedLoan;
     }
 
 }

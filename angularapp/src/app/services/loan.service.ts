@@ -10,6 +10,8 @@ export class LoanService {
 
   public loanUrl = "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api/loans";
 
+  public apiUrl = "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api/admin/all-managers"
+
   constructor(private http: HttpClient) { }
 
   userApplyPersonalLoan(token: string, userId: number | null, loan: Loan): Observable<Loan>{
@@ -23,5 +25,25 @@ export class LoanService {
       loan, 
       { headers }
     );
+  }
+
+  adminSetAssignedManager(token: string, userId: number | null, loanId: number | null, managerId: number | null): Observable<Loan>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+    
+    return this.http.put<Loan>(
+      `${this.loanUrl}/assign-manager/${userId}/${loanId}/${managerId}`,
+      null,
+      { headers }
+    );
+  }
+
+  getAllManagers(token: string): Observable<any[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<any[]>(`${this.apiUrl}`, { headers });
   }
 }

@@ -134,6 +134,36 @@
                     {{selectedLoan.status}}
                   </span>
                 </div>
+                <!-- Inside the approver-side panel -->
+<div *ngIf="!selectedLoan.assignedManager" class="assign-manager-section">
+  <button class="cyber-button assign-btn" (click)="openManagerPopup()">
+    <i class="fas fa-user-plus"></i> ASSIGN MANAGER
+  </button>
+</div>
+
+<!-- Manager Selection Popup -->
+<div *ngIf="showManagerPopup" class="popup-overlay">
+  <div class="popup-content manager-select-popup">
+    <button class="close-btn" (click)="showManagerPopup = false">
+      <span class="close-icon">&times;</span>
+    </button>
+    
+    <h2 class="cyber-text">SELECT MANAGER</h2>
+    
+    <div class="manager-grid">
+      <div *ngFor="let manager of managers" class="manager-card neon-glow">
+        <div class="manager-info">
+          <h3>{{manager.name}}</h3>
+          <p class="manager-email">{{manager.email}}</p>
+          <p class="manager-phone">{{manager.phone}}</p>
+        </div>
+        <button class="cyber-button assign-btn" (click)="assignManager(manager.id)">
+          <i class="fas fa-link"></i> ASSIGN
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
               </div>
             </div>
           </div>
