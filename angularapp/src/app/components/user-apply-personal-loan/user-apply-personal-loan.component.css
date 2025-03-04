@@ -57,6 +57,8 @@
     color: #000;
     font-weight: bold;
     text-transform: uppercase;
+    width: 50%;
+    margin-left: 25%;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -78,6 +80,10 @@
     margin: 1rem 0;
   }
   
+  .segment-label, .hologram-label, .range-value{
+    color: white;
+  }
+
   .segment-value {
     font-size: 2rem;
     font-family: 'Orbitron', sans-serif;

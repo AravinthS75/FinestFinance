@@ -1,10 +1,10 @@
 <form [formGroup]="loanForm" (ngSubmit)="onSubmit()" class="cyber-form">
     <div class="cyber-container">
       <div class="grid-container">
-        <h2 class="neon-title">APPLY FOR PERSONAL CYBERLOAN</h2>
+        <h2 class="neon-title">APPLY FOR PERSONAL LOAN</h2>
         
         <div class="cyber-input">
-          <label class="hologram-label">Loan Amount (CR)</label>
+          <label class="hologram-label">Loan Amount (Rs)</label>
           <input type="number" formControlName="loanAmount" class="glow-input">
           <div class="cyber-bar"></div>
           <div *ngIf="loanForm.get('loanAmount')?.errors" class="error-message">
@@ -33,7 +33,7 @@
         <div class="cyber-display">
           <div class="display-segment">
             <span class="segment-label">Estimated EMI</span>
-            <span class="segment-value neon-cyan">{{emiAmount | number:'1.0-0'}} CR</span>
+            <span class="segment-value neon-cyan"> {{emiAmount | number:'1.0-0'}}Rs</span>
           </div>
           <div class="display-segment">
             <span class="segment-label">Interest Rate</span>

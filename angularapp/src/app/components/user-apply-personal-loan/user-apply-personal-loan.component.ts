@@ -13,8 +13,9 @@ import { Loan } from '../../models/loan.model';
 export class UserApplyPersonalLoanComponent {
   loanForm!: FormGroup;
   emiAmount: number = 0;
+  eligibility: number = 0;
   userId: number | null= null;
-  interestRatePerAnnum: number = 12.5;
+  interestRatePerAnnum: number = 11;
   userData: string | null = null;
   token: string = '';
 
@@ -25,16 +26,31 @@ export class UserApplyPersonalLoanComponent {
 
   private initializeForm(): void {
     this.loanForm = this.fb.group({
-      loanAmount: [50000, [
+      loanAmount: [100000, [
         Validators.required,
-        Validators.min(10000),
-        Validators.max(1000000)
+        Validators.min(25000),
+        Validators.max(2000000)
       ]],
-      purpose: ['', [Validators.required, Validators.maxLength(200)]],
-      tenure: [5, [Validators.required, Validators.min(1), Validators.max(10)]]
+      purpose: ['', Validators.required],
+      employmentType: ['SALARIED', Validators.required],
+      monthlyIncome: [50000, [
+        Validators.required,
+        Validators.min(15000)
+      ]],
+      tenure: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
+      city: ['', Validators.required]
     });
 
-    this.loanForm.valueChanges.subscribe(() => this.calculateEMI());
+    this.loanForm.valueChanges.subscribe(() => {
+      this.calculateEMI();
+      this.calculateEligibility();
+    });
+  }
+
+  calculateEligibility(): void {
+    const income = this.loanForm.value.monthlyIncome || 0;
+    this.eligibility = income * 18; // 18 times monthly income
+    this.eligibility = Math.min(this.eligibility, 2000000);
   }
 
   private initializeUserData(): void {
