@@ -27,6 +27,7 @@ export class AdminViewLoansComponent {
   selectedLoan: Loan | null = null;
   showManagerPopup = false;
   managers: any[] = [];
+  managerLoading: boolean = false;
   userData: string | null = null;
   token: string = '';
   error: string = '';
@@ -34,7 +35,7 @@ export class AdminViewLoansComponent {
   managerProfilePicture: string | ArrayBuffer | null = 'assets/images/default-profile.png';
   isLoading: boolean = false;
   currentPage = 1;
-  itemsPerPage = 2;
+  itemsPerPage = 4;
   statusFilter = '';
   variantFilter = '';
   amountFilter = 100000;
@@ -106,6 +107,8 @@ export class AdminViewLoansComponent {
 
   openManagerPopup() {
     this.showManagerPopup = true;
+    if(this.managers.length === 0)
+    this.managerLoading = true;
     this.adminService.getAllManagers(this.token).subscribe(
       (managers) => {
         this.managers = managers.map(manager => {
@@ -114,7 +117,8 @@ export class AdminViewLoansComponent {
           }
           return manager;
         });
-        console.log('Managers:', managers); // Debugging
+        console.log('Managers:', managers);
+        this.managerLoading = false;
       },
       (error) => this.error = 'Failed to fetch managers'
     );

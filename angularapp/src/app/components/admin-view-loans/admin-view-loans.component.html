@@ -143,6 +143,7 @@
 
 <!-- Manager Selection Popup -->
 <div *ngIf="showManagerPopup" class="popup-overlay">
+
   <div class="popup-content manager-select-popup">
     <button class="close-btn" (click)="showManagerPopup = false">
       <span class="close-icon">&times;</span>
@@ -150,6 +151,17 @@
     
     <h2 class="cyber-text">SELECT MANAGER</h2>
     
+      <div *ngIf="managerLoading" class="loader1">
+        <span class="l">L</span>
+        <span class="o">o</span>
+        <span class="a">a</span>
+        <span class="d">d</span>
+        <span class="i">i</span>
+        <span class="n">n</span>
+        <span class="g">g</span>
+        <span class="d1">.</span>
+        <span class="d2">.</span>
+      </div>
     <div class="manager-grid">
       <div *ngFor="let manager of managers" class="manager-card neon-glow">
         <div class="manager-image-container">
