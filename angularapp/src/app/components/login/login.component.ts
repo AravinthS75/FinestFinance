@@ -79,7 +79,7 @@ export class LoginComponent implements OnInit {
             else if(this.userRole == 'MANAGER')
             this.router.navigate(['/manager/view-loans']);
             else if(this.userRole == 'USER')
-            this.router.navigate(['/user/view-loan']);
+            this.router.navigate(['/']);
           }, 1500);
         },
         error: (error: HttpErrorResponse) => {
