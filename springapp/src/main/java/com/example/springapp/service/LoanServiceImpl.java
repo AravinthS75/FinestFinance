@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.springapp.config.JwtUtils;
 import com.example.springapp.model.Loan;
 import com.example.springapp.model.User;
 import com.example.springapp.repository.LoanRepository;
@@ -21,8 +22,15 @@ public class LoanServiceImpl implements LoanService{
     private LoanRepository loanRepository;
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private JwtUtils jwtService;
 
-    public Loan applyForLoan(int userId, Loan loan) {
+    public Loan applyForLoan(String authHeader, int userId, Loan loan) {
+        String token = authHeader.replace("Bearer ", "");
+        String role = jwtService.extractRole(token);
+
+        if (role.equals("ROLE_USER")) { 
         User user = userRepository.findById(userId);
     
         if (loan.getLoanAmount() == null) {
@@ -55,6 +63,9 @@ public class LoanServiceImpl implements LoanService{
 
         return savedLoan;
     }
+    else
+        return null;
+    }
 
     public List<Loan> getLoansByUserId(Long userId) {
         return loanRepository.findByUserId(userId);
@@ -78,8 +89,17 @@ public class LoanServiceImpl implements LoanService{
         return loanRepository.save(loan);
     }
 
-    public List<Loan> getLoansByApproverName(String approverName){
-        return loanRepository.findByApproverName(approverName);
+    public List<Loan> getLoansByApproverName(String authHeader, String approverName){
+        String token = authHeader.replace("Bearer ", "");
+        String role = jwtService.extractRole(token);
+        
+        if(role.equals("ROLE_MANAGER")){
+        List<Loan> managedLoans = loanRepository.findByApproverName(approverName);
+
+        if(!managedLoans.isEmpty())
+            return managedLoans;
+        }
+        return null;
     }
 
     public Loan setLoanApprover(int userId, int loanId, int managerId ){

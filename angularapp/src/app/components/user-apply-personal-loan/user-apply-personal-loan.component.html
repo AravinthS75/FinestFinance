@@ -53,17 +53,49 @@
                 </div>
                 <div class="cyber-input">
                     <label class="hologram-label">Purpose</label>
-                    <input type="text" formControlName="purpose" class="glow-input" placeholder="Enter loan purpose">
+                    <select formControlName="purpose" class="glow-input">
+                      <option value="" disabled selected>Select Loan Purpose</option>
+                      <option *ngFor="let purpose of loanPurposes" [value]="purpose">{{ purpose }}</option>
+                    </select>
                     <div class="cyber-bar"></div>
                     <div *ngIf="loanForm.get('purpose')?.errors" class="error-message">
-                        <span *ngIf="loanForm.get('purpose')?.hasError('required')">Required</span>
+                      <span *ngIf="loanForm.get('purpose')?.hasError('required')">Purpose is required</span>
                     </div>
-                </div>
+                  </div>
+                  
+                  <div class="cyber-input" *ngIf="showOtherPurposeInput">
+                    <label class="hologram-label">Other Purpose Description</label>
+                    <input type="text" formControlName="otherPurposeDescription" class="glow-input" placeholder="Enter loan purpose description">
+                    <div class="cyber-bar"></div>
+                    <div *ngIf="loanForm.get('otherPurposeDescription')?.errors">
+                      <span *ngIf="loanForm.get('otherPurposeDescription')?.hasError('required')" class="error-message">Other purpose description is required</span>
+                      <span *ngIf="loanForm.get('otherPurposeDescription')?.hasError('whitespace')" class="error-message">Other purpose description cannot be empty</span>
+                    </div>
+                  </div>
                 <div class="cyber-input">
                     <label class="hologram-label">Tenure (Years)</label>
                     <input type="range" formControlName="tenure" min="1" max="10" class="cyber-range">
                     <div class="range-value">{{loanForm.value.tenure || 5}}</div>
                     <div class="cyber-bar"></div>
+                </div>
+                <div class="cyber-input">
+                    <label class="hologram-label">Aadhar Card (<span class="file-type">Pdf</span>)</label>
+                    <input type="file" formControlName="document1" accept=".pdf" class="glow-input">
+                    <div class="cyber-bar"></div>
+                    <div *ngIf="loanForm.get('document1')?.errors" class="error-message">
+                        <span *ngIf="loanForm.get('document1')?.hasError('required')">Required</span>
+                        <span *ngIf="loanForm.get('document1')?.hasError('invalidFile')">Only PDF files allowed</span>
+                    </div>
+                </div>
+            
+                <div class="cyber-input">
+                    <label class="hologram-label">PAN Card (<span class="file-type">Pdf</span>)</label>
+                    <input type="file" formControlName="document2" accept=".pdf" class="glow-input">
+                    <div class="cyber-bar"></div>
+                    <div *ngIf="loanForm.get('document2')?.errors" class="error-message">
+                        <span *ngIf="loanForm.get('document2')?.hasError('required')">Required</span>
+                        <span *ngIf="loanForm.get('document2')?.hasError('invalidFile')">Only PDF files allowed</span>
+                    </div>
                 </div>
                 <div class="cyber-display">
                     <div class="display-segment">

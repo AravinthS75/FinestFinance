@@ -15,4 +15,6 @@ export class Loan {
     createdAt?:Date;
     updatedAt?:Date;
     approverName?:string;
+    aadharCard?: string;
+    panCard?: string;
 }

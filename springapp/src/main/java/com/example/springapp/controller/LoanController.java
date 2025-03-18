@@ -1,5 +1,6 @@
 package com.example.springapp.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,24 +29,24 @@ public class LoanController {
 
     @PostMapping("/user/{userId}")
     public ResponseEntity<?> applyForLoan(@PathVariable int userId, @RequestBody Loan loan, @RequestHeader("Authorization") String authHeader) {
-        String token = authHeader.replace("Bearer ", "");
-        String role = jwtService.extractRole(token);
-        System.out.println(role);
-        if (role.equals("ROLE_USER")) { 
-            Loan savedLoan = loanService.applyForLoan(userId, loan);
+
+            Loan savedLoan = loanService.applyForLoan(authHeader,userId, loan);
+            if(savedLoan!=null)
             return ResponseEntity.status(201).body(savedLoan);
-        }
-        return ResponseEntity.status(403).body("Only users can apply for loans");
+        return ResponseEntity.status(500).body("Only users can apply for loans");
     }
 
-    @GetMapping("/user/{userId}") // all users
+    @GetMapping("/user/{userId}")
     public ResponseEntity<?> getLoansByUser(@PathVariable Long userId) {
         return ResponseEntity.status(200).body(loanService.getLoansByUserId(userId));
     }
 
-    @GetMapping("/manager/{approverName}") // manager alone
-    public ResponseEntity<?> getLoansByUser(@PathVariable String approverName) {
-        return ResponseEntity.status(200).body(loanService.getLoansByApproverName(approverName));
+    @GetMapping("/manager/{approverName}")
+    public ResponseEntity<?> getLoansByApproverName(@PathVariable String approverName, @RequestHeader("Authorization") String authHeader) {
+        List<Loan> managedLoans = loanService.getLoansByApproverName(authHeader, approverName);
+        if(!managedLoans.isEmpty())
+            return ResponseEntity.status(200).body(managedLoans);
+        return ResponseEntity.status(500).body("No loans available");
     }
 
     @GetMapping
@@ -62,7 +63,7 @@ public class LoanController {
     }
 
     @PatchMapping("/manager/{loanId}/status") // manager alone
-    public ResponseEntity<?> updateLoanStatus(@PathVariable int loanId, @RequestBody Map<String, String> updates) {
+    public ResponseEntity<?> updateLoanStatus(@RequestHeader("Authorization") String authHeader, @PathVariable int loanId, @RequestBody Map<String, String> updates) {
         return ResponseEntity.status(200).body(loanService.updateLoanStatus(loanId, updates.get("status")));
     }
 

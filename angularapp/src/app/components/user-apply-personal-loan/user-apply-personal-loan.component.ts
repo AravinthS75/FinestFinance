@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   standalone: false,
   encapsulation: ViewEncapsulation.None,
   templateUrl: './user-apply-personal-loan.component.html',
-  styleUrls: ['./user-apply-personal-loan.component.css' ]
+  styleUrls: ['./user-apply-personal-loan.component.css']
 })
 export class UserApplyPersonalLoanComponent implements OnInit {
 
@@ -22,7 +22,16 @@ export class UserApplyPersonalLoanComponent implements OnInit {
   userData: string | null = null;
   token: string = '';
 
-  // Store the information from Bajaj Finserv page here.  Expanded details.
+  loanPurposes: string[] = [
+    'Home Renovation',
+    'Wedding',
+    'Travel',
+    'Education',
+    'Medical Expenses',
+    'Debt Consolidation',
+    'Other'
+  ];
+
   features: string[] = [
     "Quick disbursal: Get your loan amount disbursed within 24 hours* of approval.",
     "Flexible tenure: Choose a repayment tenure that suits your financial situation, ranging from 12 to 60 months.",
@@ -43,19 +52,21 @@ export class UserApplyPersonalLoanComponent implements OnInit {
   ];
 
   loanBenefits = [
-        {
-            title: 'Multiple loan benefits',
-            description: 'Get loan for wedding, travel, home renovation & more'
-        },
-        {
-            title: 'High loan amount',
-            description: 'Personal loan up to 25 lakh'
-        },
-        {
-            title: 'Flexible tenure',
-            description: 'Personal loan repayment tenure between 6 months to 5 years'
-        }
-    ];
+    {
+      title: 'Multiple loan benefits',
+      description: 'Get loan for wedding, travel, home renovation & more'
+    },
+    {
+      title: 'High loan amount',
+      description: 'Personal loan up to 25 lakh'
+    },
+    {
+      title: 'Flexible tenure',
+      description: 'Personal loan repayment tenure between 6 months to 5 years'
+    }
+  ];
+
+  showOtherPurposeInput: boolean = false;
 
   constructor(private fb: FormBuilder, private loanService: LoanService) {
     this.initializeForm();
@@ -64,6 +75,16 @@ export class UserApplyPersonalLoanComponent implements OnInit {
 
   ngOnInit(): void {
     this.calculateEMI();
+
+    // Subscribe to changes in the 'purpose' control
+    this.loanForm.get('purpose')?.valueChanges.subscribe(value => {
+      this.showOtherPurposeInput = value === 'Other';
+      if (this.showOtherPurposeInput) {
+        this.loanForm.addControl('otherPurposeDescription', this.fb.control('', [Validators.required, this.noWhitespaceValidator]));
+      } else {
+        this.loanForm.removeControl('otherPurposeDescription');
+      }
+    });
   }
 
   objectKeys(obj: any): string[] {
@@ -77,13 +98,22 @@ export class UserApplyPersonalLoanComponent implements OnInit {
         Validators.min(25000),
         Validators.max(2000000)
       ]],
-      purpose: ['', [Validators.required, this.noWhitespaceValidator]], 
-      tenure: [1, [Validators.required, Validators.min(1), Validators.max(10)]]
+      purpose: ['', Validators.required],
+      tenure: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
+      document1: [null, [Validators.required, this.fileValidator]],
+      document2: [null, [Validators.required, this.fileValidator]]
     });
+  }
 
-    this.loanForm.valueChanges.subscribe(() => {
-      this.calculateEMI();
-    });
+  private fileValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const file = control.value;
+    if (file) {
+      const extension = file.name.split('.').pop()?.toLowerCase();
+      if (extension !== 'pdf') {
+        return { 'invalidFile': true };
+      }
+    }
+    return null;
   }
 
   private noWhitespaceValidator(control: AbstractControl): { [key: string]: boolean } | null {
@@ -91,7 +121,7 @@ export class UserApplyPersonalLoanComponent implements OnInit {
       return { 'whitespace': true };
     }
     return null;
-  }  
+  }
 
   private initializeUserData(): void {
     this.userData = sessionStorage.getItem('authUser');
@@ -127,27 +157,87 @@ export class UserApplyPersonalLoanComponent implements OnInit {
         status: 'PENDING',
         createdAt: new Date(),
         pendingAmount: this.loanForm.value.loanAmount,
-        dueDate: null, // Initially, this can be null and updated later
-        updatedAt: null // Initially, this can be null and updated later
+        dueDate: null,
+        updatedAt: null
       };
 
-      this.loanService.userApplyPersonalLoan(this.token, this.userId, loanData).subscribe({
-        next: (response) => {
-          console.log('Loan application successful:', response);
-          this.isSuccess = true;
-          this.initializeForm();
-        },
-        error: (err) => {
-          console.error('Loan application failed:', err);
+      if (this.showOtherPurposeInput && this.loanForm.get('otherPurposeDescription')) {
+        loanData.purpose = this.loanForm.get('otherPurposeDescription')?.value;
+      }
+
+
+      const aadharCard = this.loanForm.get('document1')?.value;
+      const panCard = this.loanForm.get('document2')?.value;
+
+      if (aadharCard && panCard) {
+        Promise.all([
+          this.readFileAsBase64(aadharCard),
+          this.readFileAsBase64(panCard)
+        ]).then(([base64File1, base64File2]) => {
+          loanData.aadharCard = base64File1;
+          loanData.panCard = base64File2;
+
+          this.loanService.userApplyPersonalLoan(this.token, this.userId, loanData).subscribe({
+            next: (response) => {
+              console.log('Loan application successful:', response);
+              this.isSuccess = true;
+              this.initializeForm();
+            },
+            error: (err) => {
+              console.error('Loan application failed:', err);
+              Swal.fire({
+                title: 'Error!',
+                text: 'Failed to submit the loan application. Please try again.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                backdrop: true
+              });
+            }
+          });
+        }).catch((error) => {
+          console.error('Error reading files:', error);
           Swal.fire({
             title: 'Error!',
-            text: 'Failed to submit the loan application. Please try again.',
+            text: 'Failed to process the uploaded files. Please try again.',
             icon: 'error',
             confirmButtonText: 'OK',
             backdrop: true
           });
-        }
-      });
+        });
+      } else {
+        Swal.fire({
+          title: 'Error!',
+          text: 'Please upload both documents.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+          backdrop: true
+        });
+      }
     }
+  }
+
+  private readFileAsBase64(file: File): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        if (reader.result && typeof reader.result === 'string') {
+          const base64String = reader.result.split(',')[1];
+          if (base64String) {
+            resolve(base64String);
+          } else {
+            reject(new Error('Failed to extract base64 data from file.'));
+          }
+        } else {
+          reject(new Error('FileReader result is not a valid string.'));
+        }
+      };
+
+      reader.onerror = (error) => {
+        reject(error);
+      };
+
+      reader.readAsDataURL(file);
+    });
   }
 }

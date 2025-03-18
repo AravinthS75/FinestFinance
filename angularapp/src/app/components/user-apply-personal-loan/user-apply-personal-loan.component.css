@@ -62,6 +62,7 @@
 
 .cyber-input {
   position: relative;
+  margin-top: 1.5%;
 }
 
 .hologram-label {
@@ -417,4 +418,8 @@ ol {
 .modern-success-message:hover::before {
   transform: rotate(90deg);
   opacity: 0.5;
+}
+
+.file-type{
+  /* color: red; */
 }

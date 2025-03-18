@@ -16,8 +16,7 @@ export class LoanService {
 
   userApplyPersonalLoan(token: string, userId: number | null, loan: Loan): Observable<Loan>{
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+      'Authorization': `Bearer ${token}`
     });
     
     return this.http.post<Loan>(

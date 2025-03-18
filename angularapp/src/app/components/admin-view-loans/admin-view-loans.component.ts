@@ -61,6 +61,8 @@ export class AdminViewLoansComponent {
         console.log(data);
         if(data)
         this.isLoading = false;
+        if(this.loans.length===0)
+        this.error = 'No loans found!';
       },
       (errorResponse: HttpErrorResponse) => {
         this.error = errorResponse.error.message || 'Failed to load manager details';
@@ -141,8 +143,8 @@ assignManager(managerId: number) {
       next: (updatedLoan) => {
         this.selectedLoan = updatedLoan;
         this.showManagerPopup = false;
-        // Refresh the loans list
         this.adminService.getAllLoans(this.token).subscribe(loans => this.loans = loans);
+        this.ngOnInit();
       },
       error: (err) => this.error = err.message || 'Failed to assign manager'
     });
