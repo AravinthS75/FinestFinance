@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoanService } from '../../services/loan.service';
 import { Loan } from '../../models/loan.model';
@@ -13,6 +13,9 @@ import Swal from 'sweetalert2';
 })
 export class UserApplyPersonalLoanComponent implements OnInit {
 
+  @ViewChild('aadharInput') aadharInput!: ElementRef;
+  @ViewChild('panInput') panInput!: ElementRef;
+
   loanForm!: FormGroup;
   isSuccess: boolean = false;
   emiAmount: number = 0;
@@ -21,6 +24,10 @@ export class UserApplyPersonalLoanComponent implements OnInit {
   interestRatePerAnnum: number = 11;
   userData: string | null = null;
   token: string = '';
+
+  // File handling properties
+  aadharFile: File | null = null;
+  panFile: File | null = null;
 
   loanPurposes: string[] = [
     'Home Renovation',
@@ -38,12 +45,14 @@ export class UserApplyPersonalLoanComponent implements OnInit {
     "Minimal documentation: Apply for a personal loan with minimal paperwork and a hassle-free process.",
     "No collateral required: Enjoy the benefit of unsecured loans, eliminating the need to pledge any assets as collateral."
   ];
+
   eligibilityCriteria: any = {
     age: "21-67 years: Applicants must be within this age range at the time of application.",
     employment: "Salaried or self-employed: Open to both salaried individuals and self-employed professionals.",
     income: "Minimum income as specified by Bajaj Finserv: Meet the minimum monthly income criteria to qualify.",
     creditScore: "Good credit score required: A strong credit history improves your chances of approval and may get you better rates."
   };
+
   applicationSteps: string[] = [
     "Fill out the online application form: Provide your personal, financial, and employment details accurately.",
     "Submit required documents: Upload scanned copies of necessary documents such as ID proof, address proof, and income proof.",
@@ -76,7 +85,6 @@ export class UserApplyPersonalLoanComponent implements OnInit {
   ngOnInit(): void {
     this.calculateEMI();
 
-    // Subscribe to changes in the 'purpose' control
     this.loanForm.get('purpose')?.valueChanges.subscribe(value => {
       this.showOtherPurposeInput = value === 'Other';
       if (this.showOtherPurposeInput) {
@@ -84,6 +92,10 @@ export class UserApplyPersonalLoanComponent implements OnInit {
       } else {
         this.loanForm.removeControl('otherPurposeDescription');
       }
+      this.loanForm.patchValue({
+        aadhar: this.aadharFile ? this.aadharFile.name : null,
+        pancard: this.panFile ? this.panFile.name : null
+      });
     });
   }
 
@@ -100,20 +112,9 @@ export class UserApplyPersonalLoanComponent implements OnInit {
       ]],
       purpose: ['', Validators.required],
       tenure: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
-      document1: [null, [Validators.required, this.fileValidator]],
-      document2: [null, [Validators.required, this.fileValidator]]
+      aadhar: [null, [Validators.required]],  // Removed fileValidator
+      pancard: [null, [Validators.required]]  // Removed fileValidator
     });
-  }
-
-  private fileValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const file = control.value;
-    if (file) {
-      const extension = file.name.split('.').pop()?.toLowerCase();
-      if (extension !== 'pdf') {
-        return { 'invalidFile': true };
-      }
-    }
-    return null;
   }
 
   private noWhitespaceValidator(control: AbstractControl): { [key: string]: boolean } | null {
@@ -147,73 +148,110 @@ export class UserApplyPersonalLoanComponent implements OnInit {
     this.emiAmount = isNaN(emi) ? 0 : emi;
   }
 
-  onSubmit(): void {
-    if (this.loanForm.valid && this.token) {
-      const loanData: Loan = {
-        ...this.loanForm.value,
-        loanVarient: 'personal',
-        interestRatePerAnnum: this.interestRatePerAnnum,
-        emiAmount: this.emiAmount,
-        status: 'PENDING',
-        createdAt: new Date(),
-        pendingAmount: this.loanForm.value.loanAmount,
-        dueDate: null,
-        updatedAt: null
-      };
-
-      if (this.showOtherPurposeInput && this.loanForm.get('otherPurposeDescription')) {
-        loanData.purpose = this.loanForm.get('otherPurposeDescription')?.value;
+  onFileChange(event: Event, type: 'aadhar' | 'pan'): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    const control = type === 'aadhar' ? this.loanForm.get('aadhar') : this.loanForm.get('pancard');
+  
+    if (file) {
+      const extension = file.name.split('.').pop()?.toLowerCase();
+      
+      if (extension !== 'pdf') {
+        control?.setErrors({ invalidFile: true });
+        return;
       }
+  
+      if (type === 'aadhar') {
+        this.aadharFile = file;
+      } else {
+        this.panFile = file;
+      }
+  
+      control?.setErrors(null);
+      control?.setValue(file.name);
+    } else {
+      control?.setErrors({ required: true });
+      control?.markAsTouched();
+    }
+  }
+  
 
+  onSubmit(): void {
+    // Manual validation check
+    let isValid = true;
+    
+    if (!this.aadharFile) {
+      this.loanForm.get('aadhar')?.setErrors({ required: true });
+      isValid = false;
+    }
+    
+    if (!this.panFile) {
+      this.loanForm.get('pancard')?.setErrors({ required: true });
+      isValid = false;
+    }
 
-      const aadharCard = this.loanForm.get('document1')?.value;
-      const panCard = this.loanForm.get('document2')?.value;
+    if (!isValid || !this.loanForm.valid || !this.token) {
+      this.loanForm.markAllAsTouched();
+      return;
+    }
 
-      if (aadharCard && panCard) {
-        Promise.all([
-          this.readFileAsBase64(aadharCard),
-          this.readFileAsBase64(panCard)
-        ]).then(([base64File1, base64File2]) => {
-          loanData.aadharCard = base64File1;
-          loanData.panCard = base64File2;
+    const loanData: Loan = {
+      ...this.loanForm.value,
+      loanVarient: 'personal',
+      interestRatePerAnnum: this.interestRatePerAnnum,
+      emiAmount: this.emiAmount,
+      tenure: this.loanForm.value.tenure * 12,
+      status: 'PENDING',
+      createdAt: new Date(),
+      pendingAmount: this.loanForm.value.loanAmount,
+      dueDate: null,
+      updatedAt: null,
+      aadharCard: '', // Placeholder for base64 data
+      panCard: ''     // Placeholder for base64 data
+    };
 
-          this.loanService.userApplyPersonalLoan(this.token, this.userId, loanData).subscribe({
-            next: (response) => {
-              console.log('Loan application successful:', response);
-              this.isSuccess = true;
-              this.initializeForm();
-            },
-            error: (err) => {
-              console.error('Loan application failed:', err);
-              Swal.fire({
-                title: 'Error!',
-                text: 'Failed to submit the loan application. Please try again.',
-                icon: 'error',
-                confirmButtonText: 'OK',
-                backdrop: true
-              });
-            }
-          });
-        }).catch((error) => {
-          console.error('Error reading files:', error);
+    if (this.showOtherPurposeInput && this.loanForm.get('otherPurposeDescription')) {
+      loanData.purpose = this.loanForm.get('otherPurposeDescription')?.value;
+    }
+
+    Promise.all([
+      this.readFileAsBase64(this.aadharFile!),
+      this.readFileAsBase64(this.panFile!)
+    ]).then(([aadharBase64, panBase64]) => {
+      loanData.aadharCard = aadharBase64;
+      loanData.panCard = panBase64;
+
+      this.loanService.userApplyPersonalLoan(this.token, this.userId, loanData).subscribe({
+        next: (response) => {
+          console.log('Loan application successful:', response);
+          this.isSuccess = true;
+          this.initializeForm();
+          this.aadharFile = null;
+          this.panFile = null;
+          this.aadharInput.nativeElement.value = '';
+          this.panInput.nativeElement.value = '';
+        },
+        error: (err) => {
+          console.error('Loan application failed:', err);
           Swal.fire({
             title: 'Error!',
-            text: 'Failed to process the uploaded files. Please try again.',
+            text: 'Failed to submit the loan application. Please try again.',
             icon: 'error',
             confirmButtonText: 'OK',
             backdrop: true
           });
-        });
-      } else {
-        Swal.fire({
-          title: 'Error!',
-          text: 'Please upload both documents.',
-          icon: 'error',
-          confirmButtonText: 'OK',
-          backdrop: true
-        });
-      }
-    }
+        }
+      });
+    }).catch((error) => {
+      console.error('Error reading files:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to process the uploaded files. Please try again.',
+        icon: 'error',
+        confirmButtonText: 'OK',
+        backdrop: true
+      });
+    });
   }
 
   private readFileAsBase64(file: File): Promise<string> {

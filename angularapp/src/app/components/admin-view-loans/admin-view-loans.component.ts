@@ -38,8 +38,8 @@ export class AdminViewLoansComponent {
   itemsPerPage = 4;
   statusFilter = '';
   variantFilter = '';
-  amountFilter = 100000;
-  amountRange = 100000;
+  amountFilter = 1000000;
+  amountRange = 1000000;
   statusChart: any;
   amountChart: any;
 
