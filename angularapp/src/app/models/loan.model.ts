@@ -9,6 +9,7 @@ export class Loan {
     assignedManager?: User;
     interestRatePerAnnum?:number;
     tenure?:string;
+    businessType?: string;
     emiAmount?:number;
     dueDate?:Date;
     status?:"PENDING"|"APPROVED"|"REJECTED";

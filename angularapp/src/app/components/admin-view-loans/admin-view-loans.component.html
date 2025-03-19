@@ -27,7 +27,7 @@
         <label class="hologram-label">Amount Range:</label>
         <input type="range" class="cyber-slider" min="0" max="100000"
                [(ngModel)]="amountRange" (input)="updateAmountFilter($event)">
-        <span class="range-value">{{amountFilter | currency}}</span>
+        <span class="range-value">₹ {{amountFilter}}</span>
       </div>
     </div>
 
@@ -49,7 +49,7 @@
         <div class="card-body">
           <div class="data-row">
             <span class="data-label">Amount:</span>
-            <span class="data-value glowing-text">{{loan.loanAmount | currency}}</span>
+            <span class="data-value glowing-text">₹ {{loan.loanAmount}}</span>
           </div>
           <div class="data-row">
             <span class="data-label">Manager:</span>
@@ -88,7 +88,7 @@
                 </div>
                 <div class="detail-item">
                   <span class="detail-label">Loan Amount:</span>
-                  <span class="detail-value glowing-text">{{selectedLoan.loanAmount | currency}}</span>
+                  <span class="detail-value glowing-text">₹ {{selectedLoan.loanAmount}}</span>
                 </div>
                 <div class="detail-item">
                   <span class="detail-label">Purpose:</span>
@@ -100,7 +100,7 @@
                 </div>
                 <div class="detail-item">
                   <span class="detail-label">EMI Amount:</span>
-                  <span class="detail-value">{{selectedLoan.emiAmount | currency}}</span>
+                  <span class="detail-value">₹ {{selectedLoan.emiAmount}}</span>
                 </div>
               </div>
             </div>

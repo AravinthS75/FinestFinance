@@ -21,7 +21,7 @@ export class UserApplyPersonalLoanComponent implements OnInit {
   emiAmount: number = 0;
   eligibility: number = 0;
   userId: number | null = null;
-  interestRatePerAnnum: number = 11;
+  interestRatePerAnnum: number = 15;
   userData: string | null = null;
   token: string = '';
 
@@ -52,6 +52,16 @@ export class UserApplyPersonalLoanComponent implements OnInit {
     income: "Minimum income as specified by Bajaj Finserv: Meet the minimum monthly income criteria to qualify.",
     creditScore: "Good credit score required: A strong credit history improves your chances of approval and may get you better rates."
   };
+
+  documentsRequired: any = {
+    KYC_Documents: "KYC Documents: Aadhaar/ passport/ voter's ID/ driving license",
+    pan_Card: "PAN card",
+    emp_Id: "Employee ID card",
+    salary_Slip: "Slary slip of the last 3 months",
+    bank_Statement: "Bank account statements of the previous 3 months",
+    photo: "Real-time image / photograph",
+    ration_Card: "Ration card"
+  }
 
   applicationSteps: string[] = [
     "Fill out the online application form: Provide your personal, financial, and employment details accurately.",
@@ -84,6 +94,9 @@ export class UserApplyPersonalLoanComponent implements OnInit {
 
   ngOnInit(): void {
     this.calculateEMI();
+    this.loanForm.valueChanges.subscribe(() => {
+      this.calculateEMI();
+    });
 
     this.loanForm.get('purpose')?.valueChanges.subscribe(value => {
       this.showOtherPurposeInput = value === 'Other';
@@ -107,13 +120,13 @@ export class UserApplyPersonalLoanComponent implements OnInit {
     this.loanForm = this.fb.group({
       loanAmount: [25000, [
         Validators.required,
-        Validators.min(25000),
-        Validators.max(2000000)
+        Validators.min(20000),
+        Validators.max(5000000)
       ]],
       purpose: ['', Validators.required],
-      tenure: [1, [Validators.required, Validators.min(1), Validators.max(10)]],
-      aadhar: [null, [Validators.required]],  // Removed fileValidator
-      pancard: [null, [Validators.required]]  // Removed fileValidator
+      tenure: [1, [Validators.required, Validators.min(1), Validators.max(7)]],
+      aadhar: [null, [Validators.required]],
+      pancard: [null, [Validators.required]]
     });
   }
 
@@ -152,21 +165,21 @@ export class UserApplyPersonalLoanComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     const control = type === 'aadhar' ? this.loanForm.get('aadhar') : this.loanForm.get('pancard');
-  
+
     if (file) {
       const extension = file.name.split('.').pop()?.toLowerCase();
-      
+
       if (extension !== 'pdf') {
         control?.setErrors({ invalidFile: true });
         return;
       }
-  
+
       if (type === 'aadhar') {
         this.aadharFile = file;
       } else {
         this.panFile = file;
       }
-  
+
       control?.setErrors(null);
       control?.setValue(file.name);
     } else {
@@ -174,17 +187,17 @@ export class UserApplyPersonalLoanComponent implements OnInit {
       control?.markAsTouched();
     }
   }
-  
+
 
   onSubmit(): void {
     // Manual validation check
     let isValid = true;
-    
+
     if (!this.aadharFile) {
       this.loanForm.get('aadhar')?.setErrors({ required: true });
       isValid = false;
     }
-    
+
     if (!this.panFile) {
       this.loanForm.get('pancard')?.setErrors({ required: true });
       isValid = false;

@@ -36,8 +36,8 @@ export class ManagerViewLoanComponent {
   itemsPerPage = 4;
   statusFilter = '';
   variantFilter = '';
-  amountFilter = 100000;
-  amountRange = 100000;
+  amountFilter = 1000000;
+  amountRange = 1000000;
 
   constructor(private managerService: ManagerService, private loanService: LoanService) {
     this.userData = sessionStorage.getItem('authUser');
