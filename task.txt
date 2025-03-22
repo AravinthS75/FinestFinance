@@ -125,3 +125,11 @@ error: string = '';
             }
             );
         }
+
+
+
+add this code to css to hive horizontal overflow
+
+  body::-webkit-scrollbar {
+    display: none;
+  }

@@ -25,7 +25,7 @@ VALUES (3, 5000.00, 0.00, 'Debt Consolidation', 'Variant C', 6.0, '12 months', 4
 
 UPDATE loans SET user_id = 3 WHERE id = 1;
 
-UPDATE loans SET approver_name = 'Manager' WHERE id = 2;
+UPDATE loans SET manager_id = null and approver_name WHERE id = 2;
 
 INSERT INTO loans (user_id, loan_amount, pending_amount, purpose, loan_varient, interest_rate_per_annum, tenure, emi_amount, due_date, status, created_at, updated_at, approver_name)
 VALUES (3, 5000.00, 0.00, 'Debt Consolidation', 'Variant C', 6.0, '12 months', 450.00, '2023-09-01 00:00:00.000', 'APPROVED', '2023-01-15 00:00:00.000', '2023-01-16 00:00:00.000', 'Manager Two');
