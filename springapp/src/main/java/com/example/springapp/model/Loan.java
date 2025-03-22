@@ -10,8 +10,7 @@ import jakarta.persistence.Table;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "loans")
@@ -22,12 +21,12 @@ public class Loan {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonBackReference("user-loans")
+    @JsonIgnoreProperties({"loans", "managedLoans"})
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "manager_id")
-    @JsonBackReference("manager-loans")
+    @JsonIgnoreProperties({"loans", "managedLoans"})
     private User assignedManager;
 
     private Double loanAmount;
@@ -43,12 +42,16 @@ public class Loan {
     private Date updatedAt;
     private String approverName;
 
+    // Add fields for storing base64-encoded PDFs
+    private String aadharCard;
+    private String panCard;
+
     public Loan() {
     }
 
-    public Loan(Long id, User user, User assignedManager, Double loanAmount, Double pendingAmount, String purpose, 
-                String loanVarient, Double interestRatePerAnnum, String tenure, Double emiAmount, Date dueDate, 
-                String status, Date createdAt, Date updatedAt, String approverName) {
+    public Loan(Long id, User user, User assignedManager, Double loanAmount, Double pendingAmount, String purpose,
+                String loanVarient, Double interestRatePerAnnum, String tenure, Double emiAmount, Date dueDate,
+                String status, Date createdAt, Date updatedAt, String approverName, String aadharCard, String panCard) {
         this.id = id;
         this.user = user;
         this.assignedManager = assignedManager;
@@ -64,7 +67,11 @@ public class Loan {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.approverName = approverName;
+        this.aadharCard = aadharCard;
+        this.panCard = panCard;
     }
+
+    // Getters and setters for all fields, including aadharCard and panCard
 
     public Long getId() {
         return id;
@@ -177,11 +184,28 @@ public class Loan {
     public void setLoanAmount(Double loanAmount) {
         this.loanAmount = loanAmount;
     }
+
     public User getAssignedManager() {
         return assignedManager;
     }
 
     public void setAssignedManager(User assignedManager) {
         this.assignedManager = assignedManager;
-    }    
+    }
+
+    public String getAadharCard() {
+        return aadharCard;
+    }
+
+    public void setAadharCard(String aadharCard) {
+        this.aadharCard = aadharCard;
+    }
+
+    public String getPanCard() {
+        return panCard;
+    }
+
+    public void setPanCard(String panCard) {
+        this.panCard = panCard;
+    }
 }

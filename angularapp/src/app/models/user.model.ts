@@ -7,6 +7,7 @@ export interface User {
     name?: string;
     phone?: string;
     loans?: Loan[];
+    managedLoans?: Loan[];
     address?: string;
     profilePicture?: string;
     mimeType?: string;

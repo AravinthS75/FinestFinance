@@ -1,6 +1,5 @@
 <div *ngIf="isLoading && !error" class="loading-message">
-  <div class="loading-spinner"></div>
-  <p class="loading-text">Loading user details...</p>
+  <div class="loader">loading...</div>
 </div>
 <div class="users-container">
     <div class="user-card" *ngFor="let manager of managers">
@@ -24,8 +23,8 @@
     <div class="modal-content">
       <button class="close-btn" (click)="closeLoanModal()">X</button>
       <h2 class="loans-user-name">Loans for {{ selectedManager?.name }}</h2>
-      <ng-container *ngIf="selectedManager && selectedManager.loans && selectedManager.loans.length > 0; else noLoans">
-        <div class="loan-item" *ngFor="let loan of selectedManager.loans">
+      <ng-container *ngIf="selectedManager && selectedManager.managedLoans && selectedManager.managedLoans.length > 0; else noLoans">
+        <div class="loan-item" *ngFor="let loan of selectedManager.managedLoans">
           <p><strong><hr></strong></p>
           <p><strong>Purpose:</strong> {{ loan.purpose }}</p>
           <p><strong>Loan Amount:</strong> {{ loan.loanAmount }}</p>

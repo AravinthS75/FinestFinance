@@ -11,7 +11,7 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
@@ -21,6 +21,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name", unique = true)
     private String name;
     private String email;
     private String password;
@@ -28,11 +29,11 @@ public class User {
     private String role; // 'USER', 'MANAGER', 'ADMIN'
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonManagedReference("user-loans")
+    @JsonIgnoreProperties("user")
     private List<Loan> loans;
 
     @OneToMany(mappedBy = "assignedManager")
-    @JsonManagedReference("manager-loans")
+    @JsonIgnoreProperties("assignedManager")
     private List<Loan> managedLoans;
 
     private String address;

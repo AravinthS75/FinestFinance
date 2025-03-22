@@ -1,1 +1,231 @@
-<p>admin-view-loans works!</p>
+<div class="dashboard-container">
+
+    <h1 class="cyberpunk-heading">LOAN MANAGEMENT CONSOLE</h1>
+
+    <button class="cyber-button export-btn" (click)="exportToCSV()">
+        <i class="fas fa-file-export"></i> EXPORT CSV
+    </button>
+
+    <div class="filters-container neon-glow">
+        <div class="filter-group">
+            <label class="hologram-label">Status:</label>
+            <select class="cyber-input" [(ngModel)]="statusFilter">
+                <option value="">All</option>
+                <option *ngFor="let status of statusOptions" [value]="status">{{status}}</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label class="hologram-label">Variant:</label>
+            <select class="cyber-input" [(ngModel)]="variantFilter">
+                <option value="">All</option>
+                <option *ngFor="let variant of variantOptions" [value]="variant">{{variant}}</option>
+            </select>
+        </div>
+
+        <div class="filter-group">
+            <label class="hologram-label">Amount Range:</label>
+            <input type="range" class="cyber-slider" min="0" max="1000000" [(ngModel)]="amountRange"
+                (input)="updateAmountFilter($event)">
+            <span class="range-value">₹ {{amountFilter}}</span>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading && !error" class="loading-message">
+        <div class="loader">
+            <div data-glitch="Loading..." class="glitch">Loading...</div>
+        </div>
+    </div>
+
+    <div class="loan-grid">
+        <div *ngFor="let loan of displayedLoans" class="loan-card neon-glow" [@cardAnim]
+            (click)="openLoanDetails(loan)">
+            <div class="card-header">
+                <h3 class="loan-variant">{{loan.loanVarient}}</h3>
+                <span class="status-badge" [ngClass]="getStatusClass(loan.status)">
+                    {{loan.status}}
+                </span>
+            </div>
+
+            <div class="card-body">
+                <div class="data-row">
+                    <span class="data-label">Amount:</span>
+                    <span class="data-value glowing-text">₹ {{loan.loanAmount}}</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Manager:</span>
+                    <span class="data-value">{{loan.approverName}}</span>
+                </div>
+                <div class="data-row">
+                    <span class="data-label">Interest Rate:</span>
+                    <span class="data-value">{{loan.interestRatePerAnnum}}%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="selectedLoan" class="popup-overlay">
+        <div class="popup-content">
+            <!-- Close Button -->
+            <button class="close-btn" (click)="closeLoanDetails()">
+                <span class="close-icon">×</span>
+            </button>
+
+            <h2>Loan Details</h2>
+            <div class="split-container">
+                <!-- Left Side - Borrower & Loan Details -->
+                <div class="details-panel borrower-side">
+                    <div class="user-section">
+                        <img [src]="userProfilePicture" alt="Borrower Image" class="profile-image">
+                        <h3 class="cyber-text">{{selectedLoan.user?.name}}</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Email:</span>
+                                <span class="detail-value">{{selectedLoan.user?.email}}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Phone:</span>
+                                <span class="detail-value">{{selectedLoan.user?.phone}}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Loan Amount:</span>
+                                <span class="detail-value glowing-text">₹ {{selectedLoan.loanAmount}}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Purpose:</span>
+                                <span class="detail-value">{{selectedLoan.purpose}}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Tenure:</span>
+                                <span class="detail-value">{{selectedLoan.tenure}} months</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">EMI Amount:</span>
+                                <span class="detail-value">₹ {{selectedLoan.emiAmount}}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side - Approver Details -->
+                <div class="details-panel approver-side">
+                    <div class="approver-section">
+                        <img [src]="managerProfilePicture" alt="Approver Image" class="profile-image">
+                        <h3 class="cyber-text"
+                            [ngClass]="{'bounce-text': selectedLoan.approverName === 'Not Assigned Yet!'}">
+                            {{selectedLoan.approverName}}
+                        </h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <span class="detail-label">Email:</span>
+                                <span class="detail-value glowing-text">{{selectedLoan.assignedManager?.email}}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Phone:</span>
+                                <span class="detail-value glowing-text">{{selectedLoan.assignedManager?.phone}}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Interest Rate:</span>
+                                <span class="detail-value glowing-text">{{selectedLoan.interestRatePerAnnum}}% p.a</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Loan Variant:</span>
+                                <span class="detail-value">{{selectedLoan.loanVarient}}</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Status:</span>
+                                <span class="status-indicator {{getStatusClass(selectedLoan.status)}}">
+                                    {{selectedLoan.status}}
+                                </span>
+                            </div>
+                            <div class="detail-item1">
+                                <span class="detail-label1">Aadhar Card:</span>
+                                <button class="preview-btn" (click)="openDocumentPopup('aadhar')">
+                                    <span>preview</span>
+                                </button>
+                            </div>
+                            <div class="detail-item1">
+                                <span class="detail-label1">Pan Card:</span>
+                                <button class="preview-btn" (click)="openDocumentPopup('pan')">
+                                    <span>preview</span>
+                                </button>
+                            </div>
+                            <div *ngIf="!selectedLoan.assignedManager" class="assign-manager-section">
+                                <button class="cyber-button assign-btn" (click)="openManagerPopup()">
+                                    <i class="fas fa-user-plus"></i> ASSIGN MANAGER
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="showDocumentPopup" class="document-popup-overlay" (click)="closeDocumentPopup()">
+                <div class="document-popup-content" (click)="$event.stopPropagation()">
+                    <button class="close-btn" (click)="closeDocumentPopup()">
+                        <span class="close-icon">×</span>
+                    </button>
+                    <iframe *ngIf="selectedDocumentUrl" [src]="selectedDocumentUrl" width="100%"
+                        height="90%"></iframe>
+                        <div class="no-pdf-container" *ngIf="selectedDocumentUrl === null">
+                            <p class="no-pdf-message">DOCUMENT UNAVAILABLE</p>
+                        </div>
+                </div>
+            </div>
+
+            <!-- Manager Selection Popup -->
+            <div *ngIf="showManagerPopup" class="popup-overlay">
+                <div class="popup-content manager-select-popup">
+                    <button class="close-btn" (click)="showManagerPopup = false">
+                        <span class="close-icon">×</span>
+                    </button>
+
+                    <h2 class="cyber-text">SELECT MANAGER</h2>
+
+                    <div *ngIf="managerLoading" class="loader1">
+                        <span class="l">L</span>
+                        <span class="o">o</span>
+                        <span class="a">a</span>
+                        <span class="d">d</span>
+                        <span class="i">i</span>
+                        <span class="n">n</span>
+                        <span class="g">g</span>
+                        <span class="d1">.</span>
+                        <span class="d2">.</span>
+                    </div>
+                    <div class="manager-grid">
+                        <div *ngFor="let manager of managers" class="manager-card neon-glow">
+                            <div class="manager-image-container">
+                                <img [src]="manager.profilePicture || 'assets/images/default-profile.png'"
+                                    alt="Manager Image" class="manager-image">
+                            </div>
+                            <div class="manager-info">
+                                <h3>{{manager.name}}</h3>
+                                <p class="manager-email">{{manager.email}}</p>
+                                <p class="manager-phone">{{manager.phone}}</p>
+                            </div>
+                            <button class="cyber-button assign-btn" (click)="assignManager(manager.id)">
+                                <i class="fas fa-link"></i> ASSIGN
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="error" class="error-message">
+        ⚠️ {{ error }}
+    </div>
+
+    <div class="pagination-container">
+        <button class="cyber-button" (click)="previousPage()" [disabled]="currentPage === 1">
+            « PREV
+        </button>
+        <span class="page-indicator">PAGE {{currentPage}} / {{totalPages}}</span>
+        <button class="cyber-button" (click)="nextPage()" [disabled]="currentPage === totalPages">
+            NEXT »
+        </button>
+    </div>
+</div>

@@ -1,56 +1,62 @@
 <nav class="main-nav admin-nav">
   <div class="nav-container">
+    <!-- Brand Logo -->
     <div class="nav-brand">
       <a routerLink="/" class="logo-link">FinestFinance</a>
     </div>
 
-    <div class="nav-main">
+    <button class="hamburger-btn" (click)="toggleMobileMenu()">
+      {{ isMobileMenuOpen ? '✕' : '☰' }}
+    </button>
+
+    <div class="nav-main" [class.active]="isMobileMenuOpen">
       <div class="nav-group left">
+        <!-- Home Link -->
         <div class="nav-item">
           <a routerLink="/" class="nav-link">Home</a>
         </div>
 
         <!-- Loans Dropdown -->
         <div class="nav-item dropdown">
-          <div class="dropdown-trigger">
+          <div class="dropdown-trigger" (click)="toggleDropdown('loans')">
             <span class="nav-link">Loans</span>
             <span class="dropdown-arrow">▼</span>
           </div>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu" [class.show]="dropdownState['loans']">
             <a routerLink="admin/view-loans" class="dropdown-item">View Loans</a>
           </div>
         </div>
 
         <!-- Managers Dropdown -->
         <div class="nav-item dropdown">
-          <div class="dropdown-trigger">
+          <div class="dropdown-trigger" (click)="toggleDropdown('managers')">
             <span class="nav-link">Managers</span>
             <span class="dropdown-arrow">▼</span>
           </div>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu" [class.show]="dropdownState['managers']">
             <a routerLink="admin/view-managers" class="dropdown-item">View Managers</a>
           </div>
         </div>
 
         <!-- Users Dropdown -->
         <div class="nav-item dropdown">
-          <div class="dropdown-trigger">
+          <div class="dropdown-trigger" (click)="toggleDropdown('users')">
             <span class="nav-link">Users</span>
             <span class="dropdown-arrow">▼</span>
           </div>
-          <div class="dropdown-menu">
+          <div class="dropdown-menu" [class.show]="dropdownState['users']">
             <a routerLink="admin/view-users" class="dropdown-item">View Users</a>
           </div>
         </div>
 
         <!-- Profile Dropdown -->
         <div class="nav-item dropdown">
-          <div class="dropdown-trigger profile-container">
+          <div class="dropdown-trigger profile-container" (click)="toggleDropdown('profile')">
             <img [src]="userProfilePic" alt="Profile" class="profile-pic">
             <span class="nav-link">Profile</span>
             <span class="dropdown-arrow">▼</span>
           </div>
-          <div class="dropdown-menu right">
+          <div class="dropdown-menu right" [class.show]="dropdownState['profile']">
             <a routerLink="admin/dashboard" class="dropdown-item">View Profile</a>
             <a routerLink="admin/edit-profile" class="dropdown-item">Edit Profile</a>
             <a class="dropdown-item logout-link" (click)="logout()">Logout</a>

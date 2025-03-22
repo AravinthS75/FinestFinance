@@ -38,7 +38,6 @@ export class AdminViewManagersComponent {
     this.isLoading = true;
      this.adminService.getAllManagers(this.token).subscribe((data) => {
        this.managers = data;
-       console.log(this.managers);
        this.isLoading = false;
      },
      (errorResponse: HttpErrorResponse) => {

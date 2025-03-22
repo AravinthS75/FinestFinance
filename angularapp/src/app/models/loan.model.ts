@@ -6,12 +6,16 @@ export class Loan {
     loanAmount?:number;
     purpose?:string;
     loanVarient?:string;
+    assignedManager?: User;
     interestRatePerAnnum?:number;
     tenure?:string;
+    businessType?: string;
     emiAmount?:number;
     dueDate?:Date;
     status?:"PENDING"|"APPROVED"|"REJECTED";
     createdAt?:Date;
     updatedAt?:Date;
     approverName?:string;
+    aadharCard?: string;
+    panCard?: string;
 }

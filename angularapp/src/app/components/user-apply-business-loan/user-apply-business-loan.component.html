@@ -1,1 +1,157 @@
-<p>user-apply-business-loan works!</p>
+<div class="main-container">
+    <!-- Informational Content Section -->
+    <div class="content-container cyber-container">
+      <section class="cyber-section">
+        <h3 class="section-title neon-text">Why Choose Our Business Loan</h3>
+        <div class="loan-benefits">
+          <div *ngFor="let benefit of loanBenefits" class="loan-benefit-item">
+            <h4 class="benefit-title">{{ benefit.title }}</h4>
+            <p class="benefit-description">{{ benefit.description }}</p>
+          </div>
+        </div>
+      </section>
+  
+      <section class="cyber-section">
+        <h3 class="section-title neon-text">Features & Benefits</h3>
+        <ul class="feature-list">
+          <li *ngFor="let feature of features" class="feature-item">{{ feature }}</li>
+        </ul>
+      </section>
+  
+      <section class="cyber-section">
+        <h3 class="section-title neon-text">Eligibility Criteria</h3>
+        <div class="eligibility-details">
+          <p *ngFor="let key of objectKeys(eligibilityCriteria)" class="eligibility-item">
+            <span class="eligibility-label">{{ key | titlecase }}:</span>
+            <span class="eligibility-value">{{ eligibilityCriteria[key] }}</span>
+          </p>
+        </div>
+      </section>
+
+      <section class="cyber-section">
+        <h3 class="section-title neon-text">Documents Required</h3>
+        <div class="eligibility-details">
+            <p *ngFor="let key of objectKeys(documentsRequired)" class="eligibility-item">
+                <span class="eligibility-value">{{documentsRequired[key]}}</span>
+            </p>
+        </div>
+    </section>
+  
+      <section class="cyber-section">
+        <h3 class="section-title neon-text">How to Apply</h3>
+        <ol class="application-steps">
+          <li *ngFor="let step of applicationSteps" class="step-item">{{ step }}</li>
+        </ol>
+      </section>
+    </div>
+  
+    <!-- Loan Form Section -->
+    <div class="form-container cyber-container">
+      <h2 class="neon-title">APPLY FOR BUSINESS LOAN</h2>
+      <form [formGroup]="loanForm" (ngSubmit)="onSubmit()" class="cyber-form">
+        <div class="grid-container">
+          <div class="cyber-input">
+            <label class="hologram-label">Loan Amount (₹ 2 lakh - ₹ 75 lakh)</label>
+            <input type="number" formControlName="loanAmount" class="glow-input">
+            <div class="cyber-bar"></div>
+            <div *ngIf="loanForm.get('loanAmount')?.errors" class="error-message">
+              <span *ngIf="loanForm.get('loanAmount')?.hasError('required')">Required</span>
+              <span *ngIf="loanForm.get('loanAmount')?.hasError('min')">Min ₹2,00,000</span>
+              <span *ngIf="loanForm.get('loanAmount')?.hasError('max')">Max ₹75,00,000</span>
+            </div>
+          </div>
+  
+          <div class="cyber-input">
+            <label class="hologram-label">Type of Business</label>
+            <select formControlName="businessType" class="glow-input">
+              <option value="" disabled selected>Select Business Type</option>
+              <option *ngFor="let type of businessTypes" [value]="type">{{ type }}</option>
+            </select>
+            <div class="cyber-bar"></div>
+            <div *ngIf="loanForm.get('businessType')?.errors" class="error-message">
+              <span *ngIf="loanForm.get('businessType')?.hasError('required')">Business type is required</span>
+            </div>
+          </div>
+  
+          <div class="cyber-input">
+            <label class="hologram-label">Purpose</label>
+            <select formControlName="purpose" class="glow-input">
+              <option value="" disabled selected>Select Loan Purpose</option>
+              <option *ngFor="let purpose of loanPurposes" [value]="purpose">{{ purpose }}</option>
+            </select>
+            <div class="cyber-bar"></div>
+            <div *ngIf="loanForm.get('purpose')?.errors" class="error-message">
+              <span *ngIf="loanForm.get('purpose')?.hasError('required')">Purpose is required</span>
+            </div>
+          </div>
+  
+          <div class="cyber-input">
+            <label class="hologram-label">Collateral Available?</label>
+            <select formControlName="collateral" class="glow-input">
+              <option value="" disabled selected>Select</option>
+              <option *ngFor="let option of collateralOptions" [value]="option">{{ option }}</option>
+            </select>
+            <div class="cyber-bar"></div>
+            <div *ngIf="loanForm.get('collateral')?.errors" class="error-message">
+              <span *ngIf="loanForm.get('collateral')?.hasError('required')">Collateral information is required</span>
+            </div>
+          </div>
+  
+          <div class="cyber-input">
+            <label class="hologram-label">Tenure (Years)</label>
+            <input type="range" formControlName="tenure" min="1" max="5" class="cyber-range">
+            <div class="range-value">{{ loanForm.value.tenure || 5 }}</div>
+            <div class="cyber-bar"></div>
+          </div>
+  
+          <div class="cyber-input">
+            <label class="hologram-label">Aadhar Card (<span class="file-type">Pdf</span>)</label>
+            <input #aadharInput type="file" accept=".pdf" class="glow-input" (change)="onFileChange($event, 'aadhar')">
+            <div class="cyber-bar"></div>
+            <div *ngIf="loanForm.get('aadhar')?.errors" class="error-message">
+              <span *ngIf="loanForm.get('aadhar')?.hasError('required')">Required</span>
+              <span *ngIf="loanForm.get('aadhar')?.hasError('invalidFile')">Only PDF files allowed</span>
+            </div>
+          </div>
+  
+          <div class="cyber-input">
+            <label class="hologram-label">PAN Card (<span class="file-type">Pdf</span>)</label>
+            <input #panInput type="file" accept=".pdf" class="glow-input" (change)="onFileChange($event, 'pan')">
+            <div class="cyber-bar"></div>
+            <div *ngIf="loanForm.get('pancard')?.errors" class="error-message">
+              <span *ngIf="loanForm.get('pancard')?.hasError('required')">Required</span>
+              <span *ngIf="loanForm.get('pancard')?.hasError('invalidFile')">Only PDF files allowed</span>
+            </div>
+          </div>
+  
+          <div class="cyber-display">
+            <div class="display-segment">
+              <span class="segment-label">Estimated EMI</span>
+              <span class="segment-value neon-cyan"> {{ emiAmount | number:'1.0-0' }}Rs</span>
+            </div>
+            <div class="display-segment">
+              <span class="segment-label">Interest Rate</span>
+              <span class="segment-value neon-pink">{{ interestRatePerAnnum }}%</span>
+            </div>
+          </div>
+  
+          <button type="submit" [disabled]="!loanForm.valid" class="cyber-button">
+            <span class="cyber-text">SUBMIT APPLICATION</span>
+            <div class="cyber-loader"></div>
+          </button>
+        </div>
+      </form>
+      <div *ngIf="isSuccess" class="modern-success-message">
+        <button class="close-btn" (click)="closeSuccess()">×</button>
+        <div class="icon-wrapper">
+          <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <div class="text-wrapper">
+          <div class="title">Success!</div>
+          <div class="message">Loan application submitted successfully!</div>
+        </div>
+      </div>
+    </div>
+  </div>

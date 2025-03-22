@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Work on adding the loading animation in created working codes
+=======
+Work on adding the loading animation in created working codes(admin loading ccompleted)
+>>>>>>> origin/main
 
 Loading & error Html:
     <div *ngIf="isLoading && !error" class="loading-message">
