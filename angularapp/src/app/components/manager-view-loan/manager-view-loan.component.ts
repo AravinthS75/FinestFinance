@@ -6,6 +6,7 @@ import { AdminService } from '../../services/admin.service';
 import { LoanService } from '../../services/loan.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ManagerService } from '../../services/manager.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-manager-view-loan',
@@ -29,6 +30,7 @@ export class ManagerViewLoanComponent {
   userData: string | null = null;
   managerName: string | null = null;
   token: string = '';
+  showAllDetailsPopup: boolean = false;
   error: string = '';
   userProfilePicture: string | ArrayBuffer | null = 'assets/images/default-profile.png';
   isLoading: boolean = false;
@@ -36,10 +38,25 @@ export class ManagerViewLoanComponent {
   itemsPerPage = 4;
   statusFilter = '';
   variantFilter = '';
-  amountFilter = 1000000;
-  amountRange = 1000000;
+  amountFilter = 100000000;
+  amountRange = 100000000;
+  showDocumentPopup = false;
+  selectedDocumentUrl: SafeResourceUrl | null = null;
+  selectedDocumentType: 'aadhar' | 'pan' | null = null;
 
-  constructor(private managerService: ManagerService, private loanService: LoanService) {
+  rejectionReasons: string[] = [
+    "Insufficient Income",
+    "Poor Credit History",
+    "Incomplete Documentation",
+    "High Debt-to-Income Ratio",
+    "Other"
+  ];
+
+  showRejectionPopup: boolean = false;
+  selectedRejectionReason: string | null = null;
+
+  constructor(private managerService: ManagerService, private loanService: LoanService,
+    private sanitizer: DomSanitizer) {
     this.userData = sessionStorage.getItem('authUser');
     if (this.userData) {
       const userDetails = JSON.parse(this.userData);
@@ -102,11 +119,9 @@ export class ManagerViewLoanComponent {
     this.selectedLoan = null;
   }
 
-  loanAction(data: string): void {
+  approveLoan(): void {
     if (this.selectedLoan?.id) {
-      const action$ = data === 'approve' 
-        ? this.managerService.updateLoanStatus(this.token, this.selectedLoan.id, 'APPROVED')
-        : this.managerService.updateLoanStatus(this.token, this.selectedLoan.id, 'REJECTED');
+      const action$ = this.managerService.updateLoanStatus(this.token, this.selectedLoan.id, 'APPROVED', "");
   
       action$.subscribe({
         next: (updatedLoan) => {
@@ -147,6 +162,14 @@ export class ManagerViewLoanComponent {
     return status ? status.toLowerCase() : 'unknown';
   }
 
+  openAllDetailsPopup() {
+    this.showAllDetailsPopup = true;
+  }
+
+  closeAllDetailsPopup() {
+      this.showAllDetailsPopup = false;
+  }
+
   exportToCSV() {
     let csvContent = 'Borrower Name, Borrower Email, Borrower Phone, Loan Variant, Status, Loan Amount, Purpose, Approver Name, Interest Rate, Tenure, EMI Ammount\n';
     this.loans.forEach(loan => {
@@ -156,4 +179,116 @@ export class ManagerViewLoanComponent {
     saveAs(blob, 'loans_data.csv');
   }
 
+  openDocumentPopup(type: 'aadhar' | 'pan') {
+    this.selectedDocumentType = type;
+    console.log('Selected Document Type:', type);
+    console.log('Aadhar Card Data:', this.selectedLoan?.aadharCard);
+    console.log('Pan Card Data:', this.selectedLoan?.panCard);
+  
+    this.selectedDocumentUrl = type === 'aadhar' 
+        ? this.getSafeAadharUrl() 
+        : this.getSafePanUrl();
+    
+    console.log('Selected Document URL:', this.selectedDocumentUrl);
+    this.showDocumentPopup = true;
+  }
+  
+  closeDocumentPopup() {
+    this.showDocumentPopup = false;
+    this.selectedDocumentUrl = null;
+    this.selectedDocumentType = null;
+  }
+  
+  getSafeAadharUrl(): SafeResourceUrl | null {
+    if (this.selectedLoan?.aadharCard) {
+        const pdfData = this.selectedLoan.aadharCard;
+        const blob = this.base64ToBlob(pdfData, 'application/pdf');
+        const url = URL.createObjectURL(blob);
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+    return null;
+  }
+  
+  getSafePanUrl(): SafeResourceUrl | null {
+    if (this.selectedLoan?.panCard) {
+        const pdfData = this.selectedLoan.panCard;
+        const blob = this.base64ToBlob(pdfData, 'application/pdf');
+        const url = URL.createObjectURL(blob);
+        return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+    return null;
+  }
+  
+  base64ToBlob(base64Data: string, contentType: string): Blob {
+    const base64WithoutPrefix = base64Data.split(',')[1] || base64Data;
+    const byteCharacters = atob(base64WithoutPrefix);
+    const byteArrays = [];
+  
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+        const slice = byteCharacters.slice(offset, offset + 512);
+  
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+  
+        const byteArray = new Uint8Array(byteNumbers);
+        byteArrays.push(byteArray);
+    }
+  
+    return new Blob(byteArrays, { type: contentType });
+  }
+  
+// Helper function to download base64 as PDF
+downloadAadharPdf() {
+    if (this.selectedLoan?.aadharCard) {
+        const pdfData = this.selectedLoan.aadharCard;
+        const blob = this.base64ToBlob(pdfData, 'application/pdf');
+        saveAs(blob, 'aadhar_card.pdf');
+    }
+}
+
+downloadPanPdf() {
+    if (this.selectedLoan?.panCard) {
+        const pdfData = this.selectedLoan.panCard;
+        const blob = this.base64ToBlob(pdfData, 'application/pdf');
+        saveAs(blob, 'pan_card.pdf');
+    }
+}
+
+openRejectionPopup() {
+  this.showRejectionPopup = true;
+  this.selectedRejectionReason = null;
+}
+
+closeRejectionPopup() {
+  this.showRejectionPopup = false;
+  this.selectedRejectionReason = null;
+}
+
+// Method to select a rejection reason
+selectRejectionReason(reason: string) {
+  this.selectedRejectionReason = reason;
+}
+
+confirmRejection() {
+  if (this.selectedRejectionReason && this.selectedLoan?.id) {
+    this.managerService.updateLoanStatus(this.token, this.selectedLoan.id, 'REJECTED', this.selectedRejectionReason)
+      .subscribe({
+        next: (updatedLoan) => {
+          const index = this.loans.findIndex(l => l.id === updatedLoan.id);
+          if (index > -1) {
+            this.loans[index] = updatedLoan;
+          }
+          this.closeRejectionPopup();
+          this.selectedLoan = null;
+          this.ngOnInit();
+        },
+        error: (err) => {
+          console.error('Error rejecting loan:', err);
+          this.error = 'Failed to reject the loan';
+        }
+      });
+  }
+}
 }

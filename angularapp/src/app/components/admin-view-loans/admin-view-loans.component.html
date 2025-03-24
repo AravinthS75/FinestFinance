@@ -25,7 +25,7 @@
 
         <div class="filter-group">
             <label class="hologram-label">Amount Range:</label>
-            <input type="range" class="cyber-slider" min="0" max="1000000" [(ngModel)]="amountRange"
+            <input type="range" class="cyber-slider" min="0" max="100000000" [(ngModel)]="amountRange"
                 (input)="updateAmountFilter($event)">
             <span class="range-value">₹ {{amountFilter}}</span>
         </div>
@@ -102,6 +102,82 @@
                             <div class="detail-item">
                                 <span class="detail-label">EMI Amount:</span>
                                 <span class="detail-value">₹ {{selectedLoan.emiAmount}}</span>
+                            </div>
+                        </div>
+                        <button class="cyber-button view-details-btn" (click)="openAllDetailsPopup()">
+                            <i class="fas fa-info-circle"></i> VIEW ALL DETAILS
+                        </button>
+                    </div>
+                </div>
+
+                <div *ngIf="showAllDetailsPopup" class="popup-overlay">
+                    <div class="popup-content">
+                        <button class="close-btn" (click)="closeAllDetailsPopup()">
+                            <span class="close-icon">×</span>
+                        </button>
+                        <h2>All Loan Details</h2>
+                        <div class="all-details-grid">
+                            <div *ngIf="selectedLoan.id" class="detail-item">
+                                <span class="detail-label">Loan ID:</span>
+                                <span class="detail-value">{{selectedLoan.id}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.loanAmount" class="detail-item">
+                                <span class="detail-label">Loan Amount:</span>
+                                <span class="detail-value">₹ {{selectedLoan.loanAmount}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.purpose" class="detail-item">
+                                <span class="detail-label">Purpose:</span>
+                                <span class="detail-value">{{selectedLoan.purpose}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.loanVarient" class="detail-item">
+                                <span class="detail-label">Loan Variant:</span>
+                                <span class="detail-value">{{selectedLoan.loanVarient}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.propertyType" class="detail-item">
+                                <span class="detail-label">Property Type:</span>
+                                <span class="detail-value">{{selectedLoan.propertyType}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.employmentType" class="detail-item">
+                                <span class="detail-label">Employment Type:</span>
+                                <span class="detail-value">{{selectedLoan.employmentType}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.businessType" class="detail-item">
+                                <span class="detail-label">Business Type:</span>
+                                <span class="detail-value">{{selectedLoan.businessType}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.interestRatePerAnnum" class="detail-item">
+                                <span class="detail-label">Interest Rate:</span>
+                                <span class="detail-value">{{selectedLoan.interestRatePerAnnum}}% p.a</span>
+                            </div>
+                            <div *ngIf="selectedLoan.tenure" class="detail-item">
+                                <span class="detail-label">Tenure:</span>
+                                <span class="detail-value">{{selectedLoan.tenure}} months</span>
+                            </div>
+                            <div *ngIf="selectedLoan.emiAmount" class="detail-item">
+                                <span class="detail-label">EMI Amount:</span>
+                                <span class="detail-value">₹ {{selectedLoan.emiAmount}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.dueDate" class="detail-item">
+                                <span class="detail-label">Due Date:</span>
+                                <span class="detail-value">{{selectedLoan.dueDate | date}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.status" class="detail-item">
+                                <span class="detail-label">Status:</span>
+                                <span class="status-indicator {{getStatusClass(selectedLoan.status)}}">
+                                    {{selectedLoan.status}}
+                                </span>
+                            </div>
+                            <div *ngIf="selectedLoan.createdAt" class="detail-item">
+                                <span class="detail-label">Created At:</span>
+                                <span class="detail-value">{{selectedLoan.createdAt | date}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.updatedAt" class="detail-item">
+                                <span class="detail-label">Updated At:</span>
+                                <span class="detail-value">{{selectedLoan.updatedAt | date}}</span>
+                            </div>
+                            <div *ngIf="selectedLoan.rejectReason" class="detail-item">
+                                <span class="detail-label">Reject Reason:</span>
+                                <span class="detail-value">{{selectedLoan.rejectReason}}</span>
                             </div>
                         </div>
                     </div>

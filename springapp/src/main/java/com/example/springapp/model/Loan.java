@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Column;
+
 
 import java.util.Date;
 
@@ -33,16 +35,20 @@ public class Loan {
     private Double pendingAmount;
     private String purpose;
     private String loanVarient;
+    private String propertyType;
+    private String employmentType;
+    private String businessType;
     private Double interestRatePerAnnum;
     private String tenure;
+    @Column(name = "reject_reason")
+    private String rejectReason;
     private Double emiAmount;
     private Date dueDate;
-    private String status; // 'PENDING', 'APPROVED', 'REJECTED'
+    private String status;
     private Date createdAt;
     private Date updatedAt;
     private String approverName;
 
-    // Add fields for storing base64-encoded PDFs
     private String aadharCard;
     private String panCard;
 
@@ -50,7 +56,8 @@ public class Loan {
     }
 
     public Loan(Long id, User user, User assignedManager, Double loanAmount, Double pendingAmount, String purpose,
-                String loanVarient, Double interestRatePerAnnum, String tenure, Double emiAmount, Date dueDate,
+                String loanVarient, String propertyType, String employmentType, String businessType,
+                Double interestRatePerAnnum, String tenure, String rejectReason, Double emiAmount, Date dueDate,
                 String status, Date createdAt, Date updatedAt, String approverName, String aadharCard, String panCard) {
         this.id = id;
         this.user = user;
@@ -59,8 +66,12 @@ public class Loan {
         this.pendingAmount = pendingAmount;
         this.purpose = purpose;
         this.loanVarient = loanVarient;
+        this.propertyType = propertyType;
+        this.employmentType = employmentType;
+        this.businessType = businessType;
         this.interestRatePerAnnum = interestRatePerAnnum;
         this.tenure = tenure;
+        this.rejectReason = rejectReason;
         this.emiAmount = emiAmount;
         this.dueDate = dueDate;
         this.status = status;
@@ -70,8 +81,6 @@ public class Loan {
         this.aadharCard = aadharCard;
         this.panCard = panCard;
     }
-
-    // Getters and setters for all fields, including aadharCard and panCard
 
     public Long getId() {
         return id;
@@ -207,5 +216,37 @@ public class Loan {
 
     public void setPanCard(String panCard) {
         this.panCard = panCard;
+    }
+
+    public String getPropertyType() {
+        return propertyType;
+    }
+
+    public void setPropertyType(String propertyType) {
+        this.propertyType = propertyType;
+    }
+
+    public String getEmploymentType() {
+        return employmentType;
+    }
+
+    public void setEmploymentType(String employmentType) {
+        this.employmentType = employmentType;
+    }
+
+    public String getBusinessType() {
+        return businessType;
+    }
+
+    public void setBusinessType(String businessType) {
+        this.businessType = businessType;
+    }
+
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
     }
 }

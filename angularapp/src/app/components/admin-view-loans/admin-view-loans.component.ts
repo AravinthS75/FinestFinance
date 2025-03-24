@@ -27,6 +27,7 @@ export class AdminViewLoansComponent implements OnInit {
     loanUser: any = {};
     selectedLoan: Loan | null = null;
     showManagerPopup = false;
+    showAllDetailsPopup: boolean = false;
     managers: any[] = [];
     managerLoading: boolean = false;
     userData: string | null = null;
@@ -39,8 +40,8 @@ export class AdminViewLoansComponent implements OnInit {
     itemsPerPage = 4;
     statusFilter = '';
     variantFilter = '';
-    amountFilter = 1000000;
-    amountRange = 1000000;
+    amountFilter = 100000000;
+    amountRange = 100000000;
     statusChart: any;
     amountChart: any;
     showDocumentPopup = false;
@@ -62,6 +63,7 @@ export class AdminViewLoansComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        if(this.loans.length==0)
         this.isLoading = true;
         this.adminService.getAllLoans(this.token).subscribe(
             (data) => {
@@ -146,6 +148,14 @@ export class AdminViewLoansComponent implements OnInit {
         this.showDocumentPopup = false;
         this.selectedDocumentUrl = null;
         this.selectedDocumentType = null;
+    }
+
+    openAllDetailsPopup() {
+        this.showAllDetailsPopup = true;
+    }
+
+    closeAllDetailsPopup() {
+        this.showAllDetailsPopup = false;
     }
     
     assignManager(managerId: number) {
@@ -244,7 +254,6 @@ export class AdminViewLoansComponent implements OnInit {
         return new Blob(byteArrays, { type: contentType });
     }
 
-    // Helper function to download base64 as PDF
     downloadAadharPdf() {
         if (this.selectedLoan?.aadharCard) {
             const pdfData = this.selectedLoan.aadharCard;

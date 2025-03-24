@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import com.example.springapp.config.JwtUtils;
 import com.example.springapp.model.Loan;
 import com.example.springapp.service.LoanServiceImpl;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 
@@ -62,13 +59,22 @@ public class LoanController {
         return ResponseEntity.status(403).body("Only Admin has access!");
     }
 
-    @PatchMapping("/manager/{loanId}/status") // manager alone
-    public ResponseEntity<?> updateLoanStatus(@RequestHeader("Authorization") String authHeader, @PathVariable int loanId, @RequestBody Map<String, String> updates) {
-        return ResponseEntity.status(200).body(loanService.updateLoanStatus(loanId, updates.get("status")));
+    @PatchMapping("/manager/{loanId}/status")
+    public ResponseEntity<?> updateLoanStatus(@RequestHeader("Authorization") String authHeader,
+            @PathVariable int loanId, @RequestBody Map<String, String> updates) {
+        String status = updates.get("status");
+        String reason = updates.get("rejectReason");
+        return ResponseEntity.status(200).body(loanService.updateLoanStatus(loanId, status, reason));
     }
 
     @PutMapping("/assign-manager/{userId}/{loanId}/{managerId}")
     public ResponseEntity<?> assignManager(@PathVariable int userId, @PathVariable int loanId, @PathVariable int managerId) {
         return ResponseEntity.status(200).body(loanService.setLoanApprover(userId, loanId, managerId));
     }
+
+    @PutMapping("/pay-emi/{loanId}")
+    public ResponseEntity<?> payEmi(@PathVariable int loanId, @RequestHeader("Authorization") String authHeader) {
+        return ResponseEntity.ok(loanService.processEmiPayment(loanId));
+    }
+
 }

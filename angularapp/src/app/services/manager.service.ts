@@ -2,12 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Loan } from '../models/loan.model';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManagerService {
 
+  public apiUrl = "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api/admin";
   public loanUrl = "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api/loans";
 
   constructor(private http: HttpClient) { }
@@ -22,17 +24,28 @@ export class ManagerService {
   }
 
 
-  updateLoanStatus(token: string, loanId: number, status: string): Observable<Loan> {
+  updateLoanStatus(token: string, loanId: number, status: string, reason: string): Observable<Loan> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
     });
 
     const JSONstatus = {
-      "status" : status
-    }
+        status: status,
+        rejectReason: reason
+    };
 
     return this.http.patch<Loan>(`${this.loanUrl}/manager/${loanId}/status`, JSONstatus, { headers });
-}
+  }
+
+  getAllUsers(token: string): Observable<User[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+  });
+
+  return this.http.get<User[]>(`${this.apiUrl}/all-users`, { headers });
+  }
+
   
 }

@@ -1,193 +1,197 @@
 /* home-loan-description.component.css */
 :root {
-    --primary-blue: #0a1f44;
-    --accent-blue: #1e88e5;
-    --gold: #ffc107;
-    --white: #ffffff;
-    --light-bg: #f8f9fa;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  }
-  
-  .home-loan-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    font-family: 'Arial', sans-serif;
-  }
-  
-  /* Hero Section */
-  .hero-section {
-    background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
-    color: var(--white);
-    padding: 6rem 2rem;
-    border-radius: 15px;
-    margin: 2rem 0;
-    text-align: center;
-  }
-  
-  .hero-title {
-    font-size: 3.5rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
-    opacity: 0.9;
-  }
+  --primary-blue: #0a1f44;
+  --accent-blue: #1e88e5;
+  --gold: #ffc107;
+  --white: #ffffff;
+  --light-bg: #f8f9fa;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
 
-  .cta-button {
-    background: var(--gold);
-    color: var(--primary-blue);
-    padding: 1rem 3rem;
-    border-radius: 30px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.home-loan-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+  color: var(--white);
+  padding: 6rem 2rem;
+  border-radius: 15px;
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.cta-button {
+  background: var(--gold);
+  color: var(--primary-blue);
+  padding: 1rem 3rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+}
+
+/* Features Section */
+.features-section {
+  margin: 4rem 0;
+}
+
+.features-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.feature-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* EMI Calculator */
+.calculator-section {
+  margin: 4rem 0;
+}
+
+.calculator-card {
+  background: var(--white);
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.calculator-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+.emi-amount {
+  font-size: 2.5rem;
+  color: var(--accent-blue);
+  margin: 1rem 0;
+}
+
+/* Rates Section */
+.rates-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.rate-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.rate-badge {
+  background: var(--gold);
+  color: var(--primary-blue);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  display: inline-block;
+  margin: 1rem 0;
+  font-weight: 600;
+}
+
+/* FAQ Section */
+.faq-container {
+  background: var(--white);
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.faq-item {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-answer {
+  padding-top: 1rem;
+  color: #666;
+}
+
+/* Animations */
+.animate {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .cta-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
-  }
-  
-  /* Features Section */
-  .features-section {
-    margin: 4rem 0;
-  }
-  
-  .features-grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  }
-  
-  .feature-card {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    text-align: center;
-    transition: transform 0.3s ease;
-  }
-  
-  .feature-card:hover {
-    transform: translateY(-10px);
-  }
-  
-  .feature-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-  
-  /* EMI Calculator */
-  .calculator-section {
-    margin: 4rem 0;
+}
+
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.5rem;
   }
   
   .calculator-card {
-    background: var(--white);
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    padding: 2rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    grid-template-columns: 1fr;
   }
-  
-  .calculator-form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-  
-  input[type="range"] {
-    width: 100%;
-  }
-  
-  .emi-amount {
-    font-size: 2.5rem;
-    color: var(--accent-blue);
-    margin: 1rem 0;
-  }
-  
-  /* Rates Section */
-  .rates-grid {
-    display: grid;
-    gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  }
-  
-  .rate-card {
-    background: var(--white);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-    text-align: center;
-  }
-  
-  .rate-badge {
-    background: var(--gold);
-    color: var(--primary-blue);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    display: inline-block;
-    margin: 1rem 0;
-    font-weight: 600;
-  }
-  
-  /* FAQ Section */
-  .faq-container {
-    background: var(--white);
-    border-radius: 15px;
-    box-shadow: var(--shadow);
-  }
-  
-  .faq-item {
-    padding: 1.5rem;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-  }
-  
-  .faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .faq-answer {
-    padding-top: 1rem;
-    color: #666;
-  }
-  
-  /* Animations */
-  .animate {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.6s ease forwards;
-  }
-  
-  @keyframes fadeInUp {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .hero-title {
-      font-size: 2.5rem;
-    }
-    
-    .calculator-card {
-      grid-template-columns: 1fr;
-    }
-  }
+}

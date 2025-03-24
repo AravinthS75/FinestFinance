@@ -4,15 +4,10 @@
   background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
   min-height: 100vh;
   color: #f0f0f0;
-  overflow-y: auto; /* Enable vertical scrolling */
-  overflow-x: hidden; /* Hide horizontal overflow */
 }
 
-body, html {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: hidden;
+body::-webkit-scrollbar {
+  display: none;
 }
 
 .cyberpunk-heading {
@@ -259,16 +254,13 @@ body, html {
   transform: scale(0.9);
   animation: scaleUp 0.5s ease-in-out forwards;
   max-height: 90vh;
-  overflow-y: auto; /* Enables scrolling */
-  overflow-x: hidden; /* Hides horizontal scrolling */
-  scrollbar-width: none; /* Hides scrollbar in Firefox */
-  -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+  overflow-y: auto;
 }
 
-/* Hide scrollbar for Webkit-based browsers */
 .popup-content::-webkit-scrollbar {
   display: none;
 }
+
 
 .popup-content h2 {
   margin-bottom: 1rem;
@@ -1058,7 +1050,7 @@ body, html {
   margin-top: 46%;
   padding: 1.5rem;
   width: 80%;
-  border:  3px solid #ff0033;
+  border: 3px solid #ff0033;
   border-radius: 8px;
   background: linear-gradient(45deg, #1a1a1a 0%, #0d0d0d 100%);
   box-shadow: 0 0 25px rgba(255, 0, 51, 0.4),
@@ -1198,4 +1190,25 @@ body, html {
   100% {
     clip-path: polygon(0 50%, 100% 50%, 100% 70%, 0 70%);
   }
+}
+
+.view-details-btn {
+  margin-top: 1rem;
+  background: linear-gradient(45deg, #ff00ff, #0066ff);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  margin-left: 17%;
+  transition: all 0.3s ease;
+}
+
+.view-details-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+.all-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }

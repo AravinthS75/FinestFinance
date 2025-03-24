@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -98,7 +99,12 @@ import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
     FormsModule,
     CommonModule,
     SweetAlert2Module.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000, // Toast will close after 3 seconds
+      positionClass: 'toast-top-right', // Toast position
+      preventDuplicates: true, // Prevent duplicate toasts
+    })
   ],
   providers: [
     UserStoreService,

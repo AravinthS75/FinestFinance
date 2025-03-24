@@ -45,4 +45,19 @@ export class LoanService {
     });
     return this.http.get<any[]>(`${this.apiUrl}`, { headers });
   }
+
+  getLoansByUserId(token: string, userId: number): Observable<Loan[]> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.get<Loan[]>(`${this.loanUrl}/user/${userId}`, { headers });
+  }
+
+  payEmi(token: string, loanId: number): Observable<Loan> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+    return this.http.put<Loan>(`${this.loanUrl}/pay-emi/${loanId}`, null, { headers });
+  }
+  
 }

@@ -12,6 +12,10 @@
     --glass-bg: rgba(255, 255, 255, 0.1);
 }
 
+body::-webkit-scrollbar {
+    display: none;
+} 
+
 .register-wrapper {
     min-height: 100vh;
     display: flex;

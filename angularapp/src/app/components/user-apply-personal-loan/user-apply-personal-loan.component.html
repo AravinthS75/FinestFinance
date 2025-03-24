@@ -61,6 +61,17 @@
                   </div>
               </div>
               <div class="cyber-input">
+                <label class="hologram-label">Employment Type</label>
+                <select formControlName="employmentType"  class="glow-input">
+                  <option value="" disabled selected>Select Employment Type</option>
+                  <option *ngFor="let type of employmentTypes" [value]="type">{{ type }}</option>
+                </select>
+                <div class="cyber-bar"></div>
+                <div *ngIf="loanForm.get('employmentType')?.errors" class="error-message">
+                  <span *ngIf="loanForm.get('employmentType')?.hasError('required')">Employment type is required</span>
+                </div>
+              </div>
+              <div class="cyber-input">
                   <label class="hologram-label">Purpose</label>
                   <select formControlName="purpose" class="glow-input">
                     <option value="" disabled selected>Select Loan Purpose</option>

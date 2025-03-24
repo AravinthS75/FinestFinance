@@ -16,6 +16,9 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 
+import java.time.temporal.ChronoUnit;
+
+
 @Service
 public class LoanServiceImpl implements LoanService{
     @Autowired
@@ -42,13 +45,12 @@ public class LoanServiceImpl implements LoanService{
 
             loan.setStatus("PENDING");
             loan.setUser(user);
-            loan.setPendingAmount(loan.getLoanAmount());
+            loan.setPendingAmount(loan.getEmiAmount()*Integer.parseInt(loan.getTenure()));
             loan.setInterestRatePerAnnum(loan.getInterestRatePerAnnum() != null ? loan.getInterestRatePerAnnum() : 12.5);
             loan.setEmiAmount(loan.getEmiAmount());
             loan.setLoanVarient(loan.getLoanVarient());
             loan.setPurpose(loan.getPurpose());
 
-            // Set the base64-encoded Aadhar and PAN cards
             loan.setAadharCard(loan.getAadharCard());
             loan.setPanCard(loan.getPanCard());
 
@@ -73,24 +75,63 @@ public class LoanServiceImpl implements LoanService{
     }
 
     public List<Loan> getLoansByUserId(Long userId) {
-        return loanRepository.findByUserId(userId);
+        List<Loan> loans = loanRepository.findByUserId(userId);
+        LocalDate currentDate = LocalDate.now();
+        
+        loans.forEach(loan -> {
+            if (loan.getPendingAmount() == null) {
+                loan.setPendingAmount(0.0);
+            }
+            if ("APPROVED".equals(loan.getStatus())) {
+                Date dueDate = loan.getDueDate();
+                if (dueDate != null) {
+                    LocalDate dueLocalDate = dueDate.toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+    
+                    if (currentDate.isAfter(dueLocalDate)) {
+                        long monthsOverdue = ChronoUnit.MONTHS.between(
+                            dueLocalDate, 
+                            currentDate
+                        );
+                        
+                        double penalty = loan.getEmiAmount() * 0.10 * monthsOverdue;
+                        
+                        loan.setPendingAmount(
+                            loan.getPendingAmount() + penalty
+                        );
+                    }
+                }
+            }
+        });
+        
+        return loans;
     }
 
     public List<Loan> getAllLoans() {
         return loanRepository.findAll();
     }
 
-    public Loan updateLoanStatus(int loanId, String status) {
+    public Loan updateLoanStatus(int loanId, String status, String rejectReason) {
         Loan loan = loanRepository.findById(loanId).orElseThrow();
         loan.setStatus(status);
+    
+        if ("REJECTED".equals(status)) {
+            loan.setRejectReason(rejectReason);
+        } else {
+            loan.setRejectReason(null);
+        }
+    
         LocalDate currentDate = LocalDate.now();
         Date date = Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
         loan.setUpdatedAt(date);
-        if(status.equals("APPROVED")){
+    
+        if ("APPROVED".equals(status)) {
             LocalDate dueDate = currentDate.plusMonths(1);
             Date dueDateConverted = Date.from(dueDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
             loan.setDueDate(dueDateConverted);
         }
+    
         return loanRepository.save(loan);
     }
 
@@ -120,4 +161,49 @@ public class LoanServiceImpl implements LoanService{
         user = userRepository.save(user);
         return savedLoan;
     }
+
+    public Loan processEmiPayment(int loanId) {
+        Loan loan = loanRepository.findById(loanId).orElseThrow(() -> new RuntimeException("Loan not found"));
+    
+        if (!"APPROVED".equals(loan.getStatus())) {
+            throw new RuntimeException("Loan is not approved");
+        }
+    
+        LocalDate currentDate = LocalDate.now();
+    
+        // If due date is null, set it to one month from now
+        if (loan.getDueDate() == null) {
+            loan.setDueDate(Date.from(currentDate.plusMonths(1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        }
+    
+        LocalDate dueDateLocal = loan.getDueDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    
+        // Calculate penalty if EMI is overdue
+        if (currentDate.isAfter(dueDateLocal)) {
+            long monthsOverdue = ChronoUnit.MONTHS.between(dueDateLocal, currentDate);
+            double penalty = loan.getEmiAmount() * 0.10 * monthsOverdue;
+            loan.setPendingAmount(loan.getPendingAmount() - (loan.getEmiAmount() + penalty));
+        } else {
+            loan.setPendingAmount(loan.getPendingAmount() - loan.getEmiAmount());
+        }
+    
+        // Update due date to the next month
+        LocalDate newDueDate = dueDateLocal.plusMonths(1);
+        loan.setDueDate(Date.from(newDueDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+    
+        // Check if the loan is completed
+        long tenureMonths = Long.parseLong(loan.getTenure().split(" ")[0]);
+        long monthsPaid = ChronoUnit.MONTHS.between(
+            loan.getCreatedAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+            newDueDate
+        );
+    
+        if (monthsPaid >= tenureMonths || loan.getPendingAmount() <= 0) {
+            loan.setStatus("COMPLETED");
+        }
+    
+        loan.setUpdatedAt(new Date());
+        return loanRepository.save(loan);
+    }    
+
 }

@@ -1,330 +1,334 @@
 :root {
-    --primary-red: #FF3B3F; /* Vibrant red */
-    --accent-yellow: #FFD700; /* Gold */
-    --primary-blue: #0a1f44;
-    --accent-blue: #1e88e5;
-    --gold: #ffc107;
-    --white: #ffffff;
-    --light-bg: #f8f9fa;
-    --neon-green: #39FF14; /* Neon green */
-    --dark-bg: #1A1A1A; /* Dark background */
-    --glass-bg: rgba(255, 255, 255, 0.1);
-    --white: #ffffff;
-    --black: #000000;
-  }
-  
-  /* General Styles */
-  .bike-loan-container {
-    font-family: 'Poppins', sans-serif;
-    color: var(--white);
-    background: var(--dark-bg);
-    overflow-x: hidden;
-  }
-  
-  .section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    background: linear-gradient(45deg, var(--primary-red), var(--accent-yellow));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  /* Hero Section */
-  .hero-section {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-red) 100%);
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .hero-content {
-    text-align: center;
-    z-index: 2;
-  }
+  --primary-red: #FF3B3F; /* Vibrant red */
+  --accent-yellow: #FFD700; /* Gold */
+  --primary-blue: #0a1f44;
+  --accent-blue: #1e88e5;
+  --gold: #ffc107;
+  --white: #ffffff;
+  --light-bg: #f8f9fa;
+  --neon-green: #39FF14; /* Neon green */
+  --dark-bg: #1A1A1A; /* Dark background */
+  --glass-bg: rgba(255, 255, 255, 0.1);
+  --white: #ffffff;
+  --black: #000000;
+}
 
-  .hero-title {
-    font-size: 4rem;
-    background: linear-gradient(45deg, var(--primary-red), var(--accent-yellow));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 0 50px rgba(255, 59, 63, 0.3);
-  }
-  
-  .hero-subtitle {
-    font-size: 1.5rem;
-    margin: 1rem 0;
-  }
-  
-  .floating-bike {
-    width: 600px;
-    height: auto;
-    margin: 2rem auto;
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  .bike-image {
-    width: 50%;
-    height: auto;
-    filter: drop-shadow(0 0 20px rgba(186, 255, 59, 0.8));
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-  }
-  
-  .cta-button {
-    background: linear-gradient(45deg, var(--primary-red), var(--accent-yellow));
-    border: none;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
-    border-radius: 50px;
-    color: var(--white);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .cta-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 30px rgba(255, 59, 63, 0.5);
-  }
-  
-  /* Particle Animation */
-  .particles {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    pointer-events: none;
-  }
-  
-  .particle {
-    position: absolute;
-    background: radial-gradient(circle, var(--neon-green) 20%, transparent 70%);
-    border-radius: 50%;
-    animation: particle-float 8s infinite;
-  }
-  
-  @keyframes particle-float {
-    0%, 100% { transform: translateY(0) scale(0.5); opacity: 0.3; }
-    50% { transform: translateY(-100px) scale(1); opacity: 0.7; }
-  }
-  
-  /* Features Section */
-  .features-section {
-    padding: 4rem 2rem;
-    background: var(--dark-bg);
-  }
-  
-  .feature-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-  
-  .feature-card {
-    background: var(--glass-bg);
-    padding: 2rem;
-    border-radius: 15px;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-  
-  .feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(255, 59, 63, 0.3);
-  }
-  
-  .card-icon {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-  }
-  
-  .card-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .card-description {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  
-  /* Benefits Section */
-  .benefits-section {
-    padding: 4rem 2rem;
-    background: var(--dark-bg);
-  }
-  
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-  }
-  
-  .benefit-card {
-    background: var(--glass-bg);
-    padding: 2rem;
-    border-radius: 15px;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-  
-  .benefit-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(255, 59, 63, 0.3);
-  }
-  
-  .benefit-title {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  .benefit-text {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-  }
-  
-  /* Documents Section */
-  .documents-section {
-    padding: 4rem 2rem;
-    background: var(--dark-bg);
-  }
-  
-  .document-accordion {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .doc-card {
-    background: var(--glass-bg);
-    margin: 1rem 0;
-    border-radius: 15px;
-    transition: all 0.3s ease;
-  }
-  
-  .doc-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(255, 59, 63, 0.3);
-  }
-  
-  .doc-header {
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .doc-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-  }
-  
-  .doc-content.active {
-    max-height: 500px;
-  }
-  
-  .toggle-icon {
-    font-size: 1.5rem;
-  }
-  
-  /* FAQ Section */
-  .faq-section {
-    padding: 4rem 2rem;
-    background: var(--dark-bg);
-  }
-  
-  .faq-accordion {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  
-  .faq-card {
-    background: var(--glass-bg);
-    margin: 1rem 0;
-    border-radius: 15px;
-    transition: all 0.3s ease;
-  }
-  
-  .faq-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(255, 59, 63, 0.3);
-  }
-  
-  .faq-header {
-    padding: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .faq-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-  }
-  
-  .faq-content.active {
-    max-height: 500px;
-  }
-  
-  /* EMI Calculator Section */
-  .calculator-section {
-    padding: 4rem 2rem;
-    background: var(--dark-bg);
-  }
-  
-  .calculator-glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 2rem;
-    margin: 4rem auto;
-    width: 80%;
-    box-shadow: 0 0 40px rgba(255, 59, 63, 0.1);
-  }
-  
-  .input-group {
-    margin-bottom: 2rem;
-  }
-  
-  input[type="range"] {
-    width: 100%;
-    margin-top: 1rem;
-  }
-  
-  .emi-bubble {
-    background: radial-gradient(circle at 30% 30%, var(--neon-green), var(--accent-yellow));
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    animation: pulse 2s ease-in-out infinite;
-  }
-  
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-  }
-  
-  .emi-amount {
-    font-size: 2rem;
-    font-weight: bold;
-  }
-  
-  .emi-label {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-  }
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* General Styles */
+.bike-loan-container {
+  font-family: 'Poppins', sans-serif;
+  color: var(--white);
+  background: var(--dark-bg);
+  overflow-x: hidden;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, var(--primary-red), var(--accent-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hero Section */
+.hero-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-red) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 4rem;
+  background: linear-gradient(45deg, var(--primary-red), var(--accent-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 50px rgba(255, 59, 63, 0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.floating-bike {
+  width: 600px;
+  height: auto;
+  margin: 2rem auto;
+  animation: float 6s ease-in-out infinite;
+}
+
+.bike-image {
+  width: 50%;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(186, 255, 59, 0.8));
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.cta-button {
+  background: linear-gradient(45deg, var(--primary-red), var(--accent-yellow));
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 59, 63, 0.5);
+}
+
+/* Particle Animation */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, var(--neon-green) 20%, transparent 70%);
+  border-radius: 50%;
+  animation: particle-float 8s infinite;
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0) scale(0.5); opacity: 0.3; }
+  50% { transform: translateY(-100px) scale(1); opacity: 0.7; }
+}
+
+/* Features Section */
+.features-section {
+  padding: 4rem 2rem;
+  background: var(--dark-bg);
+}
+
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background: var(--glass-bg);
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(255, 59, 63, 0.3);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Benefits Section */
+.benefits-section {
+  padding: 4rem 2rem;
+  background: var(--dark-bg);
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.benefit-card {
+  background: var(--glass-bg);
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(255, 59, 63, 0.3);
+}
+
+.benefit-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.benefit-text {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Documents Section */
+.documents-section {
+  padding: 4rem 2rem;
+  background: var(--dark-bg);
+}
+
+.document-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.doc-card {
+  background: var(--glass-bg);
+  margin: 1rem 0;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.doc-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(255, 59, 63, 0.3);
+}
+
+.doc-header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.doc-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.doc-content.active {
+  max-height: 500px;
+}
+
+.toggle-icon {
+  font-size: 1.5rem;
+}
+
+/* FAQ Section */
+.faq-section {
+  padding: 4rem 2rem;
+  background: var(--dark-bg);
+}
+
+.faq-accordion {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-card {
+  background: var(--glass-bg);
+  margin: 1rem 0;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+}
+
+.faq-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(255, 59, 63, 0.3);
+}
+
+.faq-header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.faq-content.active {
+  max-height: 500px;
+}
+
+/* EMI Calculator Section */
+.calculator-section {
+  padding: 4rem 2rem;
+  background: var(--dark-bg);
+}
+
+.calculator-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 4rem auto;
+  width: 80%;
+  box-shadow: 0 0 40px rgba(255, 59, 63, 0.1);
+}
+
+.input-group {
+  margin-bottom: 2rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.emi-bubble {
+  background: radial-gradient(circle at 30% 30%, var(--neon-green), var(--accent-yellow));
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.emi-amount {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.emi-label {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}

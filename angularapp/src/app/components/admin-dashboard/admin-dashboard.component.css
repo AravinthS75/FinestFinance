@@ -1,266 +1,267 @@
 /* Ensure full height for the viewport */
 html, body {
-    height: 100%;
-    margin: 0;
-  }
-
-  body::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Fullscreen container centers its content */
-  .fullscreen-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-  }
-  
-  /* Root Variables */
-  :root {
-    --primary-bg: #0a192f;
-    --secondary-bg: #112240;
-    --highlight: #64ffda;
-    --text-light: #ccd6f6;
-    --text-muted: #8892b0;
-    --border-radius: 12px;
-    --transition-speed: 0.3s;
-  }
-  
-  /* Profile Card */
-  .profile-card {
-    background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
-    border-radius: var(--border-radius);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    padding: 2rem;
-    max-width: 400px;
-    text-align: center;
-    animation: fadeIn 1s ease-in-out;
-    position: relative;
-    overflow: hidden;
-    transition: transform var(--transition-speed) ease-in-out;
-  }
-  
-  .profile-card:hover {
-    transform: translateY(-5px) scale(1.02);
-  }
-  
-  /* Glowing Border Effect */
-  .profile-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: var(--border-radius);
-    background: linear-gradient(135deg, rgba(100, 255, 218, 0.3), rgba(100, 255, 218, 0));
-    z-index: -1;
-    animation: pulseGlow 2s infinite alternate;
-  }
-  
-  /* Profile Picture */
-  .profile-preview {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--highlight);
-    box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
-    transition: transform var(--transition-speed) ease-in-out;
-  }
-  
-  .profile-preview:hover {
-    transform: scale(1.1);
-  }
-  
-  /* User Details */
-  .user-details {
-    margin-top: 1.5rem;
-  }
-  
-  .user-details p {
-    color: var(--text-light);
-    font-size: 1.1rem;
-    margin: 0.5rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .username {
-    font-size: 1.2rem;
-    font-weight: 600;
-  }
-  
-  .material-icons-outlined {
-    color: var(--highlight);
-    margin-right: 8px;
-    transition: transform var(--transition-speed) ease-in-out;
-  }
-  
-  .material-icons-outlined:hover {
-    transform: scale(1.2);
-  }
-  
-  /* Loading Animation */
-  .loading-message {
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 1.2rem;
-    padding: 2rem;
-    animation: fadeIn 1s ease-in-out;
-  }
-  
-  .loading-spinner {
-    width: 50px;
-    height: 50px;
-    border: 5px solid rgba(100, 255, 218, 0.2);
-    border-top: 5px solid var(--highlight);
-    border-radius: 50%;
-    margin: 0 auto;
-    animation: spin 1s linear infinite;
-  }
-  
-  .loading-text {
-    margin-top: 1rem;
-  }
-  
-  /* Error Message */
-  .error-message {
-    color: #ff6b6b;
-    text-align: center;
-    font-size: 1.2rem;
-    padding: 1rem;
-    background: rgba(255, 107, 107, 0.2);
-    border-radius: var(--border-radius);
-    animation: shake 0.5s ease-in-out;
-  }
-  
-  /* Keyframe Animations */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-  }
-  
-  @keyframes pulseGlow {
-    from {
-      box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
-    }
-    to {
-      box-shadow: 0 0 25px rgba(100, 255, 218, 1);
-    }
-  }
-  
-  /* From Uiverse.io by SelfMadeSystem */ 
-.absolute {
-  position: absolute;
+  height: 100%;
+  margin: 0;
 }
 
-.inline-block {
-  display: inline-block;
+body::-webkit-scrollbar {
+  display: none;
 }
 
-.loader {
+
+/* Fullscreen container centers its content */
+.fullscreen-container {
   display: flex;
-  margin: 0.25em 0;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
 }
 
-.w-2 {
-  width: 0.5em;
+/* Root Variables */
+:root {
+  --primary-bg: #0a192f;
+  --secondary-bg: #112240;
+  --highlight: #64ffda;
+  --text-light: #ccd6f6;
+  --text-muted: #8892b0;
+  --border-radius: 12px;
+  --transition-speed: 0.3s;
 }
 
-.dash {
-  animation: dashArray 2s ease-in-out infinite,
-    dashOffset 2s linear infinite;
+/* Profile Card */
+.profile-card {
+  background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg));
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-speed) ease-in-out;
 }
 
-.spin {
-  animation: spinDashArray 2s ease-in-out infinite,
-    spin 8s ease-in-out infinite,
-    dashOffset 2s linear infinite;
-  transform-origin: center;
+.profile-card:hover {
+  transform: translateY(-5px) scale(1.02);
 }
 
-@keyframes dashArray {
-  0% {
-    stroke-dasharray: 0 1 359 0;
-  }
-
-  50% {
-    stroke-dasharray: 0 359 1 0;
-  }
-
-  100% {
-    stroke-dasharray: 359 1 0 0;
-  }
+/* Glowing Border Effect */
+.profile-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--border-radius);
+  background: linear-gradient(135deg, rgba(100, 255, 218, 0.3), rgba(100, 255, 218, 0));
+  z-index: -1;
+  animation: pulseGlow 2s infinite alternate;
 }
 
-@keyframes spinDashArray {
-  0% {
-    stroke-dasharray: 270 90;
-  }
-
-  50% {
-    stroke-dasharray: 0 360;
-  }
-
-  100% {
-    stroke-dasharray: 270 90;
-  }
+/* Profile Picture */
+.profile-preview {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--highlight);
+  box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
+  transition: transform var(--transition-speed) ease-in-out;
 }
 
-@keyframes dashOffset {
-  0% {
-    stroke-dashoffset: 365;
-  }
+.profile-preview:hover {
+  transform: scale(1.1);
+}
 
-  100% {
-    stroke-dashoffset: 5;
+/* User Details */
+.user-details {
+  margin-top: 1.5rem;
+}
+
+.user-details p {
+  color: var(--text-light);
+  font-size: 1.1rem;
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.username {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.material-icons-outlined {
+  color: var(--highlight);
+  margin-right: 8px;
+  transition: transform var(--transition-speed) ease-in-out;
+}
+
+.material-icons-outlined:hover {
+  transform: scale(1.2);
+}
+
+/* Loading Animation */
+.loading-message {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  padding: 2rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(100, 255, 218, 0.2);
+  border-top: 5px solid var(--highlight);
+  border-radius: 50%;
+  margin: 0 auto;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  margin-top: 1rem;
+}
+
+/* Error Message */
+.error-message {
+  color: #ff6b6b;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.2);
+  border-radius: var(--border-radius);
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 @keyframes spin {
-  0% {
-    rotate: 0deg;
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
 
-  12.5%,
-  25% {
-    rotate: 270deg;
-  }
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
 
-  37.5%,
-  50% {
-    rotate: 540deg;
+@keyframes pulseGlow {
+  from {
+    box-shadow: 0 0 15px rgba(100, 255, 218, 0.6);
   }
+  to {
+    box-shadow: 0 0 25px rgba(100, 255, 218, 1);
+  }
+}
 
-  62.5%,
-  75% {
-    rotate: 810deg;
-  }
+/* From Uiverse.io by SelfMadeSystem */ 
+.absolute {
+position: absolute;
+}
 
-  87.5%,
-  100% {
-    rotate: 1080deg;
-  }
+.inline-block {
+display: inline-block;
+}
+
+.loader {
+display: flex;
+margin: 0.25em 0;
+}
+
+.w-2 {
+width: 0.5em;
+}
+
+.dash {
+animation: dashArray 2s ease-in-out infinite,
+  dashOffset 2s linear infinite;
+}
+
+.spin {
+animation: spinDashArray 2s ease-in-out infinite,
+  spin 8s ease-in-out infinite,
+  dashOffset 2s linear infinite;
+transform-origin: center;
+}
+
+@keyframes dashArray {
+0% {
+  stroke-dasharray: 0 1 359 0;
+}
+
+50% {
+  stroke-dasharray: 0 359 1 0;
+}
+
+100% {
+  stroke-dasharray: 359 1 0 0;
+}
+}
+
+@keyframes spinDashArray {
+0% {
+  stroke-dasharray: 270 90;
+}
+
+50% {
+  stroke-dasharray: 0 360;
+}
+
+100% {
+  stroke-dasharray: 270 90;
+}
+}
+
+@keyframes dashOffset {
+0% {
+  stroke-dashoffset: 365;
+}
+
+100% {
+  stroke-dashoffset: 5;
+}
+}
+
+@keyframes spin {
+0% {
+  rotate: 0deg;
+}
+
+12.5%,
+25% {
+  rotate: 270deg;
+}
+
+37.5%,
+50% {
+  rotate: 540deg;
+}
+
+62.5%,
+75% {
+  rotate: 810deg;
+}
+
+87.5%,
+100% {
+  rotate: 1080deg;
+}
 }
