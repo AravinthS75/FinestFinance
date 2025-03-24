@@ -211,6 +211,8 @@ export class UserApplyHomeLoanComponent implements OnInit {
     const loanData: Loan = {
       ...this.loanForm.value,
       loanVarient: 'home',
+      propertyType: this.loanForm.value.propertyType,
+      employmentType: this.loanForm.value.employmentType,
       interestRatePerAnnum: this.interestRatePerAnnum,
       emiAmount: this.emiAmount,
       tenure: this.loanForm.value.tenure * 12,

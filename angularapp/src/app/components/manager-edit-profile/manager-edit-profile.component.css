@@ -4,7 +4,11 @@
     --accent-color: #ffc107;
     --light-color: #ffffff;
     --transition-speed: 0.4s;
-  }
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
   
   /* Container with animated fade-in and shadow */
   .edit-profile-container {

@@ -12,6 +12,10 @@
     --star-white: #F0F4FF;
 }
 
+body::-webkit-scrollbar {
+    display: none;
+}  
+
 .login-wrapper {
     min-height: 100vh;
     display: flex;

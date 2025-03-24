@@ -3,7 +3,7 @@ DELETE FROM users;
 
 DELETE FROM users WHERE id = 4;
 
-DELETE FROM loans;
+DELETE FROM loans WHERE id = 4;
 
 INSERT INTO users (id, email, name, password, phone, role)
 VALUES 

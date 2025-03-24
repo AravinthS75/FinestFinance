@@ -48,6 +48,7 @@ import { ElectronicsEmiDescriptionComponent } from './components/view-dummy/elec
 import { BikeEmiDescriptionComponent } from './components/view-dummy/bike-emi-description/bike-emi-description.component';
 import { ElectronicsEmiComponent } from './components/electronics-emi/electronics-emi.component';
 import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,12 @@ import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
     FormsModule,
     CommonModule,
     SweetAlert2Module.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 3000, // Toast will close after 3 seconds
+      positionClass: 'toast-top-right', // Toast position
+      preventDuplicates: true, // Prevent duplicate toasts
+    })
   ],
   providers: [
     UserStoreService,

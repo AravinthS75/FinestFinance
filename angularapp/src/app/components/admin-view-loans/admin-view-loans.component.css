@@ -6,6 +6,10 @@
   color: #f0f0f0;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .cyberpunk-heading {
   font-family: 'Orbitron', sans-serif;
   color: #ff00ff;
@@ -252,6 +256,11 @@
   max-height: 90vh;
   overflow-y: auto;
 }
+
+.popup-content::-webkit-scrollbar {
+  display: none;
+}
+
 
 .popup-content h2 {
   margin-bottom: 1rem;
@@ -1181,4 +1190,25 @@
   100% {
     clip-path: polygon(0 50%, 100% 50%, 100% 70%, 0 70%);
   }
+}
+
+.view-details-btn {
+  margin-top: 1rem;
+  background: linear-gradient(45deg, #ff00ff, #0066ff);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  margin-left: 17%;
+  transition: all 0.3s ease;
+}
+
+.view-details-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+.all-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }

@@ -18,6 +18,10 @@
     --cyber-border: 1px solid rgba(255, 255, 255, 0.2);
   }
   
+  body::-webkit-scrollbar {
+    display: none;
+  }
+  
   /* Container for user cards */
   .users-container {
     display: grid;

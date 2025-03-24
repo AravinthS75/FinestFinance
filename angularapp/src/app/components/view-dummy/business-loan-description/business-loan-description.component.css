@@ -8,6 +8,10 @@
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .business-loan-container {
   max-width: 1200px;
   margin: 4rem auto 2rem;

@@ -3,7 +3,11 @@
     background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
     min-height: 100vh;
     color: #f0f0f0; /* Change the text color for better contrast */
-  }
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
   
   .cyberpunk-heading {
     font-family: 'Orbitron', sans-serif;
@@ -226,16 +230,24 @@
 
 .popup-content {
   position: relative;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.9);
   padding: 2rem;
   border-radius: 20px;
-  width: 80%;
-  max-width: 600px;
+  width: 90%; /* Increased from 80% */
+  max-width: 1000px; /* Increased from 600px */
+  min-width: 800px; /* Added minimum width */
   color: #f0f0f0;
   box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
   text-align: left;
   transform: scale(0.9);
   animation: scaleUp 0.5s ease-in-out forwards;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-sizing: border-box; /* Added for better sizing */
+}
+
+.popup-content::-webkit-scrollbar {
+  display: none;
 }
 
 .popup-content h2 {
@@ -307,6 +319,8 @@
   padding: 1.5rem;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 15px;
+  display: flex; /* Use flexbox inside each panel */
+  flex-direction: column; /* Stack content vertically */
 }
 
 .borrower-side {
@@ -315,13 +329,8 @@
 }
 
 .approver-side {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background: rgba(0, 0, 0, 0.7);
-  border-left: 2px solid #00ff9d;
-  position: relative;
+  border-left: 2px solid #00a3ff;
+  box-shadow: -5px 0 15px rgba(0, 163, 255, 0.2);
 }
 
 .profile-image {
@@ -513,7 +522,7 @@
 }
 
 .approve-btn, .reject-btn {
-  width: 180px;
+  width: 170px;
   height: 50px;
   cursor: pointer;
   display: flex;
@@ -607,4 +616,294 @@ button:active {
 
 .detail-item:last-child {
   margin-bottom: 1.5rem;
+}
+
+.view-details-btn {
+  margin-top: 1rem;
+  background: linear-gradient(45deg, #ff00ff, #0066ff);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  margin-left: 30%;
+  transition: all 0.3s ease;
+}
+
+.view-details-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+}
+
+.all-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.document-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+}
+
+.document-popup-content {
+  background: rgba(0, 0, 0, 0.9);
+  border-radius: 10px;
+  width: 80%;
+  height: 80%;
+  padding: 20px;
+  position: relative;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.document-popup-content iframe {
+  border: none;
+  margin-top: 30px;
+}
+
+/* Style for the "No PDF available" message */
+.document-popup-content {
+  color: #ff4d4d; /* Neon red color for error */
+  text-align: center;
+  margin-top: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px #ff4d4d; /* Glowing text shadow */
+}
+
+.document-popup-content > .close-btn {
+  top: 15px;
+  right: 15px;
+}
+
+.document-popup-content > .close-btn .close-icon {
+  color: #ff0033;
+  transition: all 0.3s ease;
+}
+
+.document-popup-content > .close-btn .close-icon:hover {
+  color: #ff0066;
+  transform: scale(1.1);
+}
+
+.detail-item1 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.preview-btn {
+  --fs: 1em; /* Reduce font size slightly */
+  --col1: honeydew;
+  --col2: rgba(240, 128, 128, 0.603);
+  --col3: indianred;
+  --col4: maroon;
+  --pd: 0.25em 0.325em; /* Reduce padding to half */
+  display: grid;
+  align-content: baseline;
+  appearance: none;
+  border: 0;
+  grid-template-columns: min-content 1fr;
+  padding: var(--pd);
+  font-size: var(--fs);
+  color: var(--col1);
+  background-color: var(--col3);
+  border-radius: 6px;
+  text-shadow: 1px 1px var(--col4);
+  box-shadow: inset -2px 1px 1px var(--col2),
+  inset 2px 1px 1px var(--col2);
+  position: relative;
+  transition: all .75s ease-out;
+  transform-origin: center;
+  cursor: pointer;
+  line-height: 1; /* Added to prevent extra space */
+}
+
+.preview-btn:hover {
+  color: var(--col4);
+  box-shadow: inset -2px 1px 1px var(--col2),
+  inset 2px 1px 1px var(--col2),
+  inset 0px -2px 20px var(--col4),
+  0px 20px 30px var(--col3),
+  0px -20px 30px var(--col2),
+  1px 2px 20px var(--col4);
+  text-shadow: 1px 1px var(--col2);
+}
+
+.preview-btn:active {
+  animation: offset 1s ease-in-out infinite;
+  outline: 2px solid var(--col2);
+  outline-offset: 0;
+}
+
+.preview-btn::after,
+.preview-btn::before {
+  content: '';
+  align-self: center;
+  justify-self: center;
+  height: .5em;
+  margin: 0 .5em;
+  grid-column: 1;
+  grid-row: 1;
+  opacity: 1;
+}
+
+.preview-btn::after {
+  position: relative;
+  border: 2px solid var(--col4);
+  border-radius: 50%;
+  transition: all .5s ease-out;
+  height: .1em;
+  width: .1em;
+}
+
+.preview-btn:hover::after {
+  border: 2px solid var(--col3);
+  transform: rotate(-120deg) translate(10%, 140%);
+}
+
+.preview-btn::before {
+  border-radius: 50% 0%;
+  border: 4px solid var(--col4);
+  box-shadow: inset 1px 1px var(--col2);
+  transition: all 1s ease-out;
+  transform: rotate(45deg);
+  height: .45em;
+  width: .45em;
+}
+
+.preview-btn:hover::before {
+  border-radius: 50%;
+  border: 4px solid var(--col1);
+  transform: scale(1.25) rotate(0deg);
+  animation: blink 1.5s ease-out 1s infinite alternate;
+}
+
+.preview-btn:hover>span {
+  filter: contrast(150%);
+}
+
+@keyframes blink {
+  0% {
+      transform: scale(1, 1) skewX(0deg);
+      opacity: 1;
+  }
+
+  5% {
+      transform: scale(1.5, .1) skewX(10deg);
+      opacity: .5;
+  }
+
+  10%,
+  35% {
+      transform: scale(1, 1) skewX(0deg);
+      opacity: 1;
+  }
+
+  40% {
+      transform: scale(1.5, .1) skewX(10deg);
+      opacity: .25;
+  }
+
+  45%,
+  100% {
+      transform: scale(1, 1) skewX(0deg);
+      opacity: 1;
+  }
+}
+
+@keyframes offset {
+  50% {
+      outline-offset: .15em;
+      outline-color: var(--col1);
+  }
+
+  55% {
+      outline-offset: .1em;
+      transform: translateY(1px);
+  }
+
+  80%,
+  100% {
+      outline-offset: 0;
+  }
+}
+
+.detail-label1 {
+  white-space: nowrap;
+  min-width: 120px;
+}
+
+/* Rejection Popup Styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.rejection-reasons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.rejection-reason {
+  padding: 0.8rem;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.rejection-reason:hover {
+  background: rgba(255, 0, 0, 0.2);
+}
+
+.selected-reason {
+  margin: 1rem 0;
+  padding: 0.8rem;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(255, 0, 0, 0.3);
+  border-radius: 5px;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.cancel-btn {
+  background: #333;
+  color: #fff;
+  margin-right: 20%;
+}
+
+.confirm-btn {
+  background: #ff4d4d;
+  color: #fff;
+  margin-right: 20%;
+}
+
+.confirm-btn:disabled {
+  background: #666;
+  cursor: not-allowed;
 }

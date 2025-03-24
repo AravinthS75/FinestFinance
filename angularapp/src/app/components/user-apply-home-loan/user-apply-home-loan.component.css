@@ -21,6 +21,10 @@ body {
   overflow-x: hidden;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 /* Keyframe Animations */
 @keyframes fadeIn {
   from {

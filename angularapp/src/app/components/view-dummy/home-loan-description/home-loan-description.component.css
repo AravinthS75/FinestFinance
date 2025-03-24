@@ -7,6 +7,10 @@
     --light-bg: #f8f9fa;
     --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
   
   .home-loan-container {
     max-width: 1200px;

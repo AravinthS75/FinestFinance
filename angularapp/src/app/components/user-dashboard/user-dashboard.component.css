@@ -3,6 +3,10 @@ html, body {
     height: 100%;
     margin: 0;
   }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
   
   /* Fullscreen container centers its content */
   .fullscreen-container {

@@ -8,6 +8,6 @@ public interface LoanService {
     Loan applyForLoan(String authHeader, int userId, Loan loan);
     List<Loan> getLoansByUserId(Long userId);
     List<Loan> getAllLoans();
-    Loan updateLoanStatus(int loanId, String status);
+    Loan updateLoanStatus(int loanId, String status, String rejectReason);
     List<Loan> getLoansByApproverName(String authHeader, String approverName);
 }

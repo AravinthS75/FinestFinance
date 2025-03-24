@@ -9,6 +9,18 @@
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
+html, body {
+  overflow-y: auto; /* Allows scrolling */
+  max-height: 100vh; /* Prevents extra space */
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+}
+
+html::-webkit-scrollbar,  
+body::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
+}
+
 /* Main Layout */
 .main-container {
   display: grid;

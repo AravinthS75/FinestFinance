@@ -12,7 +12,11 @@
     --info: #29b6f6;         /* A standard material info color */
     --warning: #ffa726;       /* A standard material warning color */
     --gradient: linear-gradient(90deg, #64ffda 0%, #f972ff 100%); /* A linear gradient from teal to magenta */
-  }
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
   
   /* General Animations */
   @keyframes fadeIn {

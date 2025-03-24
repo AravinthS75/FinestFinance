@@ -7,6 +7,10 @@
   --nav-height: 70px;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
   /* Global Navbar Styles */
   .main-nav {
     background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)) !important;

@@ -14,6 +14,10 @@
   --black: #000000;
 }
 
+body::-webkit-scrollbar {
+  display: none;
+}
+
 /* General Styles */
 .car-loan-container {
   font-family: 'Poppins', sans-serif;

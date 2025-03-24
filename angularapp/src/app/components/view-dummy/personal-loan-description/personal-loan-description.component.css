@@ -7,6 +7,10 @@
     --light-bg: #f8f9fa;
   }
   
+  body::-webkit-scrollbar {
+    display: none;
+  }
+
   .loan-container {
     max-width: 1200px;
     margin: 0 auto;

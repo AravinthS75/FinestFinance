@@ -25,7 +25,7 @@
   
       <div class="filter-group">
         <label class="hologram-label">Amount Range:</label>
-        <input type="range" class="cyber-slider" min="0" max="1000000"
+        <input type="range" class="cyber-slider" min="0" max="100000000"
                [(ngModel)]="amountRange" (input)="updateAmountFilter($event)">
         <span class="range-value">₹ {{amountFilter}}</span>
       </div>
@@ -105,6 +105,78 @@
               </div>
             </div>
           </div>
+          <div *ngIf="showAllDetailsPopup" class="popup-overlay">
+            <div class="popup-content">
+                <button class="close-btn" (click)="closeAllDetailsPopup()">
+                    <span class="close-icon">×</span>
+                </button>
+                <h2>All Loan Details</h2>
+                <div class="all-details-grid">
+                    <div *ngIf="selectedLoan.id" class="detail-item">
+                        <span class="detail-label">Loan ID:</span>
+                        <span class="detail-value">{{selectedLoan.id}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.loanAmount" class="detail-item">
+                        <span class="detail-label">Loan Amount:</span>
+                        <span class="detail-value">₹ {{selectedLoan.loanAmount}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.purpose" class="detail-item">
+                        <span class="detail-label">Purpose:</span>
+                        <span class="detail-value">{{selectedLoan.purpose}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.loanVarient" class="detail-item">
+                        <span class="detail-label">Loan Variant:</span>
+                        <span class="detail-value">{{selectedLoan.loanVarient}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.propertyType" class="detail-item">
+                        <span class="detail-label">Property Type:</span>
+                        <span class="detail-value">{{selectedLoan.propertyType}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.employmentType" class="detail-item">
+                        <span class="detail-label">Employment Type:</span>
+                        <span class="detail-value">{{selectedLoan.employmentType}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.businessType" class="detail-item">
+                        <span class="detail-label">Business Type:</span>
+                        <span class="detail-value">{{selectedLoan.businessType}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.interestRatePerAnnum" class="detail-item">
+                        <span class="detail-label">Interest Rate:</span>
+                        <span class="detail-value">{{selectedLoan.interestRatePerAnnum}}% p.a</span>
+                    </div>
+                    <div *ngIf="selectedLoan.tenure" class="detail-item">
+                        <span class="detail-label">Tenure:</span>
+                        <span class="detail-value">{{selectedLoan.tenure}} months</span>
+                    </div>
+                    <div *ngIf="selectedLoan.emiAmount" class="detail-item">
+                        <span class="detail-label">EMI Amount:</span>
+                        <span class="detail-value">₹ {{selectedLoan.emiAmount}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.dueDate" class="detail-item">
+                        <span class="detail-label">Due Date:</span>
+                        <span class="detail-value">{{selectedLoan.dueDate | date}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.status" class="detail-item">
+                        <span class="detail-label">Status:</span>
+                        <span class="status-indicator {{getStatusClass(selectedLoan.status)}}">
+                            {{selectedLoan.status}}
+                        </span>
+                    </div>
+                    <div *ngIf="selectedLoan.createdAt" class="detail-item">
+                        <span class="detail-label">Created At:</span>
+                        <span class="detail-value">{{selectedLoan.createdAt | date}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.updatedAt" class="detail-item">
+                        <span class="detail-label">Updated At:</span>
+                        <span class="detail-value">{{selectedLoan.updatedAt | date}}</span>
+                    </div>
+                    <div *ngIf="selectedLoan.rejectReason" class="detail-item">
+                      <span class="detail-label">Reject Reason:</span>
+                      <span class="detail-value">{{selectedLoan.rejectReason}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
           <div class="details-panel approver-side">
             <div class="approver-section">
                 <div class="detail-item1">
@@ -121,8 +193,23 @@
                     {{selectedLoan.status}}
                   </span>
                 </div>
+                <div class="detail-item1">
+                  <span class="detail-label1">Aadhar Card:</span>
+                  <button class="preview-btn" (click)="openDocumentPopup('aadhar')">
+                      <span>preview</span>
+                  </button>
+              </div>
+              <div class="detail-item1">
+                  <span class="detail-label1">Pan Card:</span>
+                  <button class="preview-btn" (click)="openDocumentPopup('pan')">
+                      <span>preview</span>
+                  </button>
+              </div>
+                <button class="cyber-button view-details-btn" (click)="openAllDetailsPopup()">
+                  <i class="fas fa-info-circle"></i> VIEW ALL DETAILS
+                </button> 
                 <div *ngIf="selectedLoan.status == 'PENDING'" class="action-buttons">
-                  <button class="approve-btn cyber-button" (click)="loanAction('approve')">
+                  <button class="approve-btn cyber-button" (click)="approveLoan()">
                     <span class="btn-text">Approve</span>
                     <span class="btn-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -131,7 +218,7 @@
                     </span>
                   </button>
                   
-                  <button class="reject-btn cyber-button" (click)="loanAction('reject')">
+                  <button class="reject-btn cyber-button" (click)="openRejectionPopup()">
                     <span class="btn-text">Reject</span>
                     <span class="btn-icon">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -140,11 +227,47 @@
                     </span>
                   </button>
                 </div>
+          <!-- Rejection Confirmation Popup -->
+          <div *ngIf="showRejectionPopup" class="popup-overlay">
+            <div class="popup-content">
+              <button class="close-btn" (click)="closeRejectionPopup()">
+                <span class="close-icon">×</span>
+              </button>
+              <h2>Confirm Rejection</h2>
+              <p>Please select a reason for rejecting the loan:</p>
+              <div class="rejection-reasons">
+                <div *ngFor="let reason of rejectionReasons" class="rejection-reason" (click)="selectRejectionReason(reason)">
+                  {{ reason }}
+                </div>
+              </div>
+              <div *ngIf="selectedRejectionReason" class="selected-reason">
+                Selected Reason: <strong>{{ selectedRejectionReason }}</strong>
+              </div>
+              <div class="action-buttons">
+                <button class="cyber-button cancel-btn" (click)="closeRejectionPopup()">Cancel</button>
+                <button class="cyber-button confirm-btn" (click)="confirmRejection()" [disabled]="!selectedRejectionReason">
+                  Confirm Rejection
+                </button>
+              </div>
+            </div>
+          </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="showDocumentPopup" class="document-popup-overlay" (click)="closeDocumentPopup()">
+            <div class="document-popup-content" (click)="$event.stopPropagation()">
+              <button class="close-btn" (click)="closeDocumentPopup()">
+                <span class="close-icon">×</span>
+              </button>
+              <iframe *ngIf="selectedDocumentUrl" [src]="selectedDocumentUrl" width="100%" height="90%"></iframe>
+              <div class="no-pdf-container" *ngIf="selectedDocumentUrl === null">
+                <p class="no-pdf-message">DOCUMENT UNAVAILABLE</p>
               </div>
             </div>
           </div>
         </div>
       </div>
+      
       <div *ngIf="error" class="error-message">
         ⚠️ {{ error }}
       </div>

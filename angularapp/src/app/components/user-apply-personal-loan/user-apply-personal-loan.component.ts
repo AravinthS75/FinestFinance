@@ -28,6 +28,7 @@ export class UserApplyPersonalLoanComponent implements OnInit {
   // File handling properties
   aadharFile: File | null = null;
   panFile: File | null = null;
+  employmentTypes: string[] = ['Salaried', 'Self-Employed'];
 
   loanPurposes: string[] = [
     'Home Renovation',
@@ -124,6 +125,7 @@ export class UserApplyPersonalLoanComponent implements OnInit {
         Validators.max(5000000)
       ]],
       purpose: ['', Validators.required],
+      employmentType: ['', Validators.required],
       tenure: [1, [Validators.required, Validators.min(1), Validators.max(7)]],
       aadhar: [null, [Validators.required]],
       pancard: [null, [Validators.required]]
@@ -213,14 +215,15 @@ export class UserApplyPersonalLoanComponent implements OnInit {
       loanVarient: 'personal',
       interestRatePerAnnum: this.interestRatePerAnnum,
       emiAmount: this.emiAmount,
+      employmentType: this.loanForm.value.employmentType,
       tenure: this.loanForm.value.tenure * 12,
       status: 'PENDING',
       createdAt: new Date(),
       pendingAmount: this.loanForm.value.loanAmount,
       dueDate: null,
       updatedAt: null,
-      aadharCard: '', // Placeholder for base64 data
-      panCard: ''     // Placeholder for base64 data
+      aadharCard: '',
+      panCard: ''
     };
 
     if (this.showOtherPurposeInput && this.loanForm.get('otherPurposeDescription')) {
