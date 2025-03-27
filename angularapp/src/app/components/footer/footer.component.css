@@ -1,0 +1,193 @@
+.main-footer {
+    background-color: #222;
+    color: #fff;
+    padding: 20px 0;
+    font-size: 0.9em;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #444;
+  }
+  
+  .footer-brand {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .footer-brand .logo-link {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+    display: block;  /* Ensure it takes the full width */
+  }
+  
+  .footer-description {
+    margin-top: 10px;
+    line-height: 1.4;
+  }
+  
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .footer-links-col {
+    width: 25%; /* Adjust as needed for your layout */
+    min-width: 150px;  /* Prevent squishing on smaller screens */
+    margin-bottom: 20px;
+  }
+  
+  .footer-links-col h4 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+  
+  .footer-links-col ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links-col li {
+    margin-bottom: 5px;
+  }
+  
+  .footer-links-col a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .footer-links-col a:hover {
+    color: #fff;
+  }
+  
+  .footer-socials {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .footer-socials h4 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Space between icons */
+  }
+  
+  .social-icons a {
+    display: inline-block;
+    /* Adjust icon size as needed with width/height or transform: scale() */
+  }
+  
+  /* From Uiverse.io by Juanes200122 */
+  #svg-container {
+    zoom: 1.6;
+  }
+  #id-repo-ghost-instagram .container-g-icons g,
+  #id-repo-ghost-facebook .container-g-icons g,
+  #id-repo-ghost-linkelind .container-g-icons g,
+  #id-repo-ghost-twich .container-g-icons g {
+    opacity: 0.5;
+    transition: 0.3s ease-in-out;
+  }
+  
+  #id-repo-ghost-instagram:hover .container-g-icons g,
+  #id-repo-ghost-facebook:hover .container-g-icons g,
+  #id-repo-ghost-linkelind:hover .container-g-icons g,
+  #id-repo-ghost-twich:hover .container-g-icons g {
+    opacity: 1;
+  }
+  
+  #id-repo-ghost-twich,
+  #id-repo-ghost-instagram,
+  #id-repo-ghost-facebook,
+  #id-repo-ghost-linkelind {
+    cursor: pointer;
+  }
+  #id-03-instagram,
+  #id-01-facebook,
+  #id-04-linkelind,
+  #id-02-twich,
+  .react-path-v1,
+  .react-path-v2 {
+    transition: 0.5s ease-in-out;
+  }
+  
+  #id-repo-ghost-instagram:hover #id-03-instagram,
+  #id-repo-ghost-facebook:hover #id-01-facebook,
+  #id-repo-ghost-linkelind:hover #id-04-linkelind,
+  #id-repo-ghost-twich:hover #id-02-twich {
+    transform: translate(0px, -10px);
+  }
+  
+  #id-repo-ghost-instagram:hover .react-path-v1,
+  #id-repo-ghost-facebook:hover .react-path-v1,
+  #id-repo-ghost-linkelind:hover .react-path-v1,
+  #id-repo-ghost-twich:hover .react-path-v1 {
+    transform: translate(0px, -6px);
+  }
+  
+  #id-repo-ghost-instagram:hover .react-path-v2,
+  #id-repo-ghost-facebook:hover .react-path-v2,
+  #id-repo-ghost-linkelind:hover .react-path-v2,
+  #id-repo-ghost-twich:hover .react-path-v2 {
+    transform: translate(0px, -2px);
+  }
+  
+  @keyframes bounce-lines {
+    0%,
+    100% {
+      transform: translateY(-3);
+    }
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+  
+  #line-animation-v1 {
+    animation: bounce-lines 3s infinite ease-in-out;
+  }
+  #line-animation-v2 {
+    animation: bounce-lines 3s infinite ease-in-out;
+    animation-delay: 0.2s;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 0.85em;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .footer-links {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .footer-links-col {
+      width: 80%;
+      text-align: center;
+    }
+  
+    .footer-brand {
+      text-align: center;
+    }
+  }

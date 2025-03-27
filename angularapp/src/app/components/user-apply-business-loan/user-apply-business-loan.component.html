@@ -72,6 +72,17 @@
               <span *ngIf="loanForm.get('businessType')?.hasError('required')">Business type is required</span>
             </div>
           </div>
+
+          <div class="cyber-input">
+            <label class="hologram-label" for="employmentType">Employment Type</label>
+            <select id="employmentType" formControlName="employmentType" class="glow-input">
+              <option value="" disabled selected>Select Employment Type</option>
+              <option *ngFor="let type of employmentTypes" [value]="type">{{ type }}</option>
+            </select>
+            <div *ngIf="loanForm.get('employmentType')?.errors" class="error-message">
+              <span *ngIf="loanForm.get('employmentType')?.hasError('required')">Employment type is required</span>
+            </div>
+          </div>
   
           <div class="cyber-input">
             <label class="hologram-label">Purpose</label>
@@ -84,18 +95,6 @@
               <span *ngIf="loanForm.get('purpose')?.hasError('required')">Purpose is required</span>
             </div>
           </div>
-  
-          <!-- <div class="cyber-input">
-            <label class="hologram-label">Collateral Available?</label>
-            <select formControlName="collateral" class="glow-input">
-              <option value="" disabled selected>Select</option>
-              <option *ngFor="let option of collateralOptions" [value]="option">{{ option }}</option>
-            </select>
-            <div class="cyber-bar"></div>
-            <div *ngIf="loanForm.get('collateral')?.errors" class="error-message">
-              <span *ngIf="loanForm.get('collateral')?.hasError('required')">Collateral information is required</span>
-            </div>
-          </div> -->
   
           <div class="cyber-input">
             <label class="hologram-label">Tenure (Years)</label>

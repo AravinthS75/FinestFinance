@@ -27,7 +27,7 @@
         <label class="hologram-label">Amount Range:</label>
         <input type="range" class="cyber-slider" min="0" max="100000000"
                [(ngModel)]="amountRange" (input)="updateAmountFilter($event)">
-        <span class="range-value">₹ {{amountFilter}}</span>
+        <span class="range-value">₹ {{amountFilter | number}}</span>
       </div>
     </div>
 
@@ -52,15 +52,16 @@
             <span class="data-value glowing-text">₹ {{loan.loanAmount}}</span>
           </div>
           <div class="data-row">
-            <span class="data-label">Manager:</span>
-            <span class="data-value">{{loan.approverName}}</span>
-          </div>
-          <div class="data-row">
             <span class="data-label">Interest Rate:</span>
             <span class="data-value">{{loan.interestRatePerAnnum}}%</span>
           </div>
         </div>
       </div>
+      <div *ngIf="!isLoading && displayedLoans.length === 0" class="no-results">
+        <p>😕 No loans found</p>
+        <h3>No matching loans found</h3>
+        <p>Try adjusting your filters or apply for a new loan</p>
+    </div>
     </div>
 
     <div *ngIf="selectedLoan" class="popup-overlay">

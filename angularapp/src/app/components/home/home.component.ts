@@ -14,8 +14,10 @@ import { AuthUser } from '../../models/auth-user.model';
 })
 export class HomeComponent {
 userRole: string | null = null;
+hasReloaded = false;
 
-  constructor(private userStore: UserStoreService, private router: Router) {}
+  constructor(private userStore: UserStoreService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.userStore.userChanges.subscribe((user: AuthUser | null) => {
@@ -30,8 +32,12 @@ userRole: string | null = null;
 
   isUser(): void {
     if(this.userRole === 'USER')
-      this.router.navigate(['/user/personal-loan']);
+      this.router.navigate(['/user/personal-loan']).then(()=>{
+        window.location.reload();
+      });
     else
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login']).then(()=>{
+        window.location.reload();
+      });
   }
 }

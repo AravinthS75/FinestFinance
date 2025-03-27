@@ -2,7 +2,7 @@
   <div class="nav-container">
     <!-- Brand Logo -->
     <div class="nav-brand">
-      <a routerLink="/" class="logo-link">FinestFinance</a>
+      <a class="logo-link" (click)="homeNav()">FinestFinance</a>
     </div>
 
     <button class="hamburger-btn" (click)="toggleMobileMenu()">
@@ -13,7 +13,7 @@
       <div class="nav-group left">
         <!-- Home Link -->
         <div class="nav-item">
-          <a routerLink="/" class="nav-link">Home</a>
+          <a class="nav-link" (click)="homeNav()">Home</a>
         </div>
 
         <!-- Loans Dropdown -->
@@ -23,7 +23,7 @@
             <span class="dropdown-arrow">▼</span>
           </div>
           <div class="dropdown-menu" [class.show]="dropdownState['loans']">
-            <a routerLink="admin/view-loans" class="dropdown-item">View Loans</a>
+            <a class="dropdown-item" (click)="viewLoansNav()">View Loans</a>
           </div>
         </div>
 
@@ -34,7 +34,7 @@
             <span class="dropdown-arrow">▼</span>
           </div>
           <div class="dropdown-menu" [class.show]="dropdownState['managers']">
-            <a routerLink="admin/view-managers" class="dropdown-item">View Managers</a>
+            <a class="dropdown-item" (click)="viewManagersNav()">View Managers</a>
           </div>
         </div>
 
@@ -45,7 +45,7 @@
             <span class="dropdown-arrow">▼</span>
           </div>
           <div class="dropdown-menu" [class.show]="dropdownState['users']">
-            <a routerLink="admin/view-users" class="dropdown-item">View Users</a>
+            <a class="dropdown-item" (click)="viewUersNav()">View Users</a>
           </div>
         </div>
 
@@ -57,8 +57,8 @@
             <span class="dropdown-arrow">▼</span>
           </div>
           <div class="dropdown-menu right" [class.show]="dropdownState['profile']">
-            <a routerLink="admin/dashboard" class="dropdown-item">View Profile</a>
-            <a routerLink="admin/edit-profile" class="dropdown-item">Edit Profile</a>
+            <a class="dropdown-item" (click)="viewProfileNav()">View Profile</a>
+            <a class="dropdown-item" (click)="editProfileNav()">Edit Profile</a>
             <a class="dropdown-item logout-link" (click)="logout()">Logout</a>
           </div>
         </div>

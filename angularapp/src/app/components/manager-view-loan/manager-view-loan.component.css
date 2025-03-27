@@ -2,6 +2,7 @@
     padding: 2rem;
     background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
     min-height: 100vh;
+    box-sizing: border-box;
     color: #f0f0f0; /* Change the text color for better contrast */
 }
 
@@ -226,25 +227,30 @@ body::-webkit-scrollbar {
   align-items: center;
   z-index: 1000;
   animation: fadeIn 0.5s ease-in-out;
+  overflow: auto; /* Add scroll if content overflows on smaller screens */
+  padding: 1rem; /* Add some padding around the popup for mobile */
+  box-sizing: border-box; /*Ensures padding is included in width calculation */
 }
+
+/* POPUP CONTENT */
 
 .popup-content {
   position: relative;
   background: rgba(0, 0, 0, 0.9);
   padding: 2rem;
   border-radius: 20px;
-  width: 90%; /* Increased from 80% */
-  max-width: 1000px; /* Increased from 600px */
-  min-width: 800px; /* Added minimum width */
+  width: 90%;
+  max-width: 1000px;
   color: #f0f0f0;
   box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
   text-align: left;
   transform: scale(0.9);
   animation: scaleUp 0.5s ease-in-out forwards;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-sizing: border-box; /* Added for better sizing */
+  overflow-y: auto;  /* Enable vertical scrolling if content overflows */
+  box-sizing: border-box;
+  max-height: 90vh; /* Limit popup height */
 }
+
 
 .popup-content::-webkit-scrollbar {
   display: none;
@@ -416,7 +422,7 @@ body::-webkit-scrollbar {
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .split-container {
     flex-direction: column;
   }
@@ -426,7 +432,7 @@ body::-webkit-scrollbar {
     border: none;
     box-shadow: none;
   }
-}
+} */
 
 /* Assign Manager Section */
 .assign-manager-section {
@@ -906,4 +912,62 @@ button:active {
 .confirm-btn:disabled {
   background: #666;
   cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  /* Overlay */
+  .popup-overlay {
+    padding: 0.5rem;
+    
+  }
+
+  /* Content */
+  .popup-content {
+    width: 95%; /* Take up more width */
+    padding: 1rem; /* Reduce padding to fit content */
+    min-width: auto; /* Remove min-width for flexibility */
+  }
+
+  /*Split container*/
+
+  .split-container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .details-panel {
+    padding: 1rem;
+  }
+
+  /*Detail item*/
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  /* Rejection Reasons and Buttons */
+  .rejection-reasons {
+    flex-direction: column;
+    align-items: stretch; /*  Stretch items to fill available width */
+  }
+
+  .cancel-btn {
+    margin-right: 0;
+  }
+
+  .confirm-btn {
+    margin-right: 0;
+  }
+
+  /* Approver & borrower section */
+  .approver-side {
+    border-left: none;
+    box-shadow: none;
+  }
+
+  .borrower-side {
+    border-right: none;
+    box-shadow: none;
+  }
 }

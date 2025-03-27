@@ -6,7 +6,7 @@
     --white: #ffffff;
   }
   
-  .admin-nav {
+  .manager-nav {
     background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)) !important;
     height: var(--nav-height);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -36,6 +36,7 @@
   .logo-link:hover {
     color: var(--gold);
     transform: scale(1.05);
+    cursor: pointer;
   }
   
   .nav-main {
@@ -64,6 +65,7 @@
   
   .nav-link:hover {
     color: var(--gold);
+    cursor: pointer;
   }
   
   .dropdown-trigger {
@@ -132,11 +134,80 @@
     left: auto;
     right: 0;
   }
-  
-  /* Mobile Responsive */
-  @media (max-width: 768px) {
-    .nav-item:hover .dropdown-menu {
-      display: none;
-    }
+
+  .hamburger-btn {
+    display: none;
   }
   
+/* Mobile-specific styles */
+@media (max-width: 740px) {
+  .hamburger-btn {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .nav-main {
+    position: fixed;
+    top: var(--nav-height);
+    right: -100%;
+    height: calc(100vh - var(--nav-height));
+    width: 80%;
+    max-width: 300px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+    flex-direction: column;
+    padding: 1rem;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  /* When the menu is active */
+  .nav-main.active {
+    right: 0;
+  }
+
+  .nav-group.left {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .nav-item {
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .dropdown-trigger {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .dropdown-menu {
+    position: static;
+    display: none;
+    width: 100%;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 0.5rem;
+  }
+
+  /* Ensure dropdown works properly in mobile */
+  .dropdown-menu.show {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .dropdown-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .dropdown-trigger.open .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+}

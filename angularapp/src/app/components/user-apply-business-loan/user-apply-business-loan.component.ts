@@ -25,7 +25,6 @@ export class UserApplyBusinessLoanComponent implements OnInit {
   userData: string | null = null;
   token: string = '';
 
-  // File handling properties
   aadharFile: File | null = null;
   panFile: File | null = null;
 
@@ -47,6 +46,8 @@ export class UserApplyBusinessLoanComponent implements OnInit {
     'Other'
   ];
 
+  employmentTypes: string[] = ['Salaried', 'Self-Employed'];
+  
   features: string[] = [
     "High loan amount: Get access to significant funding to fuel your business growth.",
     "Flexible tenure: Choose a repayment tenure that suits your business cash flow.",
@@ -114,6 +115,11 @@ export class UserApplyBusinessLoanComponent implements OnInit {
         pancard: this.panFile ? this.panFile.name : null
       });
     });
+
+    this.loanForm.get('tenure')?.valueChanges.subscribe(value => {
+      console.log('Tenure changed to:', value);
+      this.calculateEMI();
+    });
   }
 
   objectKeys(obj: any): string[] {
@@ -128,8 +134,8 @@ export class UserApplyBusinessLoanComponent implements OnInit {
         Validators.max(7500000)
       ]],
       businessType: ['', Validators.required],
+      employmentType: ['', Validators.required],
       purpose: ['', Validators.required],
-      collateral: ['', Validators.required],
       tenure: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
       aadhar: [null, [Validators.required]],
       pancard: [null, [Validators.required]]

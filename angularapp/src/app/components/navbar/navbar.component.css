@@ -1,3 +1,6 @@
+/* -------------------------------- */
+/* 1) Global Variables and Resets   */
+/* -------------------------------- */
 :root {
   --primary-blue: #0a1f44;
   --accent-blue: #1e88e5;
@@ -6,6 +9,8 @@
   --nav-height: 50px;
 }
 
+/* Optional off-white background; 
+   if not defined, replace with a valid color. */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -13,8 +18,14 @@ body {
   background-color: var(--off-white);
 }
 
+/* Hide the scrollbar in WebKit browsers */
+body::-webkit-scrollbar {
+  display: none;
+}
 
-/* Global Navbar Styles */
+/* -------------------------------- */
+/* 2) Desktop Navbar Styles         */
+/* -------------------------------- */
 .main-nav {
   background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)) !important;
   height: var(--nav-height);
@@ -34,6 +45,7 @@ body {
   justify-content: space-between;
 }
 
+/* Brand Logo */
 .nav-brand .logo-link {
   color: var(--white);
   font-size: 1.8rem;
@@ -47,6 +59,7 @@ body {
   transform: scale(1.05);
 }
 
+/* Main Navigation */
 .nav-main {
   display: flex;
   align-items: center;
@@ -54,18 +67,26 @@ body {
   height: 100%;
 }
 
+/* Nav Groups */
 .nav-group {
   display: flex;
   align-items: center;
-  height: 100%;
   gap: 1.5rem;
 }
 
+/* Right Group (if needed) */
+/*
+.nav-group.right {
+  gap: 1rem;
+}
+*/
+
+/* Each Nav Item */
 .nav-item {
   height: 100%;
   display: flex;
   align-items: center;
-  position: relative;
+  position: relative; /* IMPORTANT: So dropdown is positioned below it */
 }
 
 .nav-link {
@@ -83,7 +104,9 @@ body {
   color: var(--gold);
 }
 
-/* Dropdown Styles */
+/* -------------------------------- */
+/* 3) Dropdown (Absolute in All Views) */
+/* -------------------------------- */
 .dropdown-trigger {
   cursor: pointer;
   height: 100%;
@@ -93,24 +116,27 @@ body {
   padding: 0 1rem;
 }
 
-/* Fix Dropdown Hover Issue */
 .dropdown-menu {
+  /* REMAIN ABSOLUTE in both desktop & mobile */
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: 100%;   /* Appear below the parent nav item */
+  left: 0;     /* Align with the left edge of nav item */
+  
   background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
   border-radius: 0 0 8px 8px;
   padding: 1rem 0;
   min-width: 200px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+
+  /* Hidden by default */
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   display: none;
 }
 
-/* Show dropdown when hovered */
+/* Show dropdown on hover (desktop) or add a "show" class on click (mobile) */
 .nav-item:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
@@ -118,7 +144,15 @@ body {
   display: block;
 }
 
-/* Dropdown Item */
+/* If toggling by click in mobile, you'll use .dropdown-menu.show instead:
+.dropdown-menu.show {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+*/
+
 .dropdown-item {
   color: var(--white);
   text-decoration: none;
@@ -132,7 +166,9 @@ body {
   color: var(--gold);
 }
 
-/* CTA Button */
+/* -------------------------------- */
+/* 4) CTA Button & Auth Links       */
+/* -------------------------------- */
 .cta-button {
   background: var(--gold);
   color: var(--primary-blue);
@@ -149,7 +185,6 @@ body {
   box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
 }
 
-/* Auth Links */
 .auth-links {
   display: flex;
   gap: 1rem;
@@ -171,9 +206,315 @@ body {
   color: rgba(255, 255, 255, 0.3);
 }
 
-/* Mobile Responsive */
-@media (max-width: 768px) {
+/* -------------------------------- */
+/* 5) Hamburger (Hidden on Desktop) */
+/* -------------------------------- */
+.hamburger-btn {
+  display: none;
+}
+
+/* -------------------------------- */
+/* 6) Mobile Styles (max-width: 740px) */
+/* -------------------------------- */
+@media (max-width: 740px) {
+  /* Show Hamburger Button */
+  .hamburger-btn {
+    display: block;
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    font-size: 1.8rem;
+    cursor: pointer;
+    z-index: 1002;
+    padding: 0.25rem 0.75rem;
+    margin-left: auto;
+    transition: all 0.3s ease;
+  }
+
+  .hamburger-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Adjust Nav Container */
+  .nav-container {
+    position: relative;
+    padding: 0 1rem;
+  }
+
+  /* Mobile Navigation Panel */
   .nav-main {
-    display: none;
+    position: fixed;
+    top: var(--nav-height);
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+    flex-direction: column;
+    transition: right 0.3s ease-in-out;
+    z-index: 1001;
+    overflow-y: auto;
+    height: calc(100vh - var(--nav-height));
+    padding: 1rem;
+  }
+
+  /* When nav is open, slide in */
+  .nav-main.active {
+    right: 0;
+  }
+
+  /* Stack Nav Groups Vertically */
+  .nav-group {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.8rem;
+    padding: 0.25rem 0;
+  }
+
+  /* If needed, reduce gap for the right nav group on mobile
+  .nav-group.right {
+    gap: 0.5rem;
+  }
+  */
+
+  /* Each Nav Item Takes Full Width */
+  .nav-item {
+    width: 100%;
+    height: auto;
+    padding: 0.25rem 0;
+  }
+
+  /* IMPORTANT: We do NOT change .dropdown-menu to position: static. 
+     Keep it absolute to prevent nav item from moving up/down. */
+  /* If toggling by click in mobile, add or remove the .show class in TypeScript. */
+
+  /* Adjust dropdown items in mobile if you like smaller padding: */
+  .dropdown-item {
+    padding: 0.5rem 1rem;
+  }
+
+  /* CTA Button in Mobile */
+  .cta-button {
+    width: 100%;
+    text-align: center;
+    margin-top: 0.5rem;
+    padding: 0.6rem 1rem;
+  }
+
+  /* Auth Links in Mobile */
+  .auth-links {
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+  }
+
+  .auth-link {
+    font-size: 1rem;
+  }
+
+  .divider {
+    font-size: 0.8rem;
+  }
+
+  /* Adjust Hamburger Padding */
+  .hamburger-btn {
+    padding: 0.25rem;
+  }
+}
+
+
+.main-footer {
+  background-color: #222;
+  color: #fff;
+  padding: 20px 0;
+  font-size: 0.9em;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #444;
+}
+
+.footer-brand {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.footer-brand .logo-link {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  display: block;  /* Ensure it takes the full width */
+}
+
+.footer-description {
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.footer-links-col {
+  width: 25%; /* Adjust as needed for your layout */
+  min-width: 150px;  /* Prevent squishing on smaller screens */
+  margin-bottom: 20px;
+}
+
+.footer-links-col h4 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.footer-links-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links-col li {
+  margin-bottom: 5px;
+}
+
+.footer-links-col a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links-col a:hover {
+  color: #fff;
+}
+
+.footer-socials {
+  width: 100%;
+  text-align: center;
+}
+
+.footer-socials h4 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px; /* Space between icons */
+}
+
+.social-icons a {
+  display: inline-block;
+  /* Adjust icon size as needed with width/height or transform: scale() */
+}
+
+/* From Uiverse.io by Juanes200122 */
+#svg-container {
+  zoom: 1.6;
+}
+#id-repo-ghost-instagram .container-g-icons g,
+#id-repo-ghost-facebook .container-g-icons g,
+#id-repo-ghost-linkelind .container-g-icons g,
+#id-repo-ghost-twich .container-g-icons g {
+  opacity: 0.5;
+  transition: 0.3s ease-in-out;
+}
+
+#id-repo-ghost-instagram:hover .container-g-icons g,
+#id-repo-ghost-facebook:hover .container-g-icons g,
+#id-repo-ghost-linkelind:hover .container-g-icons g,
+#id-repo-ghost-twich:hover .container-g-icons g {
+  opacity: 1;
+}
+
+#id-repo-ghost-twich,
+#id-repo-ghost-instagram,
+#id-repo-ghost-facebook,
+#id-repo-ghost-linkelind {
+  cursor: pointer;
+}
+#id-03-instagram,
+#id-01-facebook,
+#id-04-linkelind,
+#id-02-twich,
+.react-path-v1,
+.react-path-v2 {
+  transition: 0.5s ease-in-out;
+}
+
+#id-repo-ghost-instagram:hover #id-03-instagram,
+#id-repo-ghost-facebook:hover #id-01-facebook,
+#id-repo-ghost-linkelind:hover #id-04-linkelind,
+#id-repo-ghost-twich:hover #id-02-twich {
+  transform: translate(0px, -10px);
+}
+
+#id-repo-ghost-instagram:hover .react-path-v1,
+#id-repo-ghost-facebook:hover .react-path-v1,
+#id-repo-ghost-linkelind:hover .react-path-v1,
+#id-repo-ghost-twich:hover .react-path-v1 {
+  transform: translate(0px, -6px);
+}
+
+#id-repo-ghost-instagram:hover .react-path-v2,
+#id-repo-ghost-facebook:hover .react-path-v2,
+#id-repo-ghost-linkelind:hover .react-path-v2,
+#id-repo-ghost-twich:hover .react-path-v2 {
+  transform: translate(0px, -2px);
+}
+
+@keyframes bounce-lines {
+  0%,
+  100% {
+    transform: translateY(-3);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+#line-animation-v1 {
+  animation: bounce-lines 3s infinite ease-in-out;
+}
+#line-animation-v2 {
+  animation: bounce-lines 3s infinite ease-in-out;
+  animation-delay: 0.2s;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 10px;
+  font-size: 0.85em;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .footer-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-links-col {
+    width: 80%;
+    text-align: center;
+  }
+
+  .footer-brand {
+    text-align: center;
   }
 }

@@ -31,10 +31,18 @@
         </div>
     </div>
 
-    <div *ngIf="isLoading && !error" class="loading-message">
-        <div class="loader">
+        <div *ngIf="isLoading && !error" class="loading-message"> 
+        <!-- <div class="loader">
             <div data-glitch="Loading..." class="glitch">Loading...</div>
-        </div>
+        </div> -->
+            <div class="loading-container">
+              <div class="loading-title">Loading...</div>
+              <div class="glitch-text">Retrieving Loans...</div>
+              <div class="bar-container">
+                <div class="loading-bar"></div>
+                <div class="scan-line"></div>
+              </div>
+            </div>
     </div>
 
     <div class="loan-grid">
@@ -61,6 +69,11 @@
                     <span class="data-value">{{loan.interestRatePerAnnum}}%</span>
                 </div>
             </div>
+        </div>
+        <div *ngIf="!isLoading && displayedLoans.length === 0" class="no-results">
+            <p>😕 No loans found</p>
+            <h3>No matching loans found</h3>
+            <p>Try adjusting your filters or apply for a new loan</p>
         </div>
     </div>
 

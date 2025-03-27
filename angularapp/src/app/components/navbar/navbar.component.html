@@ -1,50 +1,44 @@
 <!-- navbar.component.html -->
 <nav class="main-nav">
   <div class="nav-container">
+    <!-- Brand Logo -->
     <div class="nav-brand">
-      <a routerLink="/" class="logo-link">FinestFinance</a>
+      <a class="logo-link" (click)="homeNav()">FinestFinance</a>
     </div>
-    
-    <div class="nav-main">
+
+    <!-- Hamburger Button -->
+    <button class="hamburger-btn" (click)="toggleMobileMenu()">
+      {{ isMobileMenuOpen ? '✕' : '☰' }}
+    </button>
+
+    <!-- Navigation Main -->
+    <div class="nav-main" [class.active]="isMobileMenuOpen">
       <div class="nav-group left">
         <div class="nav-item">
-          <a routerLink="/" class="nav-link">Home</a>
+          <a class="nav-link" (click)="homeNav()">Home</a>
         </div>
 
-        <!-- Loans Dropdown -->
-        <div class="nav-item dropdown">
-          <div class="dropdown-trigger">
+        <div class="nav-item dropdown" (click)="$event.stopPropagation()">
+          <div class="dropdown-trigger" (click)="toggleDropdown('loans'); $event.stopPropagation();">
             <span class="nav-link">Loans</span>
             <span class="dropdown-arrow">▼</span>
           </div>
-          <div class="dropdown-menu">
-            <a routerLink="loan/personal/description" class="dropdown-item">Personal Loan</a>
-            <a routerLink="loan/business/description" class="dropdown-item">Business Loan</a>
-            <a routerLink="loan/home/description" class="dropdown-item">Home Loan</a>
-            <a routerLink="loan/car/description" class="dropdown-item">Car Loan</a>
-            <a routerLink="loan/bike/description" class="dropdown-item">Bike Loan</a>
-          </div>
-        </div>
-
-        <!-- EMI Dropdown -->
-        <div class="nav-item dropdown">
-          <div class="dropdown-trigger">
-            <span class="nav-link">EMI</span>
-            <span class="dropdown-arrow">▼</span>
-          </div>
-          <div class="dropdown-menu">
-            <a routerLink="emi/electronics-description" class="dropdown-item">Electronics</a>
-            <a routerLink="emi/bike-description" class="dropdown-item">Bike</a>
+          <div class="dropdown-menu" [class.show]="dropdownState['loans']">
+            <a routerLink="/loan/personal/description" class="dropdown-item" (click)="closeMobileMenu(); $event.stopPropagation();">Personal Loan</a>
+            <a routerLink="/loan/business/description" class="dropdown-item" (click)="closeMobileMenu(); $event.stopPropagation();">Business Loan</a>
+            <a routerLink="/loan/home/description" class="dropdown-item" (click)="closeMobileMenu(); $event.stopPropagation();">Home Loan</a>
+            <a routerLink="/loan/car/description" class="dropdown-item" (click)="closeMobileMenu(); $event.stopPropagation();">Car Loan</a>
+            <a routerLink="/loan/bike/description" class="dropdown-item" (click)="closeMobileMenu(); $event.stopPropagation();">Bike Loan</a>
           </div>
         </div>
       </div>
 
       <div class="nav-group right">
-        <a routerLink="/login" class="cta-button">Apply Now !</a>
+        <a routerLink="/login" class="cta-button" (click)="closeMobileMenu()">Apply Now !</a>
         <div class="auth-links">
-          <a routerLink="register" class="auth-link">Sign Up</a>
+          <a routerLink="/register" class="auth-link" (click)="closeMobileMenu()">Sign Up</a>
           <span class="divider">|</span>
-          <a routerLink="login" class="auth-link">Login</a>
+          <a routerLink="/login" class="auth-link" (click)="closeMobileMenu()">Login</a>
         </div>
       </div>
     </div>

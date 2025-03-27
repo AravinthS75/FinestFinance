@@ -49,6 +49,8 @@ import { BikeEmiDescriptionComponent } from './components/view-dummy/bike-emi-de
 import { ElectronicsEmiComponent } from './components/electronics-emi/electronics-emi.component';
 import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
 import { ToastrModule } from 'ngx-toastr';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,8 @@ import { ToastrModule } from 'ngx-toastr';
     ElectronicsEmiDescriptionComponent,
     BikeEmiDescriptionComponent,
     ElectronicsEmiComponent,
-    BikeEmiComponent
+    BikeEmiComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +107,8 @@ import { ToastrModule } from 'ngx-toastr';
       timeOut: 3000, // Toast will close after 3 seconds
       positionClass: 'toast-top-right', // Toast position
       preventDuplicates: true, // Prevent duplicate toasts
-    })
+    }),
+    NgSelectModule
   ],
   providers: [
     UserStoreService,

@@ -1,9 +1,9 @@
 -- SQLite
 DELETE FROM users;
 
-DELETE FROM users WHERE id = 4;
+DELETE FROM users WHERE id = 5;
 
-DELETE FROM loans WHERE id = 4;
+DELETE FROM loans WHERE id = 6;
 
 INSERT INTO users (id, email, name, password, phone, role)
 VALUES 

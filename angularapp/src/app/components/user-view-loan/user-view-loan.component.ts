@@ -30,9 +30,19 @@ export class UserViewLoanComponent implements OnInit {
   isLoading: boolean = true;
   isPyaing: boolean = false;
 
+  statusFilter = '';
+  varientFilter = '';
+  amountFilter = 100000000;
+  amountRange = 100000000;
+
   showPaymentSuccess: boolean = false;
   showPaymentError: boolean = false;
   paymentErrorMessage: string = '';
+
+  currentPage = 1;
+  itemsPerPage = 4;
+
+  Math = Math;
 
   constructor(
     private loanService: LoanService,
@@ -59,6 +69,27 @@ export class UserViewLoanComponent implements OnInit {
         error: (err) => console.error('Error fetching loans:', err)
       });
     }
+  }
+
+  get statusOptions(): string[] {
+    return [...new Set(this.loans.map(loan => loan.status).filter(status => status !== undefined))];
+  }
+  
+  get varientOptions(): string[] {
+    return [...new Set(this.loans.map(loan => loan.loanVarient).filter(varient => varient !== undefined))];
+  }
+  
+  get filteredLoans(): Loan[] {
+    return this.loans.filter(loan =>
+      loan.loanAmount !== undefined &&
+      (!this.statusFilter || loan.status === this.statusFilter) &&
+      (!this.varientFilter || loan.loanVarient === this.varientFilter) &&
+      loan.loanAmount <= this.amountFilter
+    );
+  }
+  
+  updateAmountFilter(event: any) {
+    this.amountFilter = event.target.value;
   }
 
   openModal(loan: Loan): void {
@@ -95,6 +126,7 @@ export class UserViewLoanComponent implements OnInit {
         console.error('Error paying EMI:', err);
       }
     });
+    this.selectedLoan = null;
   }
 
   retryPayment(): void {
@@ -109,4 +141,42 @@ export class UserViewLoanComponent implements OnInit {
   closePaymentErrorPopup(): void {
     this.showPaymentError = false;
   }
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredLoans.length / this.itemsPerPage);
+  }
+  
+  get displayedLoans(): Loan[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredLoans.slice(start, start + this.itemsPerPage);
+  }
+  
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
+  
+  previousPage() {
+    if (this.currentPage > 1) this.currentPage--;
+  }
+  
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+  
+  getPageNumbers(): number[] {
+    const pages = [];
+    const maxVisiblePages = 5;
+    let start = Math.max(1, this.currentPage - 2);
+    let end = Math.min(this.totalPages, start + maxVisiblePages - 1);
+    
+    if (end - start < maxVisiblePages - 1) {
+      start = Math.max(1, end - maxVisiblePages + 1);
+    }
+    
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
 }

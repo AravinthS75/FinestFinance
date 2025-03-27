@@ -74,6 +74,7 @@ export class ManagerViewLoanComponent {
     this.managerService.getAllAssignedLoans(this.token, this.managerName).subscribe(
       (data) => {
         this.loans = data;
+        console.log(this.loans);
         if(data)
         this.isLoading = false;
       },
