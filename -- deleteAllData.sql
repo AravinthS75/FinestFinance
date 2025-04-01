@@ -5,6 +5,8 @@ DELETE FROM users WHERE id = 4;
 
 DELETE FROM loans;
 
+UPDATE loans SET status = 'COMPLETED' WHERE id = 3; 
+
 INSERT INTO users (id, email, name, password, phone, role)
 VALUES 
 (0, 'admin.123@gmail.com', 'Admin', 'Admin@123', 8838615817, 'ADMIN'),

@@ -25,7 +25,6 @@ export class UserApplyBusinessLoanComponent implements OnInit {
   userData: string | null = null;
   token: string = '';
 
-  // File handling properties
   aadharFile: File | null = null;
   panFile: File | null = null;
 
@@ -129,7 +128,6 @@ export class UserApplyBusinessLoanComponent implements OnInit {
       ]],
       businessType: ['', Validators.required],
       purpose: ['', Validators.required],
-      collateral: ['', Validators.required],
       tenure: [1, [Validators.required, Validators.min(1), Validators.max(5)]],
       aadhar: [null, [Validators.required]],
       pancard: [null, [Validators.required]]

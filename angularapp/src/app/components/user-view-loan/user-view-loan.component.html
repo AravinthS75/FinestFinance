@@ -1,122 +1,187 @@
 <div *ngIf="showPaymentSuccess" class="popup-overlay" @fadeInOut>
-    <div class="popup-content">
-      <h2>Payment Successful!</h2>
-      <p>Your EMI payment has been processed successfully.</p>
-      <button class="close-btn" (click)="closePaymentSuccessPopup()">Close</button>
-    </div>
+  <div class="popup-content">
+    <h2>Payment Successful!</h2>
+    <p>Your EMI payment has been processed successfully.</p>
+    <button class="close-btn" (click)="closePaymentSuccessPopup()">×</button>
   </div>
-  
-  <!-- Payment Error Popup -->
-  <div *ngIf="showPaymentError" class="popup-overlay" @fadeInOut>
-    <div class="popup-content">
-      <h2>Payment Failed</h2>
-      <p>{{ paymentErrorMessage }}</p>
-      <button class="close-btn" (click)="retryPayment()">Retry</button>
-      <button class="close-btn" (click)="closePaymentErrorPopup()">Close</button>
-    </div>
+</div>
+
+<!-- Payment Error Popup -->
+<div *ngIf="showPaymentError" class="popup-overlay" @fadeInOut>
+  <div class="popup-content">
+    <h2>Payment Failed</h2>
+    <p>{{ paymentErrorMessage }}</p>
+    <button class="close-btn1" (click)="retryPayment()">Retry</button>
+    <button class="close-btn" (click)="closePaymentErrorPopup()">Close</button>
   </div>
-  <div class="loan-container">
-      <div class="clickable-content">
-      <h1 class="title">Your Loan Applications</h1>
-      <div *ngIf="isLoading" class="loader">
-          <div class="load-inner load-one"></div>
-          <div class="load-inner load-two"></div>
-          <div class="load-inner load-three"></div>
-          <span class="text">Loading...</span>
-      </div>
-        
-      <div class="loan-cards">
-        <div *ngFor="let loan of loans" class="loan-card" (click)="openModal(loan)">
-          <div class="card-header">
-            <h3>{{ loan.purpose }}</h3>
-            <span class="status-badge" [ngClass]="{
-              'pending': loan.status === 'PENDING',
-              'approved': loan.status === 'APPROVED',
-              'rejected': loan.status === 'REJECTED'
-            }">
-              {{ loan.status }}
-            </span>
-          </div>
-          <div class="card-content">
-            <p>Amount: ₹{{ loan.loanAmount | number }}</p>
-            <p>Applied on: {{ loan.createdAt | date }}</p>
-          </div>
-        </div>
+</div>
+
+<div class="loan-container">
+  <div class="clickable-content">
+    <h1 class="title">Your Loan Applications</h1>
+    
+    <!-- Filters Section -->
+    <div class="filters-container">
+      <div class="filter-group">
+        <label>Status:</label>
+        <select class="styled-select" [(ngModel)]="statusFilter">
+          <option value="">All</option>
+          <option *ngFor="let status of statusOptions" [value]="status">{{status}}</option>
+        </select>
       </div>
     
-      <div *ngIf="selectedLoan" class="modal-overlay" (click)="closeModal()">
-        <div class="modal-content" (click)="$event.stopPropagation()">
-          <button class="close-btn" (click)="closeModal()">&times;</button>
-          <h2>Loan Details</h2>
-          <div class="modal-body">
-            <div class="detail-row">
-              <span>Loan Amount:</span>
-              <span>₹{{ selectedLoan.loanAmount | number }}</span>
-            </div>
-            <div class="detail-row">
-              <span>EMI Amount:</span>
-              <span>₹{{ selectedLoan.emiAmount | number }}</span>
-            </div>
-            <div *ngIf="selectedLoan.status === 'APPROVED'" class="detail-row">
-              <span>Due Date:</span>
-              <span>{{ selectedLoan.dueDate | date}}</span>
-            </div>
-            <div *ngIf="selectedLoan.status === 'APPROVED'" class="detail-row">
-              <span>Pending Amount:</span>
-              <span>₹{{ selectedLoan.pendingAmount | number: '1.2-2' }}</span>
-            </div>
-            <div *ngIf="selectedLoan.status === 'COMPLETED'" class="detail-row">
-              <span>Total Amount Paid:</span>
-              <span *ngIf="tenure !== null && tenure !== undefined">
-                {{ (selectedLoan.emiAmount || 0) * tenure | number: '1.2-2' }}
-              </span>
-            </div>
-            <div class="detail-row">
-              <span>Interest Rate:</span>
-              <span>{{ selectedLoan.interestRatePerAnnum }}%</span>
-            </div>
-            <div class="detail-row">
-              <span>Purpose:</span>
-              <span>{{ selectedLoan.purpose }}</span>
-            </div>
-            <div class="detail-row">
-              <span>Status:</span>
-              <span [ngClass]="{
-                'pending': selectedLoan.status === 'PENDING',
-                'approved': selectedLoan.status === 'APPROVED',
-                'rejected': selectedLoan.status === 'REJECTED'
-              }">{{ selectedLoan.status }}</span>
-            </div>
-            <div *ngIf="selectedLoan.rejectReason" class="detail-row">
-              <span>Rejection Reason:</span>
-              <span>{{ selectedLoan.rejectReason }}</span>
-            </div>
-            <div class="detail-row">
-              <span>Assigned Manager:</span>
-              <span>{{ selectedLoan.approverName || 'Not assigned' }}</span>
-            </div>
-            <div *ngIf="selectedLoan.assignedManager" class="detail-row">
-              <span>Manager Email:</span>
-              <span>{{ selectedLoan.assignedManager.email || 'Not assigned' }}</span>
-            </div>      
-          </div>
-          <div *ngIf="selectedLoan?.status === 'APPROVED' && (selectedLoan?.pendingAmount || 0) > 0">
-            <button class="pay-emi-btn" (click)="payEmi()">Pay EMI</button>
-          </div>        
+      <div class="filter-group">
+        <label>Varient:</label>
+        <select class="styled-select" [(ngModel)]="varientFilter">
+          <option value="">All</option>
+          <option *ngFor="let varient of varientOptions" [value]="varient">{{varient}}</option>
+        </select>
+      </div>
+    
+      <div class="filter-group">
+        <label>Amount Range:</label>
+        <div class="slider-container">
+          <input type="range" class="styled-slider" min="0" max="100000000"
+                 [(ngModel)]="amountRange" (input)="updateAmountFilter($event)">
+          <span class="range-value">₹ {{amountFilter | number}}</span>
         </div>
       </div>
-      <div *ngIf="isPyaing" class="spinner-overlay">
-      <div class="dot-spinner">
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
-        <div class="dot-spinner__dot"></div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="loader">
+      <div class="load-inner load-one"></div>
+      <div class="load-inner load-two"></div>
+      <div class="load-inner load-three"></div>
+      <span class="text">Loading...</span>
+    </div>
+
+    <!-- Loan Cards -->
+    <div class="loan-cards">
+      <div *ngFor="let loan of displayedLoans" class="loan-card" (click)="openModal(loan)">
+        <div class="card-header">
+          <h3>{{ loan.purpose }}</h3>
+          <span class="status-badge" [ngClass]="{
+            'pending': loan.status === 'PENDING',
+            'approved': loan.status === 'APPROVED',
+            'rejected': loan.status === 'REJECTED'
+          }">
+            {{ loan.status }}
+          </span>
+        </div>
+        <div class="card-content">
+          <p>Amount: ₹{{ loan.loanAmount | number }}</p>
+          <p>Applied on: {{ loan.createdAt | date }}</p>
+        </div>
       </div>
     </div>
+
+    <!-- No Results Message -->
+    <div *ngIf="!isLoading && displayedLoans.length === 0" class="no-results">
+      <p>😕 No loans found</p>
+      <h3>No matching loans found</h3>
+      <p>Try adjusting your filters or apply for a new loan</p>
     </div>
   </div>
+  <div *ngIf="selectedLoan" class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+      <h2>Loan Details</h2>
+      <div class="modal-body">
+        <div class="detail-row">
+          <span>Loan Amount:</span>
+          <span>₹{{ selectedLoan.loanAmount | number }}</span>
+        </div>
+        <div class="detail-row">
+          <span>EMI Amount:</span>
+          <span>₹{{ selectedLoan.emiAmount | number }}</span>
+        </div>
+        <div *ngIf="selectedLoan.status === 'APPROVED'" class="detail-row">
+          <span>Due Date:</span>
+          <span>{{ selectedLoan.dueDate | date}}</span>
+        </div>
+        <div *ngIf="selectedLoan.status === 'APPROVED'" class="detail-row">
+          <span>Pending Amount:</span>
+          <span>₹{{ selectedLoan.pendingAmount | number: '1.2-2' }}</span>
+        </div>
+        <div *ngIf="selectedLoan.status === 'COMPLETED'" class="detail-row">
+          <span>Total Amount Paid:</span>
+          <span *ngIf="tenure !== null && tenure !== undefined">
+            {{ (selectedLoan.emiAmount || 0) * tenure | number: '1.2-2' }}
+          </span>
+        </div>
+        <div class="detail-row">
+          <span>Interest Rate:</span>
+          <span>{{ selectedLoan.interestRatePerAnnum }}%</span>
+        </div>
+        <div class="detail-row">
+          <span>Purpose:</span>
+          <span>{{ selectedLoan.purpose }}</span>
+        </div>
+        <div class="detail-row">
+          <span>Status:</span>
+          <span [ngClass]="{
+            'pending': selectedLoan.status === 'PENDING',
+            'approved': selectedLoan.status === 'APPROVED',
+            'rejected': selectedLoan.status === 'REJECTED'
+          }">{{ selectedLoan.status }}</span>
+        </div>
+        <div *ngIf="selectedLoan.rejectReason" class="detail-row">
+          <span>Rejection Reason:</span>
+          <span>{{ selectedLoan.rejectReason }}</span>
+        </div>
+        <div class="detail-row">
+          <span>Assigned Manager:</span>
+          <span>{{ selectedLoan.approverName || 'Not assigned' }}</span>
+        </div>
+        <div *ngIf="selectedLoan.assignedManager" class="detail-row">
+          <span>Manager Email:</span>
+          <span>{{ selectedLoan.assignedManager.email || 'Not assigned' }}</span>
+        </div>      
+      </div>
+      <div *ngIf="selectedLoan?.status === 'APPROVED' && (selectedLoan?.pendingAmount || 0) > 0">
+        <button class="pay-emi-btn" (click)="payEmi()">Pay EMI</button>
+      </div>
+    </div>
+  </div>
+  <div class="pagination-controls" *ngIf="!isLoading">
+    <div class="pagination-container">
+      <button class="pagination-btn prev" 
+              (click)="previousPage()" 
+              [disabled]="currentPage === 1">
+        &lsaquo;
+      </button>
+      
+      <div class="page-numbers">
+        <span *ngFor="let page of getPageNumbers()" 
+              [class.active]="page === currentPage"
+              (click)="goToPage(page)">
+          {{ page }}
+        </span>
+      </div>
+      
+      <button class="pagination-btn next" 
+              (click)="nextPage()" 
+              [disabled]="currentPage === totalPages">
+        &rsaquo;
+      </button>
+    </div>
     
+    <div class="page-summary">
+      Showing {{ (currentPage-1)*itemsPerPage + 1 }} - 
+      {{ Math.min(currentPage*itemsPerPage, filteredLoans.length) }} of {{ filteredLoans.length }} loans
+    </div>
+  </div>
+</div>
+<div *ngIf="isPyaing" class="spinner-overlay">
+  <div class="dot-spinner">
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+    <div class="dot-spinner__dot"></div>
+  </div>
+</div>

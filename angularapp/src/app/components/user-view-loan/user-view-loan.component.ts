@@ -25,14 +25,25 @@ export class UserViewLoanComponent implements OnInit {
   selectedLoan: Loan | null = null;
   userId: number | null = null;
   userData: string | null = null;
+  error: string | null = null;
   tenure: number | null = null;
   token: string | null = null;
   isLoading: boolean = true;
   isPyaing: boolean = false;
 
+  statusFilter = '';
+  varientFilter = '';
+  amountFilter = 100000000;
+  amountRange = 100000000;
+
   showPaymentSuccess: boolean = false;
   showPaymentError: boolean = false;
   paymentErrorMessage: string = '';
+
+  currentPage = 1;
+  itemsPerPage = 4;
+
+  Math = Math;
 
   constructor(
     private loanService: LoanService,
@@ -56,9 +67,33 @@ export class UserViewLoanComponent implements OnInit {
           this.loans = loans;
           this.isLoading = false;
         },
-        error: (err) => console.error('Error fetching loans:', err)
+        error: (err) => {
+          console.error('Error fetching loans:', err);
+          this.error = 'Error fetching loans';
+        }
       });
     }
+  }
+
+  get statusOptions(): string[] {
+    return [...new Set(this.loans.map(loan => loan.status).filter(status => status !== undefined))];
+  }
+  
+  get varientOptions(): string[] {
+    return [...new Set(this.loans.map(loan => loan.loanVarient).filter(varient => varient !== undefined))];
+  }
+  
+  get filteredLoans(): Loan[] {
+    return this.loans.filter(loan =>
+      loan.loanAmount !== undefined &&
+      (!this.statusFilter || loan.status === this.statusFilter) &&
+      (!this.varientFilter || loan.loanVarient === this.varientFilter) &&
+      loan.loanAmount <= this.amountFilter
+    );
+  }
+  
+  updateAmountFilter(event: any) {
+    this.amountFilter = event.target.value;
   }
 
   openModal(loan: Loan): void {
@@ -73,26 +108,29 @@ export class UserViewLoanComponent implements OnInit {
 
   payEmi(): void {
     if (!this.selectedLoan || !this.token || !this.selectedLoan.id) return;
+    
     this.isPyaing = true;
     this.showPaymentSuccess = false;
     this.showPaymentError = false;
-
+  
     this.loanService.payEmi(this.token, this.selectedLoan.id).subscribe({
       next: (updatedLoan) => {
+        // Update the loans array
         const index = this.loans.findIndex(loan => loan.id === updatedLoan.id);
-        if (index !== -1) this.loans[index] = updatedLoan;
+        if (index !== -1) {
+          this.loans[index] = updatedLoan;
+        }
+        
         this.isPyaing = false;
-        this.showPaymentSuccess = true; // Show success popup
-        this.toastr.success('EMI payment processed successfully!', 'Success'); // Toast notification
-        console.log("EMI paid successfully. Updated loan:", updatedLoan);
+        this.showPaymentSuccess = true;
+        this.toastr.success('EMI payment processed successfully!', 'Success');
         this.selectedLoan = updatedLoan;
       },
       error: (err) => {
         this.isPyaing = false;
-        this.showPaymentError = true; // Show error popup
-        this.paymentErrorMessage = err.message || 'An error occurred while processing the payment.';
-        this.toastr.error('Failed to process EMI payment.', 'Error'); // Toast notification
-        console.error('Error paying EMI:', err);
+        this.showPaymentError = true;
+        this.paymentErrorMessage = err.error?.message || 'Payment failed. Please try again.';
+        this.toastr.error('Payment failed', 'Error');
       }
     });
   }
@@ -109,4 +147,42 @@ export class UserViewLoanComponent implements OnInit {
   closePaymentErrorPopup(): void {
     this.showPaymentError = false;
   }
+
+  get totalPages(): number {
+    return Math.ceil(this.filteredLoans.length / this.itemsPerPage);
+  }
+  
+  get displayedLoans(): Loan[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredLoans.slice(start, start + this.itemsPerPage);
+  }
+  
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
+  
+  previousPage() {
+    if (this.currentPage > 1) this.currentPage--;
+  }
+  
+  goToPage(page: number) {
+    this.currentPage = page;
+  }
+  
+  getPageNumbers(): number[] {
+    const pages = [];
+    const maxVisiblePages = 5;
+    let start = Math.max(1, this.currentPage - 2);
+    let end = Math.min(this.totalPages, start + maxVisiblePages - 1);
+    
+    if (end - start < maxVisiblePages - 1) {
+      start = Math.max(1, end - maxVisiblePages + 1);
+    }
+    
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
+  }
+
 }
