@@ -1,4 +1,5 @@
-<div *ngIf="isLoading && !error" class="loading-message">
+<div class="content-wrapper">
+  <div *ngIf="isLoading && !error" class="loading-message">
   <div class="svg-frame">
     <svg style="--i:0;--j:0;">
       <g id="out1">
@@ -62,7 +63,6 @@
   </div>
 </div>
 
-<!-- Modal Backdrop -->
 <div class="modal-backdrop" *ngIf="isModalOpen"></div>
 <div class="modal-window" *ngIf="isModalOpen">
   <div class="modal-content">
@@ -89,4 +89,5 @@
 </div>
 <div *ngIf="error" class="error-message">
   ⚠️ {{ error }}
+</div>
 </div>

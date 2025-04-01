@@ -38,6 +38,7 @@
 .logo-link:hover {
   color: var(--gold);
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .nav-main {
@@ -66,6 +67,7 @@
 
 .nav-link:hover {
   color: var(--gold);
+  cursor: pointer;
 }
 
 .dropdown-trigger {
@@ -131,9 +133,11 @@
   right: 0;
 }
 
-/* Mobile Styles */
+.hamburger-btn {
+  display: none;
+}
+
 @media (max-width: 768px) {
-/* Smaller hamburger menu */
   input[type="checkbox"] {
     -webkit-appearance: none;
     display: none;

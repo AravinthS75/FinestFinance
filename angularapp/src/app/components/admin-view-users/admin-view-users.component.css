@@ -19,17 +19,21 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* Container for user cards */
+.content-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .users-container {
+  min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
   padding: 2rem;
   background: linear-gradient(45deg, #f0f4ff, #f8f9fa);
-  min-height: 100vh;
 }
 
-/* Individual card */
 .user-card {
   position: relative;
   border-radius: 20px;
@@ -56,7 +60,7 @@ body::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   /* background: rgba(255, 255, 255, 0.9); */
-  z-index: 999; /* Ensure it's above other content but below modal (1000-1001) */
+  z-index: 999;
   color: var(--text-muted);
   font-size: 1.2rem;
   animation: fadeIn 1s ease-in-out;
@@ -191,7 +195,7 @@ body::-webkit-scrollbar {
 
   width: 90%;
   max-width: 600px;
-  max-height: 80vh;
+  max-height: calc(100vh - 100px);
   overflow-y: auto;        /* Enable scrolling */
   overflow-x: hidden;      /* Hide horizontal scroll if any */
 
@@ -319,6 +323,7 @@ body::-webkit-scrollbar {
 @media (max-width: 768px) {
   .users-container {
     grid-template-columns: 1fr;
+    min-height: 100vh;
   }
   .user-card {
     margin: 1rem;

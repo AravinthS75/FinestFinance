@@ -18,8 +18,13 @@
   body::-webkit-scrollbar {
     display: none;
   }
-  
-  /* Container for user cards */
+
+  .content-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
   .users-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
