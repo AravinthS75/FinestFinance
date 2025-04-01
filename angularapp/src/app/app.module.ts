@@ -49,6 +49,7 @@ import { ElectronicsEmiDescriptionComponent } from './components/view-dummy/elec
 import { BikeEmiDescriptionComponent } from './components/view-dummy/bike-emi-description/bike-emi-description.component';
 import { ElectronicsEmiComponent } from './components/electronics-emi/electronics-emi.component';
 import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +91,8 @@ import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
     ElectronicsEmiDescriptionComponent,
     BikeEmiDescriptionComponent,
     ElectronicsEmiComponent,
-    BikeEmiComponent
+    BikeEmiComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

@@ -13,8 +13,6 @@ body {
   background-color: var(--off-white);
 }
 
-
-/* Global Navbar Styles */
 .main-nav {
   background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)) !important;
   height: var(--nav-height);
@@ -50,19 +48,16 @@ body {
 .nav-main {
   display: flex;
   align-items: center;
-  gap: 3rem;
   height: 100%;
 }
 
 .nav-group {
   display: flex;
   align-items: center;
-  height: 100%;
   gap: 1.5rem;
 }
 
 .nav-item {
-  height: 100%;
   display: flex;
   align-items: center;
   position: relative;
@@ -83,7 +78,6 @@ body {
   color: var(--gold);
 }
 
-/* Dropdown Styles */
 .dropdown-trigger {
   cursor: pointer;
   height: 100%;
@@ -93,7 +87,6 @@ body {
   padding: 0 1rem;
 }
 
-/* Fix Dropdown Hover Issue */
 .dropdown-menu {
   position: absolute;
   top: 100%;
@@ -110,7 +103,6 @@ body {
   display: none;
 }
 
-/* Show dropdown when hovered */
 .nav-item:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
@@ -118,7 +110,6 @@ body {
   display: block;
 }
 
-/* Dropdown Item */
 .dropdown-item {
   color: var(--white);
   text-decoration: none;
@@ -132,7 +123,6 @@ body {
   color: var(--gold);
 }
 
-/* CTA Button */
 .cta-button {
   background: var(--gold);
   color: var(--primary-blue);
@@ -149,7 +139,6 @@ body {
   box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
 }
 
-/* Auth Links */
 .auth-links {
   display: flex;
   gap: 1rem;
@@ -171,9 +160,159 @@ body {
   color: rgba(255, 255, 255, 0.3);
 }
 
-/* Mobile Responsive */
+.hamburger-btn {
+  display: none;
+  
+}
+
 @media (max-width: 768px) {
+  .hamburger-btn {
+    display: flex;
+    padding: 5px;
+    color: var(--white);
+  }
+
+  #checkbox {
+    display: none;
+  }
+  
+  .toggle {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition-duration: .3s;
+  }
+  
+  .bars {
+    width: 100%;
+    height: 3px;
+    background-color: var(--white);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  
+  #bar1, #bar3 {
+    width: 70%;
+  }
+
+  #checkbox:checked + .toggle {
+    transform: rotate(180deg);
+  }
+  
+  #checkbox:checked + .toggle .bars {
+    position: absolute;
+  }
+  
+  #checkbox:checked + .toggle #bar2 {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  
+  #checkbox:checked + .toggle #bar1 {
+    width: 100%;
+    transform: rotate(45deg);
+  }
+  
+  #checkbox:checked + .toggle #bar3 {
+    width: 100%;
+    transform: rotate(-45deg);
+  }
+  
+  #checkbox:checked + .toggle {
+    transition-duration: .5s;
+    transform: rotate(180deg);
+  }
+
   .nav-main {
+    position: fixed;
+    top: var(--nav-height);
+    right: -100%;
+    height: calc(100vh - var(--nav-height));
+    width: 80%;
+    max-width: 300px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+    flex-direction: column;
+    padding: 2rem;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  .nav-main.active {
+    right: 0;
+  }
+
+  .nav-group {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 1rem;
+    height: auto;
+  }
+
+  .nav-item {
+    height: auto;
+    width: 100%;
+    padding: 0.5rem 0;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0;
+    height: auto;
+  }
+
+  .dropdown-trigger {
+    justify-content: space-between;
+    width: 100%;
+    padding: 0;
+  }
+
+  .dropdown-menu {
+    position: static;
+    display: none;
+    width: 100%;
+    box-shadow: none;
+    background: rgba(255, 255, 255, 0.1);
+    margin-top: 0.5rem;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: none;
+  }
+
+  .dropdown-menu.show {
+    display: block;
+  }
+
+  .nav-item:hover .dropdown-menu {
+    display: none;
+  }
+
+  .right {
+    margin-top: 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .cta-button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .auth-links {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .divider {
     display: none;
   }
 }
