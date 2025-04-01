@@ -20,6 +20,7 @@ export class AdminEditProfileComponent implements OnInit{
   // Store user id and token for API calls
   userId: number = 0;
   token: string = '';
+  isLoading: boolean = false;
   // Flag to indicate if a new image file was selected
   imageChanged: boolean = false;
   // Store the original profile picture (base64 string without the data prefix)
@@ -47,6 +48,7 @@ export class AdminEditProfileComponent implements OnInit{
     if (userData) {
       this.userId = userData.userId;
       this.token = userData.token;
+      this.isLoading = true;
       this.loadUserData();
     }
   }
@@ -68,8 +70,12 @@ export class AdminEditProfileComponent implements OnInit{
           // For display purposes, prepend the data URL prefix.
           this.profileImage = `data:image/jpeg;base64,${user.profilePicture}`;
         }
+        this.isLoading = false;
       },
-      error: (err) => console.error('Failed to load user data', err)
+      error: (err) => {
+        console.error('Failed to load user data', err);
+        this.isLoading = false;
+      }
     });
   }
 

@@ -1,3 +1,19 @@
+<div class="loader-backdrop" *ngIf="isLoading">
+<div class="spinner center">
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+  <div class="spinner-blade"></div>
+</div>
+</div>
 <div class="edit-profile-container">
     <h2>Edit Profile</h2>
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
@@ -6,7 +22,6 @@
           <img [src]="profileImage" alt="Profile Preview" class="profile-preview">
           <label for="fileInput" class="upload-label">
             <span class="upload-text">Choose Image</span>
-             <!-- <img [src]="uploadImage" alt="Choose Image" class="upload-text"> -->
             <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*">
           </label>
         </div>
