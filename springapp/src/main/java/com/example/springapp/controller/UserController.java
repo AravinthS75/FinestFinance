@@ -25,12 +25,12 @@ public class UserController {
         String token = authHeader.replace("Bearer ", "");
 
         String role = jwtService.extractRole(token);
-        System.out.println(role);
 
         User userDetails = userRepo.findById(userId);
         if (userDetails == null || (!role.equals("ROLE_USER") && !role.equals("ROLE_MANAGER") && !role.equals("ROLE_ADMIN"))) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
+        
         return ResponseEntity.ok(userDetails);
     }
 

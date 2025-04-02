@@ -26,11 +26,15 @@ public class LoanController {
 
     @PostMapping("/user/{userId}")
     public ResponseEntity<?> applyForLoan(@PathVariable int userId, @RequestBody Loan loan, @RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
 
-            Loan savedLoan = loanService.applyForLoan(authHeader,userId, loan);
-            if(savedLoan!=null)
+        String role = jwtService.extractRole(token);
+
+        Loan savedLoan = loanService.applyForLoan(authHeader,userId, loan);
+        if(savedLoan!=null && role.equals("ROLE_USER"))
             return ResponseEntity.status(201).body(savedLoan);
-        return ResponseEntity.status(500).body("Only users can apply for loans");
+
+        return ResponseEntity.status(403).body("Only users can apply for loans!");
     }
 
     @GetMapping("/user/{userId}")
@@ -40,10 +44,14 @@ public class LoanController {
 
     @GetMapping("/manager/{approverName}")
     public ResponseEntity<?> getLoansByApproverName(@PathVariable String approverName, @RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+
+        String role = jwtService.extractRole(token);
+
         List<Loan> managedLoans = loanService.getLoansByApproverName(authHeader, approverName);
-        if(!managedLoans.isEmpty())
+        if(!managedLoans.isEmpty() && role.equals("ROLE_ADMIN") || !managedLoans.isEmpty() && role.equals("ROLE_MANAGER"))
             return ResponseEntity.status(200).body(managedLoans);
-        return ResponseEntity.status(500).body("No loans available");
+        return ResponseEntity.status(500).body("No loans available!");
     }
 
     @GetMapping
@@ -51,10 +59,9 @@ public class LoanController {
         String token = authHeader.replace("Bearer ", "");
 
         String role = jwtService.extractRole(token);
-        System.out.println(role);
 
         if(role.equals("ROLE_ADMIN"))        
-        return ResponseEntity.status(200).body(loanService.getAllLoans());
+            return ResponseEntity.status(200).body(loanService.getAllLoans());
 
         return ResponseEntity.status(403).body("Only Admin has access!");
     }
@@ -62,19 +69,39 @@ public class LoanController {
     @PatchMapping("/manager/{loanId}/status")
     public ResponseEntity<?> updateLoanStatus(@RequestHeader("Authorization") String authHeader,
             @PathVariable int loanId, @RequestBody Map<String, String> updates) {
-        String status = updates.get("status");
-        String reason = updates.get("rejectReason");
-        return ResponseEntity.status(200).body(loanService.updateLoanStatus(loanId, status, reason));
+        String token = authHeader.replace("Bearer ", "");
+
+        String role = jwtService.extractRole(token);
+        if(role.equals("ROLE_MANAGER")){
+            String status = updates.get("status");
+            String reason = updates.get("rejectReason");
+            return ResponseEntity.status(200).body(loanService.updateLoanStatus(loanId, status, reason));
+        }
+        return ResponseEntity.status(403).body("Only Managers can update loans data!");
     }
 
     @PutMapping("/assign-manager/{userId}/{loanId}/{managerId}")
-    public ResponseEntity<?> assignManager(@PathVariable int userId, @PathVariable int loanId, @PathVariable int managerId) {
-        return ResponseEntity.status(200).body(loanService.setLoanApprover(userId, loanId, managerId));
+    public ResponseEntity<?> assignManager(@PathVariable int userId, @PathVariable int loanId, @PathVariable int managerId, @RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+
+        String role = jwtService.extractRole(token);
+        if(role.equals("ROLE_ADMIN")){
+            return ResponseEntity.status(200).body(loanService.setLoanApprover(userId, loanId, managerId));
+        }
+
+        return ResponseEntity.status(403).body("Only Admin can assign mmanager!");
     }
 
     @PutMapping("/pay-emi/{loanId}")
     public ResponseEntity<?> payEmi(@PathVariable int loanId, @RequestHeader("Authorization") String authHeader) {
-        return ResponseEntity.ok(loanService.processEmiPayment(loanId));
+        String token = authHeader.replace("Bearer ", "");
+
+        String role = jwtService.extractRole(token);
+
+        if(role.equals("ROLE_USER")){
+            return ResponseEntity.ok(loanService.processEmiPayment(loanId));
+        }
+        return ResponseEntity.status(403).body("Only User can pay EMI!");
     }
 
 }

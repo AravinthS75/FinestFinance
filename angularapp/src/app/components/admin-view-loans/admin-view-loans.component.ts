@@ -68,7 +68,6 @@ export class AdminViewLoansComponent implements OnInit {
         this.adminService.getAllLoans(this.token).subscribe(
             (data) => {
                 this.loans = data;
-                console.log(data);
                 if (data)
                     this.isLoading = false;
                 if (this.loans.length === 0)
@@ -162,9 +161,6 @@ export class AdminViewLoansComponent implements OnInit {
         if (!this.selectedLoan) return;
         const userId = this.selectedLoan.user?.id;
         const loanId = this.selectedLoan.id;
-        console.log("userId: ", userId);
-        console.log("loanId: ", loanId);
-        console.log("managerId: ", managerId);
         if (!userId || !loanId) {
             this.error = 'Invalid user or loan ID';
             return;

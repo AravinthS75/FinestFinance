@@ -45,7 +45,6 @@ export class NavbarComponent {
       }
     });
 
-    // Toggle the clicked dropdown
     this.dropdowns[menu] = !this.dropdowns[menu];
   }
 
@@ -53,15 +52,13 @@ export class NavbarComponent {
     Object.keys(this.dropdowns).forEach(key => this.dropdowns[key] = false);
   }
 
-  /** 
-   * Close mobile menu and dropdowns when clicking outside
-   */
   @HostListener('document:click', ['$event'])
   handleClickOutside(event: Event) {
     const target = event.target as HTMLElement;
     if (!target.closest('.main-nav')) {
       this.closeMobileMenu();
       this.closeAllDropdowns();
+      this.uncheckHamburger();
     }
   }
 
@@ -69,6 +66,14 @@ export class NavbarComponent {
   handleScroll() {
     this.closeMobileMenu();
     this.closeAllDropdowns();
+    this.uncheckHamburger();
+  }
+
+  private uncheckHamburger(): void {
+    const hamburgerCheckbox = document.querySelector<HTMLInputElement>('.hamburger-btn input[type="checkbox"]');
+    if (hamburgerCheckbox && hamburgerCheckbox.checked) {
+      hamburgerCheckbox.checked = false;
+    }
   }
 
   closeAllMenus() {

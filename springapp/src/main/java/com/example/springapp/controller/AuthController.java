@@ -20,7 +20,6 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
-    // Register User
     @PostMapping("/api/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         try {
@@ -31,13 +30,12 @@ public class AuthController {
         }
     }
 
-    // User Login
     @PostMapping("/api/login")
     public ResponseEntity<?> signIn(@RequestBody User loginUser) {
         try {
             AuthUser authUser = userService.loginUser(loginUser);
             if (authUser != null) {
-                return ResponseEntity.status(HttpStatus.OK).body(authUser); // Return authUser (or JWT token) for the frontend to store
+                return ResponseEntity.status(HttpStatus.OK).body(authUser);
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials!");
             }

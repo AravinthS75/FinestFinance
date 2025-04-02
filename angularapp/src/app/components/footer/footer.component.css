@@ -78,6 +78,7 @@
   .footer-socials {
     width: 100%;
     text-align: center;
+    display: flex;
   }
   
   .footer-socials h4 {
@@ -85,89 +86,77 @@
     margin-bottom: 10px;
   }
   
-  .social-icons {
+  .card {
+    width: fit-content;
+    height: fit-content;
     display: flex;
+    align-items: center;
+    margin-left: 25%;
     justify-content: center;
-    gap: 15px; /* Space between icons */
+    padding: 25px 25px;
+    gap: 20px;
   }
   
-  .social-icons a {
-    display: inline-block;
-    /* Adjust icon size as needed with width/height or transform: scale() */
+  /* for all social containers*/
+  .socialContainer {
+    width: 52px;
+    height: 52px;
+    background-color: rgb(44, 44, 44);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition-duration: .3s;
+  }
+  /* instagram*/
+  .containerOne:hover {
+    background-color: #d62976;
+    transition-duration: .3s;
+  }
+  /* twitter*/
+  .containerTwo:hover {
+    background-color: #00acee;
+    transition-duration: .3s;
+  }
+  /* linkdin*/
+  .containerThree:hover {
+    background-color: #0072b1;
+    transition-duration: .3s;
+  }
+  /* Whatsapp*/
+  .containerFour:hover {
+    background-color: #128C7E;
+    transition-duration: .3s;
   }
   
-  /* From Uiverse.io by Juanes200122 */
-  #svg-container {
-    zoom: 1.6;
-  }
-  #id-repo-ghost-instagram .container-g-icons g,
-  #id-repo-ghost-facebook .container-g-icons g,
-  #id-repo-ghost-linkelind .container-g-icons g,
-  #id-repo-ghost-twich .container-g-icons g {
-    opacity: 0.5;
-    transition: 0.3s ease-in-out;
+  .socialContainer:active {
+    transform: scale(0.9);
+    transition-duration: .3s;
   }
   
-  #id-repo-ghost-instagram:hover .container-g-icons g,
-  #id-repo-ghost-facebook:hover .container-g-icons g,
-  #id-repo-ghost-linkelind:hover .container-g-icons g,
-  #id-repo-ghost-twich:hover .container-g-icons g {
-    opacity: 1;
+  .socialSvg {
+    width: 17px;
   }
   
-  #id-repo-ghost-twich,
-  #id-repo-ghost-instagram,
-  #id-repo-ghost-facebook,
-  #id-repo-ghost-linkelind {
-    cursor: pointer;
-  }
-  #id-03-instagram,
-  #id-01-facebook,
-  #id-04-linkelind,
-  #id-02-twich,
-  .react-path-v1,
-  .react-path-v2 {
-    transition: 0.5s ease-in-out;
+  .socialSvg path {
+    fill: rgb(255, 255, 255);
   }
   
-  #id-repo-ghost-instagram:hover #id-03-instagram,
-  #id-repo-ghost-facebook:hover #id-01-facebook,
-  #id-repo-ghost-linkelind:hover #id-04-linkelind,
-  #id-repo-ghost-twich:hover #id-02-twich {
-    transform: translate(0px, -10px);
+  .socialContainer:hover .socialSvg {
+    animation: slide-in-top 0.3s both;
   }
   
-  #id-repo-ghost-instagram:hover .react-path-v1,
-  #id-repo-ghost-facebook:hover .react-path-v1,
-  #id-repo-ghost-linkelind:hover .react-path-v1,
-  #id-repo-ghost-twich:hover .react-path-v1 {
-    transform: translate(0px, -6px);
-  }
+  @keyframes slide-in-top {
+    0% {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
   
-  #id-repo-ghost-instagram:hover .react-path-v2,
-  #id-repo-ghost-facebook:hover .react-path-v2,
-  #id-repo-ghost-linkelind:hover .react-path-v2,
-  #id-repo-ghost-twich:hover .react-path-v2 {
-    transform: translate(0px, -2px);
-  }
-  
-  @keyframes bounce-lines {
-    0%,
     100% {
-      transform: translateY(-3);
+      transform: translateY(0);
+      opacity: 1;
     }
-    50% {
-      transform: translateY(-3px);
-    }
-  }
-  
-  #line-animation-v1 {
-    animation: bounce-lines 3s infinite ease-in-out;
-  }
-  #line-animation-v2 {
-    animation: bounce-lines 3s infinite ease-in-out;
-    animation-delay: 0.2s;
-  }
+  }  
   
   .footer-bottom {
     text-align: center;
@@ -175,8 +164,13 @@
     font-size: 0.85em;
   }
   
-  /* Media Queries for Responsiveness */
-  @media (max-width: 768px) {
+  @media (max-width: 740px) {
+
+    .footer-socials{
+      flex-direction: column;
+      text-align: center;
+    }
+
     .footer-links {
       flex-direction: column;
       align-items: center;

@@ -36,6 +36,7 @@
 .logo-link:hover {
   color: var(--gold);
   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .nav-main {
@@ -64,6 +65,7 @@
 
 .nav-link:hover {
   color: var(--gold);
+  cursor: pointer;
 }
 
 .dropdown-trigger {
