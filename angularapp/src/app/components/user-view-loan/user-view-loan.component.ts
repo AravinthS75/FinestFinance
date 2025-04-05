@@ -123,14 +123,14 @@ export class UserViewLoanComponent implements OnInit {
         
         this.isPyaing = false;
         this.showPaymentSuccess = true;
-        this.toastr.success('EMI payment processed successfully!', 'Success');
+        this.toastr.success('EMI payment processed successfully!', 'Payment Successful', {closeButton:true});
         this.selectedLoan = updatedLoan;
       },
       error: (err) => {
         this.isPyaing = false;
         this.showPaymentError = true;
         this.paymentErrorMessage = err.error?.message || 'Payment failed. Please try again.';
-        this.toastr.error('Payment failed', 'Error');
+        this.toastr.error('Failed to pay EMI. Please try again.', 'Payment Failed', {closeButton: true});
       }
     });
   }

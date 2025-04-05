@@ -288,7 +288,7 @@ body::-webkit-scrollbar {
 
 @keyframes spinner-fade9234 {
   0% {
-    background-color: #822599;
+    background-color: #ffffff;
   }
 
   100% {
@@ -307,4 +307,22 @@ body::-webkit-scrollbar {
   justify-content: center;
   align-items: center;
   z-index: 1000; /* Make sure it's on top of other elements */
+}
+
+.error-message {
+  color: #ff4d4d;
+  text-align: center;
+  margin-top: 2rem;
+  margin-top: 20%;
+  margin-left: 43%;
+  width: fit-content;
+  display: flex;
+  padding: 1rem;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff4d4d;
+  border-radius: 5px;
+}
+
+.overall-container{
+  min-height: 100vh;
 }

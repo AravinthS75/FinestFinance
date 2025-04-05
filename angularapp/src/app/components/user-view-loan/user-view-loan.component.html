@@ -6,21 +6,19 @@
   </div>
 </div>
 
-<!-- Payment Error Popup -->
 <div *ngIf="showPaymentError" class="popup-overlay" @fadeInOut>
   <div class="popup-content">
     <h2>Payment Failed</h2>
     <p>{{ paymentErrorMessage }}</p>
-    <button class="close-btn1" (click)="retryPayment()">Retry</button>
-    <button class="close-btn" (click)="closePaymentErrorPopup()">Close</button>
+    <button class="retry-btn" (click)="retryPayment()">Retry</button>
+    <button class="close-btn" (click)="closePaymentErrorPopup()">&times;</button>
   </div>
 </div>
 
 <div class="loan-container">
   <div class="clickable-content">
     <h1 class="title">Your Loan Applications</h1>
-    
-    <!-- Filters Section -->
+
     <div class="filters-container">
       <div class="filter-group">
         <label>Status:</label>

@@ -5,7 +5,7 @@ DELETE FROM users WHERE id = 4;
 
 DELETE FROM loans;
 
-UPDATE loans SET status = 'COMPLETED' WHERE id = 3; 
+UPDATE loans SET status = 'PENDING' WHERE id = 1; 
 
 INSERT INTO users (id, email, name, password, phone, role)
 VALUES 

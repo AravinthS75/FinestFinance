@@ -1,3 +1,4 @@
+<div class="overall-container">
 <div class="loader-backdrop" *ngIf="isLoading">
   <div class="spinner center">
     <div class="spinner-blade"></div>
@@ -14,7 +15,7 @@
     <div class="spinner-blade"></div>
   </div>
 </div>
-<div class="edit-profile-container">
+<div *ngIf="!error" class="edit-profile-container">
     <h2>Edit Profile</h2>
     <form [formGroup]="editForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
       <div class="profile-picture-section">
@@ -53,4 +54,8 @@
         <button type="button" class="cancel" routerLink="/admin/dashboard">Cancel</button>
       </div>
     </form>
+</div>
+<div *ngIf="error" class="error-message">
+  ⚠️ {{ error }}
+</div>
 </div>

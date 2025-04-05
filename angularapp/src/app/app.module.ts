@@ -103,9 +103,9 @@ import { FooterComponent } from './components/footer/footer.component';
     SweetAlert2Module.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 3000, // Toast will close after 3 seconds
-      positionClass: 'toast-top-right', // Toast position
-      preventDuplicates: true, // Prevent duplicate toasts
+      timeOut: 3000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
     })
   ],
   providers: [

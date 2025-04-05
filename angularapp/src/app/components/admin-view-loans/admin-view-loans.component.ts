@@ -6,6 +6,7 @@ import { saveAs } from 'file-saver';
 import { HttpErrorResponse } from '@angular/common/http';
 import { LoanService } from '../../services/loan.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-admin-view-loans',
@@ -51,7 +52,8 @@ export class AdminViewLoansComponent implements OnInit {
     constructor(
         private adminService: AdminService,
         private loanService: LoanService,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private toastr: ToastrService
     ) {
         this.userData = sessionStorage.getItem('authUser');
         if (this.userData) {
@@ -174,7 +176,7 @@ export class AdminViewLoansComponent implements OnInit {
                     this.adminService.getAllLoans(this.token).subscribe(loans => this.loans = loans);
                     this.ngOnInit();
                 },
-                error: (err) => this.error = err.message || 'Failed to assign manager'
+                error: (err) => this.toastr.error('Failed to assign manager. Please try again.', 'Assign Failed', {closeButton: true})
             });
         this.closeLoanDetails();
     }

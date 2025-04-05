@@ -44,7 +44,7 @@ export class ManagerViewUsersComponent {
       this.isLoading = false;
     },
     (errorResponse: HttpErrorResponse) => {
-            this.error = errorResponse.error.message || 'Failed to load user details';
+            this.error = errorResponse.error.message || 'Failed to load Users list!';
             this.isLoading = false;
           }
   );

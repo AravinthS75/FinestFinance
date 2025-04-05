@@ -288,6 +288,7 @@ body::-webkit-scrollbar {
     font-size: 1.2rem;
   }
 
+
   .features-grid, .eligibility-grid, .documents-grid, .fees-card {
     grid-template-columns: 1fr;
   }

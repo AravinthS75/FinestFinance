@@ -1,187 +1,185 @@
+/* Main Footer Styles */
 .main-footer {
-    background-color: #222;
-    color: #fff;
-    padding: 20px 0;
-    font-size: 0.9em;
-  }
-  
-  .footer-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
+  background-color: #222;
+  color: #fff;
+  padding: 40px 0 20px;
+  font-size: 0.9em;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Footer Content Layout */
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #444;
+  gap: 30px;
+}
+
+/* Brand Section */
+.footer-brand {
+  max-width: 400px;
+}
+
+.footer-brand .logo-link {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.footer-description {
+  margin-top: 10px;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+/* Links Section */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-around;
+}
+
+.footer-links-col {
+  min-width: 150px;
+}
+
+.footer-links-col h4 {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.footer-links-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links-col li {
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.footer-links-col a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links-col a:hover {
+  color: #fff;
+}
+
+/* Social Media Section */
+.footer-socials {
+  max-width: 400px;
+}
+
+.footer-socials h4 {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.card {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: 0;
+  padding: 0;
+}
+
+.socialContainer {
+  width: 42px;
+  height: 42px;
+  background-color: rgb(44, 44, 44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+/* Social icon hover effects */
+.containerOne:hover { background-color: #d62976; }
+.containerTwo:hover { background-color: #00acee; }
+.containerThree:hover { background-color: #0072b1; }
+.containerFour:hover { background-color: #128C7E; }
+
+.socialContainer:active {
+  transform: scale(0.9);
+}
+
+.socialSvg {
+  width: 18px;
+  height: 18px;
+}
+
+.socialSvg path {
+  fill: rgb(255, 255, 255);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 0.85em;
+  color: #999;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
   .footer-content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding-bottom: 20px;
-    border-bottom: 1px solid #444;
+    flex-direction: column;
+    gap: 30px;
   }
   
-  .footer-brand {
-    width: 100%;
+  .footer-brand,
+  .footer-socials {
+    max-width: 100%;
     text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .footer-brand .logo-link {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #fff;
-    text-decoration: none;
-    display: block;  /* Ensure it takes the full width */
-  }
-  
-  .footer-description {
-    margin-top: 10px;
-    line-height: 1.4;
   }
   
   .footer-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: center;
+    gap: 30px;
+  margin-top: 20px;
   }
   
   .footer-links-col {
-    width: 25%; /* Adjust as needed for your layout */
-    min-width: 150px;  /* Prevent squishing on smaller screens */
-    margin-bottom: 20px;
-  }
-  
-  .footer-links-col h4 {
-    font-size: 1.1em;
-    margin-bottom: 10px;
-  }
-  
-  .footer-links-col ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .footer-links-col li {
-    margin-bottom: 5px;
-  }
-  
-  .footer-links-col a {
-    color: #ccc;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .footer-links-col a:hover {
-    color: #fff;
-  }
-  
-  .footer-socials {
-    width: 100%;
+    width: 45%;
     text-align: center;
-    display: flex;
-  }
-  
-  .footer-socials h4 {
-    font-size: 1.1em;
-    margin-bottom: 10px;
   }
   
   .card {
-    width: fit-content;
-    height: fit-content;
-    display: flex;
-    align-items: center;
-    margin-left: 25%;
     justify-content: center;
-    padding: 25px 25px;
-    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links-col {
+    width: 100%;
   }
   
-  /* for all social containers*/
   .socialContainer {
-    width: 52px;
-    height: 52px;
-    background-color: rgb(44, 44, 44);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    transition-duration: .3s;
-  }
-  /* instagram*/
-  .containerOne:hover {
-    background-color: #d62976;
-    transition-duration: .3s;
-  }
-  /* twitter*/
-  .containerTwo:hover {
-    background-color: #00acee;
-    transition-duration: .3s;
-  }
-  /* linkdin*/
-  .containerThree:hover {
-    background-color: #0072b1;
-    transition-duration: .3s;
-  }
-  /* Whatsapp*/
-  .containerFour:hover {
-    background-color: #128C7E;
-    transition-duration: .3s;
-  }
-  
-  .socialContainer:active {
-    transform: scale(0.9);
-    transition-duration: .3s;
+    width: 38px;
+    height: 38px;
   }
   
   .socialSvg {
-    width: 17px;
+    width: 16px;
+    height: 16px;
   }
-  
-  .socialSvg path {
-    fill: rgb(255, 255, 255);
-  }
-  
-  .socialContainer:hover .socialSvg {
-    animation: slide-in-top 0.3s both;
-  }
-  
-  @keyframes slide-in-top {
-    0% {
-      transform: translateY(-50px);
-      opacity: 0;
-    }
-  
-    100% {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }  
-  
-  .footer-bottom {
-    text-align: center;
-    padding-top: 10px;
-    font-size: 0.85em;
-  }
-  
-  @media (max-width: 740px) {
-
-    .footer-socials{
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .footer-links {
-      flex-direction: column;
-      align-items: center;
-    }
-  
-    .footer-links-col {
-      width: 80%;
-      text-align: center;
-    }
-  
-    .footer-brand {
-      text-align: center;
-    }
-  }
+}

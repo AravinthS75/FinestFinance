@@ -32,8 +32,8 @@
   </div>
 
   <div *ngIf="isLoading && !error" class="loading-message">
-    <div class="loader">
-      <div data-glitch="Loading..." class="glitch">Loading...</div>
+    <div class="progress">
+      <div class="bar"></div>
     </div>
   </div>
 
@@ -65,14 +65,12 @@
 
   <div *ngIf="selectedLoan" class="popup-overlay">
     <div class="popup-content">
-      <!-- Close Button -->
       <button class="close-btn" (click)="closeLoanDetails()">
         <span class="close-icon">&times;</span>
       </button>
   
       <h2>Loan Details</h2>
       <div class="split-container">
-        <!-- Left Side - Borrower & Loan Details -->
         <div class="details-panel borrower-side">
           <div class="user-section">
             <img [src]="userProfilePicture" alt="Borrower Image" class="profile-image">
@@ -227,7 +225,7 @@
                   </span>
                 </button>
               </div>
-        <!-- Rejection Confirmation Popup -->
+
         <div *ngIf="showRejectionPopup" class="popup-overlay">
           <div class="popup-content">
             <button class="close-btn" (click)="closeRejectionPopup()">
@@ -268,6 +266,12 @@
       </div>
     </div>
     
+    <div *ngIf="!isLoading && displayedLoans.length === 0 && !error" class="no-results">
+      <p>😕 No loans found</p>
+      <h3>No matching loans found</h3>
+      <p>Try adjusting your filters</p>
+    </div>
+
     <div *ngIf="error" class="error-message">
       ⚠️ {{ error }}
     </div>

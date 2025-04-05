@@ -66,7 +66,6 @@
 
     <div *ngIf="selectedLoan" class="popup-overlay">
         <div class="popup-content">
-            <!-- Close Button -->
             <button class="close-btn" (click)="closeLoanDetails()">
                 <span class="close-icon">×</span>
             </button>
@@ -290,6 +289,11 @@
         </div>
     </div>
 
+    <div *ngIf="!isLoading && displayedLoans.length === 0 && !error" class="no-results">
+        <p>😕 No loans found</p>
+        <h3>No matching loans found</h3>
+        <p>Try adjusting your filters</p>
+    </div>
 
     <div *ngIf="error" class="error-message">
         ⚠️ {{ error }}

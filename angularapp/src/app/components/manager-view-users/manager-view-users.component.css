@@ -84,6 +84,9 @@
   .error-message {
     color: #ff6b6b;
     text-align: center;
+    width: fit-content;
+    margin-top:20%;
+    margin-left:43%;
     font-size: 1.2rem;
     padding: 1rem;
     background: rgba(255, 107, 107, 0.2);

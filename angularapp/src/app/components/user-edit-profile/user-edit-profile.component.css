@@ -288,7 +288,7 @@ body::-webkit-scrollbar {
 
 @keyframes spinner-fade9234 {
   0% {
-    background-color: var(--secondary-color);
+    background-color: #ffffff;
   }
 
   100% {

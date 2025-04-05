@@ -3,6 +3,7 @@
   --secondary-color: #1e88e5;
   --accent-color: #ffc107;
   --light-color: #ffffff;
+  --border-radius: 12px;
   --transition-speed: 0.4s;
 }
 
@@ -288,7 +289,7 @@ display: none;
 
 @keyframes spinner-fade9234 {
   0% {
-    background-color: #822599;
+    background-color: #ffffff;
   }
 
   100% {
@@ -307,4 +308,29 @@ display: none;
   justify-content: center;
   align-items: center;
   z-index: 1000; /* Make sure it's on top of other elements */
+}
+
+.error-message {
+  color: #ff6b6b;
+  text-align: center;
+  width: fit-content;
+  display: flex;
+  margin-top:20%;
+  margin-left:43%;
+  font-size: 1.2rem;
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.2);
+  border-radius: var(--border-radius);
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
+.main-container{
+  min-height: 100vh;
 }

@@ -104,6 +104,10 @@ body::-webkit-scrollbar {
   box-shadow: 0 0 15px #00f3ff;
 }
 
+.cyber-button:hover:is([disabled]) {
+  cursor: not-allowed;
+}
+
 .cyber-input {
   background: rgba(0, 0, 0, 0.6);
   border: none;

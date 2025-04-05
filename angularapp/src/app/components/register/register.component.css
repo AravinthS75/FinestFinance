@@ -18,6 +18,8 @@ body::-webkit-scrollbar {
 
 .register-wrapper {
     min-height: 100vh;
+    padding-top: 5%;
+    padding-bottom: 5%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,8 +114,9 @@ input:focus, select:focus {
 .error-message {
     color: #ff4444;
     font-size: 0.9rem;
-    margin-bottom: 1rem;
+    margin-top: 4px;
     animation: shake 0.4s ease;
+    line-height: 1.3;
 }
 
 @keyframes shake {
@@ -238,4 +241,34 @@ input:focus, select:focus {
         width: 90%;
         padding: 1.5rem;
     }
+}
+
+.password-conditions {
+    font-size: 0.9rem;
+    margin-top: 5px; /* Space above the conditions */
+    margin-bottom: 1rem; /* Space below the conditions */
+    line-height: 1.4; /* Improve readability */
+    padding-left: 5px; /* Optional slight indent */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.password-conditions span {
+    display: inline-block;
+    margin-bottom: 3px; /* Small space between conditions */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+input.invalid-input, select.invalid-input {
+    border-color: #ff4444;
+    box-shadow: 0 0 8px rgba(255, 68, 68, 0.3); /* Optional glow effect */
+}
+
+.valid-pass{
+    color: rgb(11, 194, 66);
+}
+
+.invalid-pass{
+    color: #ff4444;
 }

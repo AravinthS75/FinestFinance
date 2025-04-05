@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserStoreService } from '../../services/user-store.service';
 import { UserService } from '../../services/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-edit-profile',
@@ -17,6 +18,7 @@ export class UserEditProfileComponent {
   profileImage: string | ArrayBuffer | null = 'assets/images/default-profile.png';
   userId: number = 0;
   token: string = '';
+  error: string | null = null;
   isLoading: boolean = false;
   imageChanged: boolean = false;
   originalProfilePicture: string | null = null;
@@ -25,7 +27,8 @@ export class UserEditProfileComponent {
     private fb: FormBuilder,
     private userService: UserService,
     private userStore: UserStoreService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.editForm = this.fb.group({
       name: ['', Validators.required],
@@ -63,7 +66,7 @@ export class UserEditProfileComponent {
         this.isLoading = false;
       },
       error: (err) => {
-        console.error('Failed to load user data', err)
+        this.error = 'Failed to load user data';
         this.isLoading = false;
       }
     });
@@ -114,9 +117,10 @@ export class UserEditProfileComponent {
         next: (response) => {
           this.userStore.updateUserProfile(response);
           this.router.navigate(['/user/dashboard']);
+          this.toastr.success('Profile updated successfully.', 'Update Success', {closeButton: true});
         },
         error: (err: HttpErrorResponse) => {
-          console.error('Update failed', err);
+          this.toastr.error('Failed to update profile. Please try again.', 'Update Failed', {closeButton: true});
         }
       });
     }

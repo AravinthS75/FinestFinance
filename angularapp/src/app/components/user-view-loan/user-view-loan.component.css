@@ -184,7 +184,11 @@ body::-webkit-scrollbar {
   transition: all 0.3s ease;
 }
 
-/* Specific positioning within the popup */
+.close-btn:hover{
+  text-shadow: #ff0000;
+  transform: scale(1.1);
+}
+
 .popup-content .close-btn {
     position: absolute;   /* Absolute positioning */
     top: 0.5rem;       /* Space from the top */
@@ -197,7 +201,12 @@ body::-webkit-scrollbar {
     padding: 0;        /* Remove unneeded padding */
     z-index: 10;        /* Ensure it's on top */
 }
-  
+
+.popup-content .close-btn:hover {
+  text-shadow: #ff0000;
+  transform: scale(1.1);
+}
+
 .modal-body {
     margin-top: 1rem;
 }
@@ -288,7 +297,6 @@ body::-webkit-scrollbar {
     }
 }
 
-/*Button*/
 .pay-emi-btn {
  background-color: #4CAF50;
  color: white;
@@ -511,7 +519,7 @@ body::-webkit-scrollbar {
 }
 
 /* Close Button */
-.close-btn {
+/* .close-btn {
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -520,21 +528,28 @@ body::-webkit-scrollbar {
   font-size: 1.5rem;
   cursor: pointer;
   color: #ff0033;
-}
+} */
 
-.close-btn1 {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: none;
-  margin-top: 5%;
+.retry-btn {
   border: none;
+  border-radius: 8%;
   font-size: 1.5rem;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  transition: background-color 0.3s;
   cursor: pointer;
-  color: #ff0033;
+  color: #ffffff;
 }
 
-/* Loading Spinner */
+.retry-btn:hover {
+  background-color: #45a049;
+ }
+
+ .retry-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+ }
+
 .spinner-overlay {
   position: fixed;
   top: 0;

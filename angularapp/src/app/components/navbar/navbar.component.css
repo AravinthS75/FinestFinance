@@ -126,7 +126,7 @@ body {
   cursor: pointer;
 }
 
-.cta-button {
+.cta-button1 {
   background: var(--gold);
   color: var(--primary-blue);
   padding: 0.8rem 2rem;
@@ -306,7 +306,7 @@ body {
     gap: 1.5rem;
   }
 
-  .cta-button {
+  .cta-button1 {
     width: 100%;
     text-align: center;
   }

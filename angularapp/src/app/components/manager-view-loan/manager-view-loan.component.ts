@@ -7,6 +7,7 @@ import { LoanService } from '../../services/loan.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ManagerService } from '../../services/manager.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-manager-view-loan',
@@ -56,7 +57,7 @@ export class ManagerViewLoanComponent {
   selectedRejectionReason: string | null = null;
 
   constructor(private managerService: ManagerService, private loanService: LoanService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer, private toastr: ToastrService) {
     this.userData = sessionStorage.getItem('authUser');
     if (this.userData) {
       const userDetails = JSON.parse(this.userData);
@@ -81,7 +82,7 @@ export class ManagerViewLoanComponent {
         if(errorResponse.error.message === "Cannot invoke \"java.util.List.isEmpty()\" because \"managedLoans\" is null")
         this.error = 'You have no managed loans';
         else
-        this.error = errorResponse.error.message || 'Failed to load data';
+        this.error = errorResponse.error.message || 'Failed to load loans!';
         this.isLoading = false;
       }
     );
@@ -131,10 +132,10 @@ export class ManagerViewLoanComponent {
           }
           this.selectedLoan = null;
           this.ngOnInit();
+          this.toastr.success('Approved loan successfully', 'Approval Success', {closeButton:true});
         },
         error: (err) => {
-          console.error('Error updating status:', err);
-          this.error = 'Failed to update loan status';
+          this.toastr.error('Failed to approve the loan. Please try again.', 'Approval Failed', {closeButton: true});
         }
       });
     }
@@ -238,8 +239,7 @@ export class ManagerViewLoanComponent {
   
     return new Blob(byteArrays, { type: contentType });
   }
-  
-// Helper function to download base64 as PDF
+
 downloadAadharPdf() {
     if (this.selectedLoan?.aadharCard) {
         const pdfData = this.selectedLoan.aadharCard;
@@ -266,7 +266,6 @@ closeRejectionPopup() {
   this.selectedRejectionReason = null;
 }
 
-// Method to select a rejection reason
 selectRejectionReason(reason: string) {
   this.selectedRejectionReason = reason;
 }
@@ -283,12 +282,14 @@ confirmRejection() {
           this.closeRejectionPopup();
           this.selectedLoan = null;
           this.ngOnInit();
+          this.toastr.success('Rejected loan successfully', 'Rejection Success', {closeButton:true});
         },
         error: (err) => {
-          console.error('Error rejecting loan:', err);
-          this.error = 'Failed to reject the loan';
+          this.toastr.error('Failed to reject the loan. Please try again.', 'Rejection Failed', {closeButton: true});
         }
       });
+  }else {
+    this.toastr.warning('Please select a rejection reason.', 'Missing Information', {closeButton: true});
   }
 }
 }
