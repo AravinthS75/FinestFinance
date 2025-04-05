@@ -207,6 +207,27 @@ body::-webkit-scrollbar {
   transform: scale(1.1);
 }
 
+.error-message {
+  color: #ff4d4d;
+  text-align: center;
+  width: fit-content;
+  margin-left: 43.5%;
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff4d4d;
+  margin-top: 10%;
+  border-radius: 5px;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+}
+
 .modal-body {
     margin-top: 1rem;
 }

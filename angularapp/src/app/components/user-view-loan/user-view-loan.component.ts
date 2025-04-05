@@ -69,6 +69,7 @@ export class UserViewLoanComponent implements OnInit {
         },
         error: (err) => {
           console.error('Error fetching loans:', err);
+          this.isLoading = false;
           this.error = 'Error fetching loans';
         }
       });
@@ -115,7 +116,6 @@ export class UserViewLoanComponent implements OnInit {
   
     this.loanService.payEmi(this.token, this.selectedLoan.id).subscribe({
       next: (updatedLoan) => {
-        // Update the loans array
         const index = this.loans.findIndex(loan => loan.id === updatedLoan.id);
         if (index !== -1) {
           this.loans[index] = updatedLoan;

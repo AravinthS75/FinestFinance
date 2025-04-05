@@ -81,12 +81,15 @@ body::-webkit-scrollbar {
 }
 
 .error-message {
-  color: #ff6b6b;
+  color: #ff4d4d;
   text-align: center;
-  font-size: 1.2rem;
+  width: fit-content;
+  margin-left: 42.5%;
   padding: 1rem;
-  background: rgba(255, 107, 107, 0.2);
-  border-radius: var(--border-radius);
+  background-color: rgba(255, 0, 0, 0.1);
+  border: 1px solid #ff4d4d;
+  margin-top: 23%;
+  border-radius: 5px;
   animation: shake 0.5s ease-in-out;
 }
 
@@ -126,7 +129,6 @@ body::-webkit-scrollbar {
   }
 }
 
-/* Profile picture (kept .profile-pic, removed .profile-pic-user) */
 .profile-pic-admin-view-user {
   width: 100%;
   height: 220px;

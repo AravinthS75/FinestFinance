@@ -74,8 +74,7 @@
       </div>
     </div>
 
-    <!-- No Results Message -->
-    <div *ngIf="!isLoading && displayedLoans.length === 0" class="no-results">
+    <div *ngIf="!isLoading && displayedLoans.length === 0 && !error" class="no-results">
       <p>😕 No loans found</p>
       <h3>No matching loans found</h3>
       <p>Try adjusting your filters or apply for a new loan</p>
@@ -142,7 +141,10 @@
       </div>
     </div>
   </div>
-  <div class="pagination-controls" *ngIf="!isLoading">
+  <div *ngIf="error" class="error-message">
+    ⚠️ {{ error }}
+  </div>
+  <div class="pagination-controls" *ngIf="!isLoading && !error">
     <div class="pagination-container">
       <button class="pagination-btn prev" 
               (click)="previousPage()" 
@@ -183,3 +185,4 @@
     <div class="dot-spinner__dot"></div>
   </div>
 </div>
+

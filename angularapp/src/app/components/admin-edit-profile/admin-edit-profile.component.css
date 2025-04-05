@@ -321,6 +321,14 @@ body::-webkit-scrollbar {
   background-color: rgba(255, 0, 0, 0.1);
   border: 1px solid #ff4d4d;
   border-radius: 5px;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
 }
 
 .overall-container{

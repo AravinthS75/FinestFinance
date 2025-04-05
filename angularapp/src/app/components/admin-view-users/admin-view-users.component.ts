@@ -38,11 +38,10 @@ export class AdminViewUsersComponent implements OnInit{
     this.isLoading = true;
     this.adminService.getAllUsers(this.token).subscribe((data) => {
       this.users = data;
-      // console.log(this.users);
       this.isLoading = false;
     },
     (errorResponse: HttpErrorResponse) => {
-            this.error = errorResponse.error.message || 'Failed to load user details';
+            this.error = errorResponse.error.message || 'Failed to load users list.';
             this.isLoading = false;
           }
   );

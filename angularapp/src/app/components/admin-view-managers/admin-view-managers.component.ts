@@ -41,7 +41,7 @@ export class AdminViewManagersComponent {
        this.isLoading = false;
      },
      (errorResponse: HttpErrorResponse) => {
-             this.error = errorResponse.error.message || 'Failed to load manager details';
+             this.error = errorResponse.error.message || 'Failed to load manager list.';
              this.isLoading = false;
      }
     );

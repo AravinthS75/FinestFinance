@@ -299,7 +299,7 @@
         ⚠️ {{ error }}
     </div>
 
-    <div class="pagination-container">
+    <div class="pagination-container" *ngIf="!error">
         <button class="cyber-button" (click)="previousPage()" [disabled]="currentPage === 1">
             « PREV
         </button>
