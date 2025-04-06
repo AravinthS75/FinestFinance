@@ -135,4 +135,4 @@ add this code to css to hive horizontal overflow
   }
 
 
-Work on the csv export data part.
+Work on the csv export data part and user+manager view loan on admin and manager component needs work.

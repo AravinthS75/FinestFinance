@@ -25,6 +25,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AdminViewLoansComponent implements OnInit {
     loans: Loan[] = [];
+    searchQuery: string = ''; // Property to store search input
     loanUser: any = {};
     selectedLoan: Loan | null = null;
     showManagerPopup = false;
@@ -39,15 +40,19 @@ export class AdminViewLoansComponent implements OnInit {
     isLoading: boolean = false;
     currentPage = 1;
     itemsPerPage = 4;
-    statusFilter = '';
-    variantFilter = '';
-    amountFilter = 100000000;
-    amountRange = 100000000;
+    statusFilter: string = '';
+    variantFilter: string = '';
+    amountFilter: number = 100000000;
+    amountRange: number = 100000000;
     statusChart: any;
     amountChart: any;
     showDocumentPopup = false;
     selectedDocumentUrl: SafeResourceUrl | null = null;
     selectedDocumentType: 'aadhar' | 'pan' | null = null;
+
+    // Added properties for filtering options
+    statusOptions: string[] = ['Pending', 'Approved', 'Rejected', 'Disbursed'];
+    variantOptions: string[] = ['Personal', 'Home', 'Auto', 'Business'];
 
     constructor(
         private adminService: AdminService,
@@ -65,15 +70,16 @@ export class AdminViewLoansComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        if(this.loans.length==0)
-        this.isLoading = true;
+        if (this.loans.length === 0) {
+            this.isLoading = true;
+        }
         this.adminService.getAllLoans(this.token).subscribe(
             (data) => {
                 this.loans = data;
-                if (data)
-                    this.isLoading = false;
-                if (this.loans.length === 0)
+                this.isLoading = false;
+                if (this.loans.length === 0) {
                     this.error = 'No loans found!';
+                }
             },
             (errorResponse: HttpErrorResponse) => {
                 this.error = errorResponse.error.message || 'Failed to load loans';
@@ -82,21 +88,24 @@ export class AdminViewLoansComponent implements OnInit {
         );
     }
 
-    get statusOptions(): string[] {
-        return [...new Set(this.loans.map(loan => loan.status).filter(status => status !== undefined))];
-    }
-
-    get variantOptions(): string[] {
-        return [...new Set(this.loans.map(loan => loan.loanVarient).filter(variant => variant !== undefined))];
-    }
-
+    // Filtering logic including search query, status, variant, and amount
     get filteredLoans(): Loan[] {
-        return this.loans.filter(loan =>
-            loan.loanAmount !== undefined &&
-            (!this.statusFilter || loan.status === this.statusFilter) &&
-            (!this.variantFilter || loan.loanVarient === this.variantFilter) &&
-            loan.loanAmount <= this.amountFilter
-        );
+        const query = this.searchQuery.toLowerCase();
+        return this.loans.filter(loan => {
+            const name = loan.user?.name ? loan.user.name.toLowerCase() : '';
+            const email = loan.user?.email ? loan.user.email.toLowerCase() : '';
+            const loanId = loan.id ? loan.id.toString() : '';
+            const matchesSearch = !query || name.includes(query) || email.includes(query) || loanId.includes(query);
+            const matchesStatus = !this.statusFilter || loan.status === this.statusFilter;
+            const matchesVariant = !this.variantFilter || loan.loanVarient === this.variantFilter;
+            const matchesAmount = loan.loanAmount !== undefined && loan.loanAmount <= this.amountFilter;
+            return matchesSearch && matchesStatus && matchesVariant && matchesAmount;
+        });
+    }
+
+    // Reset pagination when searching
+    onSearch(): void {
+        this.currentPage = 1;
     }
 
     get displayedLoans(): Loan[] {
@@ -106,12 +115,14 @@ export class AdminViewLoansComponent implements OnInit {
 
     openLoanDetails(loan: Loan): void {
         this.selectedLoan = loan;
-        if (loan.user?.profilePicture)
+        if (loan.user?.profilePicture) {
             this.userProfilePicture = `data:image/jpeg;base64,${loan.user.profilePicture}`;
-        if (loan.assignedManager?.profilePicture)
+        }
+        if (loan.assignedManager?.profilePicture) {
             this.managerProfilePicture = `data:image/jpeg;base64,${loan.assignedManager.profilePicture}`;
-        else
+        } else {
             this.managerProfilePicture = 'assets/images/default-profile.png';
+        }
     }
 
     closeLoanDetails(): void {
@@ -120,8 +131,9 @@ export class AdminViewLoansComponent implements OnInit {
 
     openManagerPopup() {
         this.showManagerPopup = true;
-        if (this.managers.length === 0)
+        if (this.managers.length === 0) {
             this.managerLoading = true;
+        }
         this.adminService.getAllManagers(this.token).subscribe(
             (managers) => {
                 this.managers = managers.map(manager => {
@@ -130,7 +142,6 @@ export class AdminViewLoansComponent implements OnInit {
                     }
                     return manager;
                 });
-                console.log('Managers:', managers);
                 this.managerLoading = false;
             },
             (error) => this.error = 'Failed to fetch managers'
@@ -139,8 +150,8 @@ export class AdminViewLoansComponent implements OnInit {
 
     openDocumentPopup(type: 'aadhar' | 'pan') {
         this.selectedDocumentType = type;
-        this.selectedDocumentUrl = type === 'aadhar' 
-            ? this.getSafeAadharUrl() 
+        this.selectedDocumentUrl = type === 'aadhar'
+            ? this.getSafeAadharUrl()
             : this.getSafePanUrl();
         this.showDocumentPopup = true;
     }
@@ -173,12 +184,13 @@ export class AdminViewLoansComponent implements OnInit {
                 next: (updatedLoan) => {
                     this.selectedLoan = updatedLoan;
                     this.showManagerPopup = false;
+                    // Refresh loans list
                     this.adminService.getAllLoans(this.token).subscribe(loans => this.loans = loans);
                     this.ngOnInit();
+                    this.openLoanDetails(this.selectedLoan);
                 },
-                error: (err) => this.toastr.error('Failed to assign manager. Please try again.', 'Assign Failed', {closeButton: true})
+                error: (err) => this.toastr.error('Failed to assign manager. Please try again.', 'Assign Failed', { closeButton: true })
             });
-        this.closeLoanDetails();
     }
 
     get totalPages(): number {
@@ -186,15 +198,20 @@ export class AdminViewLoansComponent implements OnInit {
     }
 
     nextPage() {
-        if (this.currentPage < this.totalPages) this.currentPage++;
+        if (this.currentPage < this.totalPages) {
+            this.currentPage++;
+        }
     }
 
     previousPage() {
-        if (this.currentPage > 1) this.currentPage--;
+        if (this.currentPage > 1) {
+            this.currentPage--;
+        }
     }
 
-    updateAmountFilter(event: any) {
-        this.amountFilter = event.target.value;
+    updateAmountFilter(event: Event) {
+        const input = event.target as HTMLInputElement;
+        this.amountFilter = Number(input.value);
         this.currentPage = 1;
     }
 
@@ -203,7 +220,7 @@ export class AdminViewLoansComponent implements OnInit {
     }
 
     exportToCSV() {
-        let csvContent = 'Borrower Name, Borrower Email, Borrower Phone, Loan Variant, Status, Loan Amount, Purpose, Approver Name, Interest Rate, Tenure, EMI Ammount\n';
+        let csvContent = 'Borrower Name, Borrower Email, Borrower Phone, Loan Variant, Status, Loan Amount, Purpose, Approver Name, Interest Rate, Tenure, EMI Amount\n';
         this.loans.forEach(loan => {
             csvContent += `${loan.user?.name},${loan.user?.email},${loan.user?.phone},${loan.loanVarient},${loan.status},${loan.loanAmount},${loan.purpose},${loan.approverName},${loan.interestRatePerAnnum}% p.a,${loan.tenure} months,${loan.emiAmount}\n`;
         });
@@ -239,16 +256,13 @@ export class AdminViewLoansComponent implements OnInit {
 
         for (let offset = 0; offset < byteCharacters.length; offset += 512) {
             const slice = byteCharacters.slice(offset, offset + 512);
-
             const byteNumbers = new Array(slice.length);
             for (let i = 0; i < slice.length; i++) {
                 byteNumbers[i] = slice.charCodeAt(i);
             }
-
             const byteArray = new Uint8Array(byteNumbers);
             byteArrays.push(byteArray);
         }
-
         return new Blob(byteArrays, { type: contentType });
     }
 
@@ -267,5 +281,4 @@ export class AdminViewLoansComponent implements OnInit {
             saveAs(blob, 'pan_card.pdf');
         }
     }
-
 }

@@ -1,4 +1,7 @@
-/* General Styles */
+:root{
+  --gradient: linear-gradient(90deg, #64ffda 0%, #f972ff 100%);
+}
+
 .dashboard-container {
   padding: 2rem;
   background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
@@ -11,12 +14,38 @@ body::-webkit-scrollbar {
 }
 
 .cyberpunk-heading {
+  position: relative;
   font-family: 'Orbitron', sans-serif;
   color: #ff00ff;
   text-align: center;
   text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff;
   margin-bottom: 2rem;
   animation: textGlow 2s infinite alternate;
+}
+
+.cyberpunk-heading::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 4px;
+  background: var(--gradient);
+  border-radius: 3px;
+  animation: expandUnderline 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes expandUnderline {
+  0% {
+    width: 35px;
+    opacity: 0.6;
+  }
+
+  100% {
+    width: 90px;
+    opacity: 1;
+  }
 }
 
 .filters-container {
@@ -1223,4 +1252,37 @@ body::-webkit-scrollbar {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
+}
+
+@media (max-width: 599px) {
+.view-details-btn {
+  margin-top: 1rem;
+  background: linear-gradient(45deg, #ff00ff, #0066ff);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  margin-left: 37%;
+  transition: all 0.3s ease;
+}
+}
+
+@media (min-width: 600px) and (max-width: 768px) {
+  .view-details-btn {
+    margin-top: 1rem;
+    background: linear-gradient(45deg, #ff00ff, #0066ff);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    margin-left: 37%;
+    transition: all 0.3s ease;
+  }
+}
+
+@media (min-width: 769px){
+  .view-details-btn {
+    margin-top: 1rem;
+    background: linear-gradient(45deg, #ff00ff, #0066ff);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    margin-left: 15%;
+    transition: all 0.3s ease;
+  }
 }

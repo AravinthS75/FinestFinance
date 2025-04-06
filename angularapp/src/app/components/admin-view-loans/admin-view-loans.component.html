@@ -8,6 +8,14 @@
 
     <div class="filters-container neon-glow">
         <div class="filter-group">
+            <label class="hologram-label">Search:</label>
+            <input type="text" class="cyber-input" 
+                [(ngModel)]="searchQuery" 
+                (input)="onSearch()"
+                placeholder="Name, Email, Loan ID...">
+        </div>
+
+        <div class="filter-group">
             <label class="hologram-label">Status:</label>
             <select class="cyber-input" [(ngModel)]="statusFilter">
                 <option value="">All</option>
@@ -171,7 +179,7 @@
                                 <span class="detail-value">{{selectedLoan.createdAt | date}}</span>
                             </div>
                             <div *ngIf="selectedLoan.updatedAt" class="detail-item">
-                                <span class="detail-label">Updated At:</span>
+                                <span class="detail-label">{{selectedLoan.status}} On:</span>
                                 <span class="detail-value">{{selectedLoan.updatedAt | date}}</span>
                             </div>
                             <div *ngIf="selectedLoan.rejectReason" class="detail-item">
@@ -182,7 +190,6 @@
                     </div>
                 </div>
 
-                <!-- Right Side - Approver Details -->
                 <div class="details-panel approver-side">
                     <div class="approver-section">
                         <img [src]="managerProfilePicture" alt="Approver Image" class="profile-image">
