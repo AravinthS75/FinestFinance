@@ -184,7 +184,6 @@ export class AdminViewLoansComponent implements OnInit {
                 next: (updatedLoan) => {
                     this.selectedLoan = updatedLoan;
                     this.showManagerPopup = false;
-                    // Refresh loans list
                     this.adminService.getAllLoans(this.token).subscribe(loans => this.loans = loans);
                     this.ngOnInit();
                     this.openLoanDetails(this.selectedLoan);
@@ -220,15 +219,14 @@ export class AdminViewLoansComponent implements OnInit {
     }
 
     exportToCSV() {
-        let csvContent = 'Borrower Name, Borrower Email, Borrower Phone, Loan Variant, Status, Loan Amount, Purpose, Approver Name, Interest Rate, Tenure, EMI Amount\n';
+        let csvContent = 'Loan Id, Borrower Name, Borrower Email, Borrower Phone, Employement Type, Business Type, Loan Variant, Status, Loan Amount, Purpose, Applied On, Approver Name, Approver Email, Approver Phone, Interest Rate, Tenure, EMI Amount, Approved/Rejected On, Reject Reason, Balance\n';
         this.loans.forEach(loan => {
-            csvContent += `${loan.user?.name},${loan.user?.email},${loan.user?.phone},${loan.loanVarient},${loan.status},${loan.loanAmount},${loan.purpose},${loan.approverName},${loan.interestRatePerAnnum}% p.a,${loan.tenure} months,${loan.emiAmount}\n`;
+            csvContent += `${loan.id},${loan.user?.name},${loan.user?.email},${loan.user?.phone},${loan.employmentType},${loan.businessType},${loan.loanVarient},${loan.status},${loan.loanAmount},${loan.purpose},${loan.createdAt},${loan.approverName},${loan.assignedManager?.email},${loan.assignedManager?.phone},${loan.interestRatePerAnnum}% p.a,${loan.tenure} months,${loan.emiAmount},${loan.updatedAt},${loan.rejectReason},${loan.pendingAmount}\n`;
         });
         const blob = new Blob([csvContent], { type: 'text/csv' });
         saveAs(blob, 'loans_data.csv');
     }
 
-    // Helper functions to make safe URLs for PDFs
     getSafeAadharUrl(): SafeResourceUrl | null {
         if (this.selectedLoan?.aadharCard) {
             const pdfData = this.selectedLoan.aadharCard;
@@ -249,7 +247,6 @@ export class AdminViewLoansComponent implements OnInit {
         return null;
     }
 
-    // Helper function to convert base64 to Blob
     base64ToBlob(base64Data: string, contentType: string): Blob {
         const byteCharacters = atob(base64Data);
         const byteArrays = [];

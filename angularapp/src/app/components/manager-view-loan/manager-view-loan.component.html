@@ -8,6 +8,13 @@
 
   <div class="filters-container neon-glow">
     <div class="filter-group">
+      <label class="hologram-label">Search:</label>
+      <input type="text" class="cyber-input" 
+          [(ngModel)]="searchQuery" 
+          (input)="onSearch()"
+          placeholder="Name, Email, Loan ID...">
+    </div>
+    <div class="filter-group">
       <label class="hologram-label">Status:</label>
       <select class="cyber-input" [(ngModel)]="statusFilter">
         <option value="">All</option>

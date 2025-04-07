@@ -107,6 +107,12 @@ export class NavbarComponent {
     });
   }
 
+  carLoanNav(): void{
+    this.router.navigate(['/loan/car/description']).then(()=>{
+      window.location.reload();
+    });
+  }
+
   loginNav(): void{
     this.router.navigate(['/login']).then(()=>{
       window.location.reload();

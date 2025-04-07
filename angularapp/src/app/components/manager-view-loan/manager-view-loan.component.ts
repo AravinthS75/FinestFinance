@@ -28,6 +28,7 @@ export class ManagerViewLoanComponent {
   loans: Loan[] = [];
   loanUser: any = {};
   selectedLoan: Loan | null = null;
+  searchQuery: string = '';
   userData: string | null = null;
   managerName: string | null = null;
   token: string = '';
@@ -97,13 +98,23 @@ export class ManagerViewLoanComponent {
   }
 
   get filteredLoans(): Loan[] {
-    return this.loans.filter(loan =>
-      loan.loanAmount !== undefined &&
-      (!this.statusFilter || loan.status === this.statusFilter) &&
-      (!this.variantFilter || loan.loanVarient === this.variantFilter) &&
-      loan.loanAmount <= this.amountFilter
-    );
-  }
+    const query = this.searchQuery.toLowerCase();
+    return this.loans.filter(loan => {
+        const name = loan.user?.name ? loan.user.name.toLowerCase() : '';
+        const email = loan.user?.email ? loan.user.email.toLowerCase() : '';
+        const loanId = loan.id ? loan.id.toString() : '';
+        const matchesSearch = !query || name.includes(query) || email.includes(query) || loanId.includes(query);
+        const matchesStatus = !this.statusFilter || loan.status === this.statusFilter;
+        const matchesVariant = !this.variantFilter || loan.loanVarient === this.variantFilter;
+        const matchesAmount = loan.loanAmount !== undefined && loan.loanAmount <= this.amountFilter;
+        return matchesSearch && matchesStatus && matchesVariant && matchesAmount;
+    });
+}
+
+// Reset pagination when searching
+onSearch(): void {
+    this.currentPage = 1;
+}
 
   get displayedLoans(): Loan[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
@@ -172,10 +183,10 @@ export class ManagerViewLoanComponent {
   }
 
   exportToCSV() {
-    let csvContent = 'Borrower Name, Borrower Email, Borrower Phone, Loan Variant, Status, Loan Amount, Purpose, Approver Name, Interest Rate, Tenure, EMI Ammount\n';
-    this.loans.forEach(loan => {
-      csvContent += `${loan.user?.name},${loan.user?.email},${loan.user?.phone},${loan.loanVarient},${loan.status},${loan.loanAmount},${loan.purpose},${loan.approverName},${loan.interestRatePerAnnum}% p.a,${loan.tenure} months,${loan.emiAmount}\n`;
-    });
+    let csvContent = 'Loan Id, Borrower Name, Borrower Email, Borrower Phone, Employement Type, Business Type, Loan Variant, Status, Loan Amount, Purpose, Applied On,, Interest Rate, Tenure, EMI Amount, Approved/Rejected On, Reject Reason, Balance\n';
+        this.loans.forEach(loan => {
+            csvContent += `${loan.id},${loan.user?.name},${loan.user?.email},${loan.user?.phone},${loan.employmentType},${loan.businessType},${loan.loanVarient},${loan.status},${loan.loanAmount},${loan.purpose},${loan.createdAt},${loan.interestRatePerAnnum}% p.a,${loan.tenure} months,${loan.emiAmount},${loan.updatedAt},${loan.rejectReason},${loan.pendingAmount}\n`;
+        });
     const blob = new Blob([csvContent], { type: 'text/csv' });
     saveAs(blob, 'loans_data.csv');
   }
