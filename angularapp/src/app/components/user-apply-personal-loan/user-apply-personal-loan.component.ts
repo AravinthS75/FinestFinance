@@ -42,15 +42,15 @@ export class UserApplyPersonalLoanComponent implements OnInit {
 
   features: string[] = [
     "Quick disbursal: Get your loan amount disbursed within 24 hours* of approval.",
-    "Flexible tenure: Choose a repayment tenure that suits your financial situation, ranging from 12 to 60 months.",
+    "Flexible tenure: Choose a repayment tenure that suits your financial situation, ranging from 12 to 84 months.",
     "Minimal documentation: Apply for a personal loan with minimal paperwork and a hassle-free process.",
     "No collateral required: Enjoy the benefit of unsecured loans, eliminating the need to pledge any assets as collateral."
   ];
 
   eligibilityCriteria: any = {
-    age: "21-67 years: Applicants must be within this age range at the time of application.",
+    age: "21-67 years Applicants must be within this age range at the time of application.",
     employment: "Salaried or self-employed: Open to both salaried individuals and self-employed professionals.",
-    income: "Minimum income as specified by Bajaj Finserv: Meet the minimum monthly income criteria to qualify.",
+    income: "Minimum income as specified by FinestFinance: Meet the minimum monthly income criteria to qualify.",
     creditScore: "Good credit score required: A strong credit history improves your chances of approval and may get you better rates."
   };
 
@@ -74,15 +74,15 @@ export class UserApplyPersonalLoanComponent implements OnInit {
   loanBenefits = [
     {
       title: 'Multiple loan benefits',
-      description: 'Get loan for wedding, travel, home renovation & more'
+      description: 'Get loan for wedding, travel, medical expenses & more'
     },
     {
       title: 'High loan amount',
-      description: 'Personal loan up to 25 lakh'
+      description: 'Personal loan up to 50 lakh'
     },
     {
       title: 'Flexible tenure',
-      description: 'Personal loan repayment tenure between 6 months to 5 years'
+      description: 'Personal loan repayment tenure between 12 months to 7 years'
     }
   ];
 

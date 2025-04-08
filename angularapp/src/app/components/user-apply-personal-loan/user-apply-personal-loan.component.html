@@ -22,7 +22,7 @@
           <h3 class="section-title neon-text">Eligibility Criteria</h3>
           <div class="eligibility-details">
               <p *ngFor="let key of objectKeys(eligibilityCriteria)" class="eligibility-item">
-                  <span class="eligibility-label">{{key | titlecase}}:</span>
+                  <span class="eligibility-label"><b>{{key | titlecase}}: </b></span>
                   <span class="eligibility-value">{{eligibilityCriteria[key]}}</span>
               </p>
           </div>
@@ -141,17 +141,17 @@
               </button>
           </div>
       </form>
-      <div *ngIf="isSuccess" class="modern-success-message">
-          <button class="close-btn" (click)="closeSuccess()">&times;</button>
-          <div class="icon-wrapper">
-            <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-            </svg>
-          </div>
-          <div class="text-wrapper">
-            <div class="title">Success!</div>
-            <div class="message">Loan application submitted successfully!</div>
-          </div>
-        </div>          
-  </div>
+    </div>
+    <div *ngIf="isSuccess" class="modern-success-message">
+        <button class="close-btn" (click)="closeSuccess()">&times;</button>
+        <div class="icon-wrapper">
+          <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <div class="text-wrapper">
+          <div class="title">Success!</div>
+          <div class="message">Loan application submitted successfully!</div>
+        </div>
+      </div>          
 </div>

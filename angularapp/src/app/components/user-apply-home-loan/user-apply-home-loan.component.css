@@ -417,7 +417,6 @@ body::-webkit-scrollbar {
   }
 }
 
-/* Adding a glow effect to the label on hover for interactivity */
 .eligibility-item:hover .eligibility-label {
   text-shadow: 0 0 5px var(--primary-color);
   transition: text-shadow 0.3s ease;
@@ -720,23 +719,27 @@ label {
       }
   }
 
-/* Modern Success Message */
 .modern-success-message {
   display: flex;
-  align-items: center;
+  align-items: center; 
+  width: fit-content;
   padding: 12px 18px;
   background: var(--success-color);
   border-radius: 12px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
   color: white;
   font-family: "Poppins", sans-serif;
-  position: relative;
   overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition: transform 0.3s ease-in-out,
+              box-shadow 0.3s ease-in-out;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; 
 }
 
 .modern-success-message:hover {
-  transform: scale(1.05);
   box-shadow: 0 18px 42px rgba(0, 0, 0, 0.3);
 }
 
@@ -798,11 +801,11 @@ label {
     rgba(255, 255, 255, 0.15),
     rgba(255, 255, 255, 0)
   );
-  transform: rotate(45deg);
+  /* transform: rotate(45deg); */
   transition: transform 0.5s ease-in-out;
 }
 
 .modern-success-message:hover::before {
-  transform: rotate(90deg);
+  /* transform: rotate(90deg); */
   opacity: 0.5;
 }

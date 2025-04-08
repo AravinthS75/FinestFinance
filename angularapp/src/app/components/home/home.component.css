@@ -5,10 +5,8 @@
   --light-blue: #e3f2fd; /* Light blue */
   --white: #ffffff; /* White */
   --off-white: #f8f9fa; /* Off-white */
-  --gold: #ffc107; /* Gold for accents */
 }
 
-/* General Styles */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;

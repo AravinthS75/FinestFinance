@@ -54,9 +54,9 @@ export class UserApplyBusinessLoanComponent implements OnInit {
   ];
 
   eligibilityCriteria: any = {
-    businessAge: "Minimum 2 years: Your business should have been operational for at least 2 years.",
-    annualTurnover: "As per lender's requirement: Meet the minimum annual turnover criteria specified by the lender.",
-    creditScore: "Good credit score: A healthy credit score improves your chances of loan approval."
+    businessAge: "Minimum 2 years - Your business should have been operational for at least 2 years.",
+    annualTurnOver: "As per lender's requirement - Meet the minimum annual turnover criteria specified by the lender.",
+    creditScore: "Good credit score - A healthy credit score improves your chances of loan approval."
   };
 
   documentsRequired: any = {

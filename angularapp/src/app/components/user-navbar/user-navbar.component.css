@@ -5,6 +5,10 @@
     --nav-height: 50px;
     --white: #ffffff;
   }
+
+  body::-webkit-scrollbar {
+    display: none;
+  }
   
   .admin-nav {
     background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue)) !important;
