@@ -65,7 +65,7 @@ body::-webkit-scrollbar {
 }
 
 .floating-car {
-  width: 600px;
+  width: 500px;
   height: auto;
   margin: 2rem auto;
   animation: float 6s ease-in-out infinite;
@@ -305,11 +305,13 @@ body::-webkit-scrollbar {
   padding: 2rem;
   border-radius: 15px;
   transition: all 0.3s ease;
+  margin-bottom: 1rem;
 }
 
 .faq-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 10px 30px rgba(123, 97, 255, 0.3);
+  margin-top: 2rem;
 }
 
 .faq-header {
@@ -337,12 +339,17 @@ body::-webkit-scrollbar {
 
 .calculator-glass {
   background: var(--glass-bg);
+  display: flex;
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   padding: 2rem;
   margin: 4rem auto;
-  width: 80%;
+  width: 50%;
   box-shadow: 0 0 40px rgba(0, 243, 255, 0.1);
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .input-group {
@@ -381,4 +388,30 @@ input[type="range"] {
 .emi-label {
   font-size: 1rem;
   color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 740px) {
+  .calculator-glass {
+    width: 90%;
+    padding: 1rem;
+    margin: 2rem auto;
+    flex-direction: column-reverse;
+  }
+
+  .input-group {
+    margin-top: 2rem;
+  }
+
+  .emi-bubble {
+    width: 150px;
+    height: 150px;
+  }
+
+  .emi-amount {
+    font-size: 1.5rem;
+  }
+
+  .emi-label {
+    font-size: 0.8rem;
+  }
 }

@@ -1,2 +1,1 @@
 Car loan description need work
-Error page need mobile view work

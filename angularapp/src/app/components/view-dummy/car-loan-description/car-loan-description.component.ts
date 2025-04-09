@@ -82,10 +82,8 @@ export class CarLoanDescriptionComponent {
   }
 
   toggleDoc(doc: DocumentCategory): void {
-    // Toggle the clicked document
     doc.isOpen = !doc.isOpen;
   
-    // Optional: Close other documents when one is opened
     this.documents.forEach(d => {
       if (d !== doc) d.isOpen = false;
     });
@@ -93,6 +91,10 @@ export class CarLoanDescriptionComponent {
   
   toggleFaq(faq: FAQ): void {
     faq.isOpen = !faq.isOpen;
+    
+    this.faqs.forEach(f => {
+      if (f !== faq) f.isOpen = false;
+    });
   }
 
 }

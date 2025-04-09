@@ -25,7 +25,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AdminViewLoansComponent implements OnInit {
     loans: Loan[] = [];
-    searchQuery: string = ''; // Property to store search input
+    searchQuery: string = '';
     loanUser: any = {};
     selectedLoan: Loan | null = null;
     showManagerPopup = false;
@@ -88,14 +88,14 @@ export class AdminViewLoansComponent implements OnInit {
         );
     }
 
-    // Filtering logic including search query, status, variant, and amount
     get filteredLoans(): Loan[] {
         const query = this.searchQuery.toLowerCase();
         return this.loans.filter(loan => {
             const name = loan.user?.name ? loan.user.name.toLowerCase() : '';
             const email = loan.user?.email ? loan.user.email.toLowerCase() : '';
             const loanId = loan.id ? loan.id.toString() : '';
-            const matchesSearch = !query || name.includes(query) || email.includes(query) || loanId.includes(query);
+            const purpose = loan.purpose ? loan.purpose.toLowerCase() : '';
+            const matchesSearch = !query || name.includes(query) || email.includes(query) || loanId.includes(query) || purpose.includes(query);
             const matchesStatus = !this.statusFilter || loan.status === this.statusFilter;
             const matchesVariant = !this.variantFilter || loan.loanVarient === this.variantFilter;
             const matchesAmount = loan.loanAmount !== undefined && loan.loanAmount <= this.amountFilter;

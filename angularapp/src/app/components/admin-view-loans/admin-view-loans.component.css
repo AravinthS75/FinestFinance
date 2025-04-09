@@ -1260,7 +1260,7 @@ body::-webkit-scrollbar {
   background: linear-gradient(45deg, #ff00ff, #0066ff);
   border: none;
   padding: 0.8rem 1.5rem;
-  margin-left: 37%;
+  margin-left: 31%;
   transition: all 0.3s ease;
 }
 }

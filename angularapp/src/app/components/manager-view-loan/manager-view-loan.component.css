@@ -306,8 +306,7 @@ background: rgba(0, 0, 0, 0.9);
 padding: 2rem;
 border-radius: 20px;
 width: 90%; /* Increased from 80% */
-max-width: 1000px; /* Increased from 600px */
-min-width: 800px; /* Added minimum width */
+max-width: 1000px;
 color: #f0f0f0;
 box-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
 text-align: left;
@@ -761,6 +760,7 @@ flex-direction: column;
 .approve-btn, .reject-btn {
 width: 170px;
 height: 50px;
+left: 13%;
 cursor: pointer;
 display: flex;
 align-items: center;

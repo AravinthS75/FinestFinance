@@ -149,14 +149,14 @@
     position: relative;
     margin-top: 1%;
     cursor: pointer;
-    width: 30px;  /* Reduced from 50px */
-    height: 24px;  /* Reduced from 40px */
+    width: 30px;
+    height: 24px;
   }
 
   .hamburger-btn span {
     position: absolute;
-    width: 30px;  /* Reduced from 45px */
-    height: 3px;  /* Reduced from 7px */
+    width: 30px;
+    height: 3px;
     background: #f1faee;
     border-radius: 100px;
     display: inline-block;
@@ -169,7 +169,7 @@
   }
 
   .hamburger-btn span.middle {
-    top: 10px;  /* Adjusted from 17px */
+    top: 10px;
   }
 
   .hamburger-btn span.bottom {
@@ -179,20 +179,20 @@
   input[type="checkbox"]:checked ~ span.top {
     transform: rotate(45deg);
     transform-origin: top left;
-    width: 33px;  /* Adjusted from 48px */
-    left: 3px;    /* Adjusted from 5px */
+    width: 33px;
+    left: 3px;
   }
 
   input[type="checkbox"]:checked ~ span.bottom {
     transform: rotate(-45deg);
     transform-origin: top left;
-    width: 33px;  /* Adjusted from 48px */
+    width: 33px;
     bottom: -1px;
     box-shadow: 0 0 10px #495057;
   }
 
   input[type="checkbox"]:checked ~ span.middle {
-    transform: translateX(-10px);  /* Reduced from -20px */
+    transform: translateX(-10px);
     opacity: 0;
   }
 
@@ -207,8 +207,8 @@
     flex-direction: column;
     padding: 1rem;
     transition: right 0.3s ease-in-out;
-    z-index: 999;
     overflow-y: auto;
+    z-index: 999;
   }
 
   .nav-main.active {

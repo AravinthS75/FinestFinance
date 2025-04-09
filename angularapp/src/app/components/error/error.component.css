@@ -2,6 +2,10 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.body-css{
+  min-height: 100vh;
+}
+
 .main_wrapper {
     display: flex;
     align-items: center;
@@ -461,15 +465,52 @@ body::-webkit-scrollbar {
     transform: scaleY(24.5) scaleX(9);
   }
  
-@media (max-width: 740px) {
+  @media (min-width: 300px) and (max-width: 450px) {
+    .main_wrapper {
+      position: absolute;
+      top: 50%;
+      left: 17%;
+      transform: translate(-50%, -50%);
+  
+      width: 35em;
+      height: 35em;
+      max-width: 90vw;
+      max-height: 90vh;
+  
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      overflow: hidden;
+      z-index: 999;
+    }
+  
+    .screen {
+      display: flex;
+    }
+    .screenM {
+      display: none;
+    }
+  }
+
+@media (min-width: 451px) and (max-width: 600px) {
   .main_wrapper {
+    position: absolute;
+    top: 50%;
+    left: 15%;
+    transform: translate(-50%, -50%);
+
+    width: 35em;
+    height: 35em;
+    max-width: 90vw;
+    max-height: 90vh;
+
     display: flex;
     align-items: center;
-    margin-top: 8%;
-    margin-left: 0%;
     justify-content: center;
-    width: 30em;
-    height: 30em;
+
+    overflow: hidden;
+    z-index: 999;
   }
 
   .screen {
@@ -479,4 +520,59 @@ body::-webkit-scrollbar {
     display: none;
   }
 }
-  
+
+@media (min-width: 601px) and (max-width: 740px) {
+  .main_wrapper {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+
+    width: 35em;
+    height: 35em;
+    max-width: 90vw;
+    max-height: 90vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .screen {
+    display: flex;
+  }
+  .screenM {
+    display: none;
+  }
+}
+
+@media (min-width: 741px) and (max-width: 800px) {
+  .main_wrapper {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+
+    width: 35em;
+    height: 35em;
+    max-width: 90vw;
+    max-height: 90vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    z-index: 999;
+  }
+
+  .screen {
+    display: flex;
+  }
+  .screenM {
+    display: none;
+  }
+}
