@@ -809,3 +809,28 @@ label {
   /* transform: rotate(90deg); */
   opacity: 0.5;
 }
+
+@media (min-width: 400px) and (max-width: 740px){
+  .modern-success-message {
+    display: flex;
+    align-items: center; 
+    width: 350px;
+    padding: 12px 18px;
+    background: var(--success-color);
+    border-radius: 12px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out,
+                box-shadow 0.3s ease-in-out;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; 
+  }
+  .close-btn{
+    top: 2%;
+  }
+}
