@@ -28,4 +28,8 @@ public interface PasswordResetTokenRepository extends JpaRepository<PasswordRese
     // Optional: Find token with user eager loaded
     @Query("SELECT t FROM PasswordResetToken t JOIN FETCH t.user WHERE t.token = :token")
     Optional<PasswordResetToken> findByTokenWithUser(String token);
+
+    @Modifying
+    @Query("DELETE FROM PasswordResetToken t WHERE t.user = :user")
+    void deleteByUser(User user);
 }

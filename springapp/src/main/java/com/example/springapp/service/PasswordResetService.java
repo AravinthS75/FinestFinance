@@ -3,15 +3,12 @@ package com.example.springapp.service;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
-
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
 import com.example.springapp.model.PasswordResetToken;
 import com.example.springapp.model.User;
 import com.example.springapp.repository.PasswordResetTokenRepository;
 import com.example.springapp.repository.UserRepository;
-
 import jakarta.transaction.Transactional;
 
 @Service
@@ -32,23 +29,23 @@ public class PasswordResetService {
 
     public void processPasswordResetRequest(String email) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(email);
-
+        
         if (user == null) {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
 
-        String token = generateResetToken();
+        // Delete existing tokens first
+        passwordResetTokenRepository.deleteByUser(user);
+        passwordResetTokenRepository.flush();  // Force immediate delete
+        
+        // Create and save new token
         PasswordResetToken resetToken = new PasswordResetToken();
-        resetToken.setToken(token);
+        resetToken.setToken(UUID.randomUUID().toString());
         resetToken.setUser(user);
         resetToken.setExpiryDate(calculateExpiryDate());
         passwordResetTokenRepository.save(resetToken);
 
-        sendPasswordResetEmail(user, token);
-    }
-
-    private String generateResetToken() {
-        return UUID.randomUUID().toString();
+        sendPasswordResetEmail(user, resetToken.getToken());
     }
 
     private Date calculateExpiryDate() {
@@ -61,7 +58,6 @@ public class PasswordResetService {
         String resetUrl = "https://yourapp.com/reset-password?token=" + token;
         String subject = "Password Reset Request";
         String content = "To reset your password, click the link below:\n" + resetUrl;
-
         emailService.sendEmail(user.getEmail(), subject, content);
     }
 }
