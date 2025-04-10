@@ -34,6 +34,11 @@ import { BikeEmiDescriptionComponent } from './components/view-dummy/bike-emi-de
 import { ElectronicsEmiDescriptionComponent } from './components/view-dummy/electronics-emi-description/electronics-emi-description.component';
 import { ElectronicsEmiComponent } from './components/electronics-emi/electronics-emi.component';
 import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -176,6 +181,11 @@ const routes: Routes = [
     canActivate: [AuthguardComponent], 
     data: { expectedRole: 'USER' } 
    },
+   { path: 'about-us', component: AboutUsComponent },
+   { path: 'contact-us', component: ContactUsComponent },
+   { path: 'faq', component: FaqComponent },
+   { path: 'terms-of-service', component: TermsOfServiceComponent },
+   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: '**', redirectTo: 'error' }
 ];
 

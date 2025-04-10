@@ -1,1 +1,9 @@
-Car loan description need work
+Need to implement forget password for reset password
+
+need to work on components:
+    about us,
+    contact us,
+    faq,
+    terms of service,
+    privacy policy
+
