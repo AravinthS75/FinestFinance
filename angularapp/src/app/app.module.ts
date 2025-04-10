@@ -50,6 +50,11 @@ import { BikeEmiDescriptionComponent } from './components/view-dummy/bike-emi-de
 import { ElectronicsEmiComponent } from './components/electronics-emi/electronics-emi.component';
 import { BikeEmiComponent } from './components/bike-emi/bike-emi.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AboutUsComponent } from './components/about-us/about-us.component';
+import { ContactUsComponent } from './components/contact-us/contact-us.component';
+import { FaqComponent } from './components/faq/faq.component';
+import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -92,7 +97,12 @@ import { FooterComponent } from './components/footer/footer.component';
     BikeEmiDescriptionComponent,
     ElectronicsEmiComponent,
     BikeEmiComponent,
-    FooterComponent
+    FooterComponent,
+    AboutUsComponent,
+    ContactUsComponent,
+    FaqComponent,
+    TermsOfServiceComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,
