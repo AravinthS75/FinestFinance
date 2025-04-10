@@ -2,15 +2,21 @@ package com.example.springapp.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
+
+import java.util.Collections;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.example.springapp.exception.UserExistException;
 import com.example.springapp.exception.UserNameNotFoundException;
 import com.example.springapp.model.AuthUser;
 import com.example.springapp.model.User;
+import com.example.springapp.service.PasswordResetService;
 import com.example.springapp.service.UserService;
 
 @RestController
@@ -19,6 +25,9 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PasswordResetService passwordResetService;
 
     @PostMapping("/api/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
@@ -41,6 +50,21 @@ public class AuthController {
             }
         } catch (UserNameNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/api/auth/forgot-password")
+    public ResponseEntity<?> forgotPassword(@RequestBody Map<String, String> email) {
+        try {
+            passwordResetService.processPasswordResetRequest(email.get("email"));
+            return ResponseEntity.ok().body(Collections.singletonMap(
+                "message", "If the email exists, a password reset link will be sent"));
+        } catch (UsernameNotFoundException e) {
+            return ResponseEntity.ok().body(Collections.singletonMap(
+                "message", "If the email exists, a password reset link will be sent"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Collections.singletonMap("message", "Error processing password reset request"));
         }
     }
 }

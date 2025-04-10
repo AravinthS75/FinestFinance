@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { UserStoreService } from './user-store.service';
 import { AuthUser } from '../models/auth-user.model';
@@ -13,26 +14,36 @@ export class AuthService {
 
   constructor(private httpClient: HttpClient, private userStoreService: UserStoreService) {}
 
-  // User SignIn method
   signIn(user: User): Observable<AuthUser> {
     return this.httpClient.post<AuthUser>(`${this.backendURL}/login`, user, {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json' // Content type header
+        'Content-Type': 'application/json'
       })
     });
   }
 
-  // User SignUp method
   signUp(user: User): Observable<any> {
     return this.httpClient.post(`${this.backendURL}/register`, user, {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json' // Content type header
+        'Content-Type': 'application/json'
       })
     });
   }
 
-  // Check if the user is authenticated
   isAuthenticated(): boolean {
     return this.userStoreService.isLoggedIn();
+  }
+
+  sendPasswordResetEmail(email: string): Observable<any> {
+    return this.httpClient.post(`${this.backendURL}/auth/forgot-password`, { email })
+      .pipe(
+        catchError(error => {
+          let errorMsg = 'Failed to send reset email';
+          if (error.error?.message) {
+            errorMsg = error.error.message;
+          }
+          return throwError(() => new Error(errorMsg));
+        })
+      );
   }
 }

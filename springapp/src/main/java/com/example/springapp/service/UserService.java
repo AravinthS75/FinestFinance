@@ -8,5 +8,6 @@ public interface UserService {
     AuthUser loginUser(User user);
     User getUserByEmail(String email);
     // User updateUser(User user);
+    void validatePasswordResetToken(String token);
 }
 

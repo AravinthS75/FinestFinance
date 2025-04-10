@@ -37,6 +37,7 @@
 
     <div class="auth-footer">
       <p>New here? <a routerLink="/register" class="auth-link">Create Account</a></p>
+      <p><a class="auth-link" (click)="showForgotPasswordModal()">Forgot Password?</a></p>
     </div>
   </div>
 
@@ -61,4 +62,34 @@
     <path class="failure-crossmark" d="M25,25 L51,51 M51,25 L25,51"/>
   </svg>
   <p class="failure-text">Invalid Credentials!</p>
+</div>
+
+<div class="modal-overlay" *ngIf="showForgotPassword" (click)="closeForgotPasswordModal()">
+  <div class="forgot-password-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Reset Password</h2>
+      <button class="close-button" (click)="closeForgotPasswordModal()">&times;</button>
+    </div>
+    <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordSubmit()" class="auth-form">
+      <div class="input-group">
+        <input type="email" id="resetEmail" formControlName="email" required>
+        <label for="resetEmail">Email Address</label>
+        <div class="underline"></div>
+        <div *ngIf="forgotPasswordForm.get('email')?.invalid && (forgotPasswordForm.get('email')?.touched || forgotPasswordSubmitted)" class="error-message">
+          <div *ngIf="forgotPasswordForm.get('email')?.errors?.['required']">✖ Email required</div>
+          <div *ngIf="forgotPasswordForm.get('email')?.errors?.['email']">✖ Invalid email format</div>
+        </div>
+      </div>
+      <button type="submit" [disabled]="forgotPasswordForm.invalid || resetPasswordProcessing" class="auth-button">
+        <span *ngIf="!resetPasswordProcessing">Send Reset Link</span>
+        <div class="button-loader" *ngIf="resetPasswordProcessing"></div>
+      </button>
+    </form>
+    <div *ngIf="resetPasswordSuccess" class="success-message">
+      ✓ Password reset email sent!
+    </div>
+    <div *ngIf="resetPasswordError" class="error-message">
+      ✖ {{ resetPasswordError }}
+    </div>
+  </div>
 </div>

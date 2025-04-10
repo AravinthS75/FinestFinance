@@ -20,17 +20,26 @@ export class LoginComponent implements OnInit {
   loginSuccess = false;
   particles: { top: number; left: number; size: number; duration: number; delay: number }[] = [];
   userRole: string | null = null;
+  showForgotPassword = false;
+  forgotPasswordForm: FormGroup;
+  resetPasswordProcessing = false;
+  resetPasswordSuccess = false;
+  resetPasswordError: string | null = null;
+  forgotPasswordSubmitted = false;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
     private userStore: UserStoreService,
-    private cdr: ChangeDetectorRef // Added ChangeDetectorRef
+    private cdr: ChangeDetectorRef
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
+    });
+    this.forgotPasswordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
     });
   }
 
@@ -98,4 +107,49 @@ export class LoginComponent implements OnInit {
       });
     }
   }
+  
+  showForgotPasswordModal(): void {
+    this.showForgotPassword = true;
+  }
+
+  closeForgotPasswordModal(): void {
+    this.showForgotPassword = false;
+    this.resetPasswordSuccess = false;
+    this.resetPasswordError = null;
+    this.forgotPasswordSubmitted = false;
+    this.forgotPasswordForm.reset();
+  }
+
+  onForgotPasswordSubmit(): void {
+    this.forgotPasswordSubmitted = true;
+    
+    if (this.forgotPasswordForm.invalid) {
+      return;
+    }
+
+    this.resetPasswordProcessing = true;
+    const email = this.forgotPasswordForm.get('email')?.value;
+
+    if (!email) {
+      this.resetPasswordProcessing = false;
+      this.resetPasswordError = 'Email is required';
+      return;
+    }
+
+    this.authService.sendPasswordResetEmail(email).subscribe({
+      next: () => {
+        this.resetPasswordProcessing = false;
+        this.resetPasswordSuccess = true;
+        setTimeout(() => this.closeForgotPasswordModal(), 2000);
+      },
+      error: (error: any) => {
+        this.resetPasswordProcessing = false;
+        this.resetPasswordError = error.error?.message || 'Failed to send reset email';
+        setTimeout(() => {
+          this.resetPasswordError = null;
+        }, 3000);
+      }
+    });
+  }  
+
 }

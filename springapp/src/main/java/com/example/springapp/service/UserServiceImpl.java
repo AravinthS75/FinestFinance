@@ -11,10 +11,16 @@ import com.example.springapp.config.JwtUtils;
 import com.example.springapp.exception.UserExistException;
 import com.example.springapp.exception.UserNameNotFoundException;
 import com.example.springapp.model.AuthUser;
+import com.example.springapp.model.PasswordResetToken;
 import com.example.springapp.model.User;
+import com.example.springapp.repository.PasswordResetTokenRepository;
 import com.example.springapp.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
+
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired
@@ -28,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private JwtUtils jwtUtils;
+
+    @Autowired
+    private PasswordResetTokenRepository passwordResetTokenRepository;
 
     public User registerUser(User user) {
         User existUser = userRepository.findByEmail(user.getEmail());
@@ -72,5 +81,14 @@ public class UserServiceImpl implements UserService {
         if(user!=null)
             return user;
         return null;
+    }
+
+    @Override
+    public void validatePasswordResetToken(String token) {
+    PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token).get();
+
+    // if (resetToken.getExpiryDate().before(new Byte())) {
+    //     throw new ExpiredTokenException("Password reset token has expired");
+    // }
     }
 }
