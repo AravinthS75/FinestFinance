@@ -6,3 +6,7 @@ need to work on components:
     privacy policy
 
 Need to hide scroll bar for reset password
+
+Add this:
+this.viewportScroller.scrollToPosition([0, 0]);
+to all the foter nav components

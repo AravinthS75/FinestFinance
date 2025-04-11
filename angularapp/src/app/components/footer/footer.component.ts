@@ -1,3 +1,4 @@
+import { ViewportScroller } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class FooterComponent {
   currentYear: number = new Date().getFullYear();
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,private viewportScroller: ViewportScroller) { }
 
   ngOnInit(): void {
   }
@@ -30,11 +31,19 @@ export class FooterComponent {
   businessLoanNav(): void{
     this.router.navigate(['/user/business-loan']).then(() => {
       window.location.reload();
+      this.viewportScroller.scrollToPosition([0, 0]);
     });
   }
 
   homeLoanNav(): void{
     this.router.navigate(['/user/home-loan']).then(() => {
+      window.location.reload();
+      this.viewportScroller.scrollToPosition([0, 0]);
+    });
+  }
+
+  aboutUsNav(): void{
+    this.router.navigate(['/about-us']).then(() => {
       window.location.reload();
     });
   }

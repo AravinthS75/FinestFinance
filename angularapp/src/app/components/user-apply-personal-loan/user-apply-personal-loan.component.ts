@@ -94,6 +94,11 @@ export class UserApplyPersonalLoanComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    
     this.calculateEMI();
     this.loanForm.valueChanges.subscribe(() => {
       this.calculateEMI();

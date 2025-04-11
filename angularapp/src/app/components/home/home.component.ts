@@ -18,6 +18,10 @@ userRole: string | null = null;
   constructor(private userStore: UserStoreService, private router: Router) {}
 
   ngOnInit(): void {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     this.userStore.userChanges.subscribe((user: AuthUser | null) => {
       this.userRole = user ? user.role : null;
     });
