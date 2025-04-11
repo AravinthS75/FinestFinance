@@ -39,6 +39,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { FaqComponent } from './components/faq/faq.component';
 import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -181,6 +182,7 @@ const routes: Routes = [
     canActivate: [AuthguardComponent], 
     data: { expectedRole: 'USER' } 
    },
+   { path: 'reset-password', component: PasswordResetComponent },
    { path: 'about-us', component: AboutUsComponent },
    { path: 'contact-us', component: ContactUsComponent },
    { path: 'faq', component: FaqComponent },

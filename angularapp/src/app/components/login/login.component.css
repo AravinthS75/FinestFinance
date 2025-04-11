@@ -415,4 +415,75 @@ body::-webkit-scrollbar {
         width: 90%;
         padding: 2rem 1.5rem;
     }
+
+    .forgot-password-modal {
+        margin-top: 0;
+        margin-bottom: 0;
+        width: 90%;
+        padding: 1.5rem;
+        transform: translateY(0);
+        align-self: center;
+        justify-self: center;
+        position: relative;
+        top: auto;
+        left: auto;
+        animation: none;
+    }
+
+    .forgot-overlay {
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
 }
+
+.close-button{
+    margin-left: 95%;
+    border: none;
+    bottom: 20px;
+    background: none;
+    color: red;
+    font-size: 25px;
+}
+
+.forgot-password-modal {
+    display: flex;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 2rem;
+    border-radius: 15px;
+    margin-top: 15%;
+    max-width: 400px;
+    color: #00F3FF;
+    margin-bottom: 35%;
+    width: 100%;
+    position: relative;
+    animation: slideUp 0.3s ease;
+    flex-direction: column;
+}
+
+.forgot-overlay {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .modal-header {
+    padding: 0%;
+    border-bottom: none;
+  }
+
+  h3{
+    margin-left: 0;
+    display: flex;
+    justify-content: center;
+  }
+

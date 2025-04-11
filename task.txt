@@ -1,5 +1,3 @@
-Need to implement forget password for reset password
-
 need to work on components:
     about us,
     contact us,
@@ -7,3 +5,4 @@ need to work on components:
     terms of service,
     privacy policy
 
+Need to hide scroll bar for reset password

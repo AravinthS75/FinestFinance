@@ -55,6 +55,7 @@ import { ContactUsComponent } from './components/contact-us/contact-us.component
 import { FaqComponent } from './components/faq/faq.component';
 import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
     ContactUsComponent,
     FaqComponent,
     TermsOfServiceComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,

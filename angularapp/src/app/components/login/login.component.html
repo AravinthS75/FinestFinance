@@ -1,5 +1,5 @@
 <div class="login-wrapper">
-  <div class="login-container" [class.blurred]="formProcessing">
+  <div *ngIf="!showForgotPassword" class="login-container" [class.blurred]="formProcessing">
     <div class="auth-header">
       <h1 class="auth-title">Welcome Back</h1>
       <div class="auth-decoration">
@@ -64,11 +64,11 @@
   <p class="failure-text">Invalid Credentials!</p>
 </div>
 
-<div class="modal-overlay" *ngIf="showForgotPassword" (click)="closeForgotPasswordModal()">
+<div class="forgot-overlay" *ngIf="showForgotPassword" (click)="closeForgotPasswordModal()">
   <div class="forgot-password-modal" (click)="$event.stopPropagation()">
     <div class="modal-header">
-      <h2>Reset Password</h2>
       <button class="close-button" (click)="closeForgotPasswordModal()">&times;</button>
+      <h3>Reset Password</h3>
     </div>
     <form [formGroup]="forgotPasswordForm" (ngSubmit)="onForgotPasswordSubmit()" class="auth-form">
       <div class="input-group">

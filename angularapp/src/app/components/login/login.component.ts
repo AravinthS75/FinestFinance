@@ -147,7 +147,7 @@ export class LoginComponent implements OnInit {
         this.resetPasswordError = error.error?.message || 'Failed to send reset email';
         setTimeout(() => {
           this.resetPasswordError = null;
-        }, 3000);
+        }, 6000);
       }
     });
   }  

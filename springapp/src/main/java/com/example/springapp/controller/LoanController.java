@@ -25,7 +25,7 @@ public class LoanController {
     private JwtUtils jwtService;
 
     @PostMapping("/user/{userId}")
-    public ResponseEntity<?> applyForLoan(@PathVariable int userId, @RequestBody Loan loan, @RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<?> applyForLoan(@PathVariable Long userId, @RequestBody Loan loan, @RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");
 
         String role = jwtService.extractRole(token);
@@ -68,7 +68,7 @@ public class LoanController {
 
     @PatchMapping("/manager/{loanId}/status")
     public ResponseEntity<?> updateLoanStatus(@RequestHeader("Authorization") String authHeader,
-            @PathVariable int loanId, @RequestBody Map<String, String> updates) {
+            @PathVariable Long loanId, @RequestBody Map<String, String> updates) {
         String token = authHeader.replace("Bearer ", "");
 
         String role = jwtService.extractRole(token);
@@ -81,7 +81,7 @@ public class LoanController {
     }
 
     @PutMapping("/assign-manager/{userId}/{loanId}/{managerId}")
-    public ResponseEntity<?> assignManager(@PathVariable int userId, @PathVariable int loanId, @PathVariable int managerId, @RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<?> assignManager(@PathVariable Long userId, @PathVariable Long loanId, @PathVariable Long managerId, @RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");
 
         String role = jwtService.extractRole(token);
@@ -93,7 +93,7 @@ public class LoanController {
     }
 
     @PutMapping("/pay-emi/{loanId}")
-    public ResponseEntity<?> payEmi(@PathVariable int loanId, @RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<?> payEmi(@PathVariable Long loanId, @RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");
 
         String role = jwtService.extractRole(token);

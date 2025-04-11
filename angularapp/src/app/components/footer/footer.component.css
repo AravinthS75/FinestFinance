@@ -1,4 +1,7 @@
-/* Main Footer Styles */
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .main-footer {
   background-color: #222;
   color: #fff;

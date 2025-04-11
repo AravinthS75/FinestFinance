@@ -3,7 +3,11 @@ package com.example.springapp.service;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.example.springapp.model.PasswordResetToken;
 import com.example.springapp.model.User;
@@ -14,6 +18,14 @@ import jakarta.transaction.Transactional;
 @Service
 @Transactional
 public class PasswordResetService {
+
+    @Autowired
+    private UserService userService;
+
+     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    private static final Logger logger = LoggerFactory.getLogger(PasswordResetService.class);
 
     private final UserRepository userRepository;
     private final PasswordResetTokenRepository passwordResetTokenRepository;
@@ -34,11 +46,9 @@ public class PasswordResetService {
             throw new UsernameNotFoundException("User not found with email: " + email);
         }
 
-        // Delete existing tokens first
         passwordResetTokenRepository.deleteByUser(user);
-        passwordResetTokenRepository.flush();  // Force immediate delete
-        
-        // Create and save new token
+        passwordResetTokenRepository.flush();
+
         PasswordResetToken resetToken = new PasswordResetToken();
         resetToken.setToken(UUID.randomUUID().toString());
         resetToken.setUser(user);
@@ -55,9 +65,20 @@ public class PasswordResetService {
     }
 
     private void sendPasswordResetEmail(User user, String token) {
-        String resetUrl = "https://yourapp.com/reset-password?token=" + token;
+        String resetUrl = "https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev/reset-password?pass_reset=" + token;
         String subject = "Password Reset Request";
-        String content = "To reset your password, click the link below:\n" + resetUrl;
+        String content = "Hi "+user.getName()+"!\n\n"+"To reset your password, click the link below:\n\n" + resetUrl;
         emailService.sendEmail(user.getEmail(), subject, content);
+    }
+
+    public String resetUserPassword(String token, String password){
+        Long validToken = userService.validatePasswordResetToken(token);
+        if(validToken!=null){
+            User user = userRepository.findById(validToken);
+            user.setPassword(passwordEncoder.encode(password));
+            userRepository.save(user);
+            return "Password reset successfull!";
+        }
+        return "Password reset failed!";
     }
 }

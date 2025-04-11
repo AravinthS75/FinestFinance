@@ -138,7 +138,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             const element = document.querySelector(`[formControlName="${name}"]`);
             if (element instanceof HTMLElement) {
                 element.focus();
-                break; // Stop after focusing the first one
+                break;
             }
         }
     }

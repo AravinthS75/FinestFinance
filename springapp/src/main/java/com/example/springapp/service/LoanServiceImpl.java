@@ -29,7 +29,7 @@ public class LoanServiceImpl implements LoanService{
     @Autowired
     private JwtUtils jwtService;
 
-    public Loan applyForLoan(String authHeader, int userId, Loan loan) {
+    public Loan applyForLoan(String authHeader, Long userId, Loan loan) {
         String token = authHeader.replace("Bearer ", "");
         String role = jwtService.extractRole(token);
 
@@ -112,7 +112,7 @@ public class LoanServiceImpl implements LoanService{
         return loanRepository.findAll();
     }
 
-    public Loan updateLoanStatus(int loanId, String status, String rejectReason) {
+    public Loan updateLoanStatus(Long loanId, String status, String rejectReason) {
         Loan loan = loanRepository.findById(loanId).orElseThrow();
         loan.setStatus(status);
     
@@ -148,7 +148,7 @@ public class LoanServiceImpl implements LoanService{
         return null;
     }
 
-    public Loan setLoanApprover(int userId, int loanId, int managerId ){
+    public Loan setLoanApprover(Long userId, Long loanId, Long managerId ){
         User user = userRepository.findById(userId);
         Loan loanOfUser = loanRepository.findById(loanId).get();
         User manager = userRepository.findById(managerId);
@@ -162,7 +162,7 @@ public class LoanServiceImpl implements LoanService{
         return savedLoan;
     }
 
-    public Loan processEmiPayment(int loanId) {
+    public Loan processEmiPayment(Long loanId) {
         Loan loan = loanRepository.findById(loanId).orElseThrow(() -> new RuntimeException("Loan not found"));
     
         if (!"APPROVED".equals(loan.getStatus())) {
@@ -171,14 +171,12 @@ public class LoanServiceImpl implements LoanService{
     
         LocalDate currentDate = LocalDate.now();
     
-        // If due date is null, set it to one month from now
         if (loan.getDueDate() == null) {
             loan.setDueDate(Date.from(currentDate.plusMonths(1).atStartOfDay(ZoneId.systemDefault()).toInstant()));
         }
     
         LocalDate dueDateLocal = loan.getDueDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     
-        // Calculate penalty if EMI is overdue
         if (currentDate.isAfter(dueDateLocal)) {
             long monthsOverdue = ChronoUnit.MONTHS.between(dueDateLocal, currentDate);
             double penalty = loan.getEmiAmount() * 0.10 * monthsOverdue;
@@ -187,11 +185,9 @@ public class LoanServiceImpl implements LoanService{
             loan.setPendingAmount(loan.getPendingAmount() - loan.getEmiAmount());
         }
     
-        // Update due date to the next month
         LocalDate newDueDate = dueDateLocal.plusMonths(1);
         loan.setDueDate(Date.from(newDueDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
     
-        // Check if the loan is completed
         long tenureMonths = Long.parseLong(loan.getTenure().split(" ")[0]);
         long monthsPaid = ChronoUnit.MONTHS.between(
             loan.getCreatedAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import com.example.springapp.exception.UserExistException;
 import com.example.springapp.exception.UserNameNotFoundException;
@@ -67,4 +68,11 @@ public class AuthController {
                 .body(Collections.singletonMap("message", "Error processing password reset request"));
         }
     }
+
+    @PutMapping("/api/auth/reset-password")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, String> data) {
+        String result = passwordResetService.resetUserPassword(data.get("token"), data.get("password"));
+        return ResponseEntity.ok().body(Map.of("message", result));
+    }
+    
 }

@@ -46,4 +46,10 @@ export class AuthService {
         })
       );
   }
+
+  
+  resetPassword(token: string, password: string): Observable<any> {
+      return this.httpClient.put(`${this.backendURL}/auth/reset-password`, { token, password });
+  }
+  
 }

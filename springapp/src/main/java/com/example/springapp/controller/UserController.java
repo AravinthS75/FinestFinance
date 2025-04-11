@@ -21,7 +21,7 @@ public class UserController {
     private JwtUtils jwtService;
 
     @GetMapping("/{userId}")
-    public ResponseEntity<?> getUserDetails(@PathVariable int userId, @RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<?> getUserDetails(@PathVariable Long userId, @RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");
 
         String role = jwtService.extractRole(token);
@@ -36,7 +36,7 @@ public class UserController {
 
     @PutMapping("/{userId}")
     public ResponseEntity<?> updateUserProfile(
-        @PathVariable int userId,
+        @PathVariable Long userId,
         @RequestBody User updatedUser,
         @RequestHeader("Authorization") String authHeader) {
         

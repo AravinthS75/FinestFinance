@@ -14,18 +14,14 @@ import java.util.Optional;
 @Repository
 public interface PasswordResetTokenRepository extends JpaRepository<PasswordResetToken, Long> {
 
-    // Find token by token string
     Optional<PasswordResetToken> findByToken(String token);
 
-    // Find tokens by user (in case of multiple tokens)
     Optional<PasswordResetToken> findByUser(User user);
 
-    // Delete expired tokens
     @Modifying
     @Query("DELETE FROM PasswordResetToken t WHERE t.expiryDate < :now")
     void deleteAllExpiredSince(Date now);
-
-    // Optional: Find token with user eager loaded
+    
     @Query("SELECT t FROM PasswordResetToken t JOIN FETCH t.user WHERE t.token = :token")
     Optional<PasswordResetToken> findByTokenWithUser(String token);
 
