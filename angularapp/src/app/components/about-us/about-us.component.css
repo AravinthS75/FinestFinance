@@ -87,6 +87,7 @@ body::-webkit-scrollbar{
     max-width: 1200px;
     margin: 0 auto;
     padding: 40px 0;
+    z-index: 1; /* Establish stacking context */
   }
   
   .timeline::after {
@@ -98,12 +99,18 @@ body::-webkit-scrollbar{
     bottom: 0;
     left: 50%;
     margin-left: -3px;
+    z-index: -1; /* Push behind timeline content */
+  }
+  
+  .timeline-item {
+    position: relative;
+    z-index: 20;
   }
   
   .team-card {
     display: flex;
-    gap: 2rem; /* Space between image and text */
-    align-items: center; /* Vertical alignment */
+    gap: 2rem;
+    align-items: center;
     padding: 1.5rem;
     background: var(--neutral-white);
     border-radius: 15px;
@@ -112,7 +119,7 @@ body::-webkit-scrollbar{
   }
   
   .team-photo {
-    max-width: 150px; /* Adjust image size */
+    max-width: 150px;
     height: auto;
     border-radius: 8px;
     object-fit: cover;
@@ -121,11 +128,11 @@ body::-webkit-scrollbar{
   .team-content {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem; /* Space between text elements */
+    gap: 0.8rem;
   }
   
   .team-content > * {
-    margin: 0; /* Remove default margins */
+    margin: 0;
     opacity: 0;
     transform: translateX(20px);
     transition: all 0.3s ease;
@@ -204,3 +211,6 @@ body::-webkit-scrollbar{
     border-radius: 100%;
   }
 
+.timeline-content{
+  z-index: 999;
+}
