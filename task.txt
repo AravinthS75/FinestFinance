@@ -1,5 +1,4 @@
 need to work on components:
-    about us,
     contact us,
     faq,
     terms of service,
