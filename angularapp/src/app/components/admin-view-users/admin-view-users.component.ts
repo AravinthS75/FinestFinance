@@ -13,13 +13,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class AdminViewUsersComponent implements OnInit{
   users: User[] = [];
+  filteredUsers: User[] = [];
   userData: string | null = null;
-  isLoading: boolean  = false;
+  isLoading: boolean = false;
   token: string = '';
   error: string = '';
   selectedUser: User | null = null;
   isModalOpen: boolean = false;
   modalState: 'open' | 'closed' = 'closed';
+  searchTerm: string = ''; // For search input
 
   constructor(
     private adminService: AdminService,
@@ -36,15 +38,18 @@ export class AdminViewUsersComponent implements OnInit{
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.adminService.getAllUsers(this.token).subscribe((data) => {
-      this.users = data;
-      this.isLoading = false;
-    },
-    (errorResponse: HttpErrorResponse) => {
-            this.error = errorResponse.error.message || 'Failed to load users list.';
-            this.isLoading = false;
-          }
-  );
+    this.adminService.getAllUsers(this.token).subscribe(
+      (data) => {
+        this.users = data;
+        // Initialize filteredUsers with the complete list when data loads
+        this.filteredUsers = data;
+        this.isLoading = false;
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.error = errorResponse.error.message || 'Failed to load users list.';
+        this.isLoading = false;
+      }
+    );
   }
 
   getProfileImage(user: User): SafeStyle {
@@ -67,5 +72,20 @@ export class AdminViewUsersComponent implements OnInit{
     this.selectedUser = null;
     document.body.style.overflow = '';
     this.modalState = 'closed';
+  }
+
+  // Method to filter the list of users based on searchTerm
+  filterUsers(): void {
+    if (!this.searchTerm) {
+      // If search term is empty, show all users
+      this.filteredUsers = this.users;
+    } else {
+      const term = this.searchTerm.toLowerCase();
+      this.filteredUsers = this.users.filter(user =>
+        user.name?.toLowerCase().includes(term) ||
+        user.email?.toLowerCase().includes(term) ||
+        (user.phone && user.phone.toLowerCase().includes(term))
+      );
+    }
   }
 }

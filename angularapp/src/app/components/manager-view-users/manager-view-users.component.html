@@ -46,9 +46,17 @@
   
     </div>
   </div>
+
+  <div *ngIf="!isLoading && !error" class="search-container">
+    <input 
+      type="text" 
+      placeholder="Search users..." 
+      [(ngModel)]="searchTerm" 
+      (input)="filterUsers()" />
+  </div>
   
   <div *ngIf="!isLoading && !error" class="users-container">
-    <div class="user-card" *ngFor="let user of users">
+    <div class="user-card" *ngFor="let user of filteredUsers">
       <div class="profile-pic-admin-view-user" [style.backgroundImage]="getProfileImage(user)"></div>
   
       <!-- Info section -->
