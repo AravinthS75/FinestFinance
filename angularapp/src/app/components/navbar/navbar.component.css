@@ -137,6 +137,12 @@ body {
   display: inline-block;
 }
 
+.cta-button1:hover{
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  cursor: pointer;
+}
+
 .cta-button:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);

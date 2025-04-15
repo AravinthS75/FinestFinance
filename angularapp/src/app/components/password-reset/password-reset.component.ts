@@ -81,8 +81,14 @@ export class PasswordResetComponent implements OnInit, OnDestroy {
       if (this.token) {
         this.authService.resetPassword(this.token, password).subscribe({
           next: (response)=> {
-            this.toastr.success('Password reset successfully.', 'Reset Success', {closeButton: true});
-            this.router.navigate(['/login']);
+            console.log(response);
+            if(response.message === 'Password reset successfully') {
+              this.toastr.success('Password reset successfully.', 'Reset Success', {closeButton: true});
+              this.router.navigate(['/login']);
+            }
+            else {
+              this.toastr.error('Password reset failed', 'The token is expired', {closeButton: true});
+            }
           },
           error: (error) => {
             this.toastr.error('Password reset failed', 'Reset failed', {closeButton: true});

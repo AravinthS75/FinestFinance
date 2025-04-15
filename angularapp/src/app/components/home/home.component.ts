@@ -1,4 +1,4 @@
-import { ViewEncapsulation } from '@angular/core';
+import { HostListener, ViewEncapsulation } from '@angular/core';
 import { Component } from '@angular/core';
 import { UserStoreService } from '../../services/user-store.service';
 import { Router } from '@angular/router';
@@ -22,6 +22,7 @@ userRole: string | null = null;
       top: 0,
       behavior: 'smooth'
     });
+    
     this.userStore.userChanges.subscribe((user: AuthUser | null) => {
       this.userRole = user ? user.role : null;
     });
@@ -30,6 +31,21 @@ userRole: string | null = null;
     if (user) {
       this.userRole = user.role;
     }
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    this.animateOnScroll();
+  }
+
+  animateOnScroll() {
+    const elements = document.querySelectorAll('.value-card, .timeline-item');
+    elements.forEach(element => {
+      const position = element.getBoundingClientRect();
+      if(position.top < window.innerHeight) {
+        element.classList.add('animate');
+      }
+    });
   }
 
   isUser(): void {

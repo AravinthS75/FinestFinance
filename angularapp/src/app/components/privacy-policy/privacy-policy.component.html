@@ -1,1 +1,116 @@
-<p>privacy-policy works!</p>
+<section class="privacy-section">
+    <div class="privacy-container">
+      <h1 class="main-title">Finest Finance Privacy Policy</h1>
+      <div class="last-updated">Effective Date: August 15, 2023</div>
+  
+      <div class="toc-container">
+        <h3 class="toc-title">Table of Contents</h3>
+        <ul class="toc-list">
+          <li *ngFor="let section of sections">
+            <a (click)="scrollTo(section.id)">{{ section.title }}</a>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="content">
+        <section *ngFor="let section of sections" #policySection id="{{section.id}}">
+          <h2>{{ section.title }}</h2>
+          
+          <ng-container [ngSwitch]="section.id">
+            <!-- Introduction -->
+            <div *ngSwitchCase="'introduction'">
+              <p>Finest Finance ("we", "us", or "our") is committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information...</p>
+            </div>
+  
+            <!-- Data Collection -->
+            <div *ngSwitchCase="'data-collection'">
+              <p>We collect the following types of information:</p>
+              <ul>
+                <li><strong>Personal Information:</strong> Name, contact details, PAN, Aadhaar, income details</li>
+                <li><strong>Financial Information:</strong> Bank statements, credit history, transaction records</li>
+                <li><strong>Technical Data:</strong> IP address, device information, usage patterns</li>
+                <li><strong>Third-party Data:</strong> Credit bureau reports, KYC verification data</li>
+              </ul>
+            </div>
+  
+            <!-- Data Use -->
+            <div *ngSwitchCase="'data-use'">
+              <p>Your information is used for:</p>
+              <ul>
+                <li>Loan eligibility assessment</li>
+                <li>Identity verification (KYC)</li>
+                <li>Credit risk analysis</li>
+                <li>Service improvement</li>
+                <li>Regulatory compliance</li>
+              </ul>
+            </div>
+  
+            <!-- Data Sharing -->
+            <div *ngSwitchCase="'data-sharing'">
+              <p>We may share information with:</p>
+              <ul>
+                <li>Credit bureaus (CIBIL, Experian, Equifax)</li>
+                <li>Banking partners and payment gateways</li>
+                <li>Legal and regulatory authorities</li>
+                <li>Fraud prevention agencies</li>
+                <li>Third-party service providers</li>
+              </ul>
+            </div>
+  
+            <!-- Security -->
+            <div *ngSwitchCase="'security'">
+              <p>We implement security measures including:</p>
+              <ul>
+                <li>256-bit SSL encryption</li>
+                <li>Regular security audits</li>
+                <li>Role-based access control</li>
+                <li>Secure data storage</li>
+                <li>Two-factor authentication</li>
+              </ul>
+            </div>
+  
+            <!-- User Rights -->
+            <div *ngSwitchCase="'rights'">
+              <p>You have the right to:</p>
+              <ul>
+                <li>Access your personal data</li>
+                <li>Request correction of inaccurate data</li>
+                <li>Withdraw consent</li>
+                <li>Request data deletion (subject to legal requirements)</li>
+                <li>Obtain data portability</li>
+              </ul>
+            </div>
+  
+            <!-- Cookies -->
+            <div *ngSwitchCase="'cookies'">
+              <p>We use cookies to:</p>
+              <ul>
+                <li>Authenticate users</li>
+                <li>Remember preferences</li>
+                <li>Analyze traffic patterns</li>
+                <li>Improve service delivery</li>
+              </ul>
+              <p>Manage cookies through browser settings or our consent manager.</p>
+            </div>
+  
+            <!-- Policy Changes -->
+            <div *ngSwitchCase="'changes'">
+              <p>We may update this policy periodically. Significant changes will be notified via:</p>
+              <ul>
+                <li>Email to registered users</li>
+                <li>Website banner notifications</li>
+                <li>Updated effective date</li>
+              </ul>
+            </div>
+          </ng-container>
+        </section>
+  
+        <div class="contact-box">
+          <h3>Contact Us</h3>
+          <p>For privacy concerns or data requests:</p>
+          <p>Email: <a href="mailto:financefinest94@gmail.com">financefinest94gmail.com</a></p>
+          <p>Mail: Data Protection Officer, Finest Finance, 123 Security Lane, Cyber City, CC 7890</p>
+        </div>
+      </div>
+    </div>
+  </section>

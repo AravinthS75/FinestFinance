@@ -40,6 +40,7 @@ import { FaqComponent } from './components/faq/faq.component';
 import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { DisclaimerComponent } from './components/disclaimer/disclaimer.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -172,22 +173,23 @@ const routes: Routes = [
     component: UserPayEmiComponent,
     canActivate: [AuthguardComponent], 
     data: { expectedRole: 'USER' } 
-   },
+  },
   { path: 'user/view-loan',
     component: UserViewLoanComponent,
     canActivate: [AuthguardComponent], 
     data: { expectedRole: 'USER' } 
-   },  { path: 'user/edit-profile',
+  },  { path: 'user/edit-profile',
     component: UserEditProfileComponent,
     canActivate: [AuthguardComponent], 
     data: { expectedRole: 'USER' } 
-   },
-   { path: 'reset-password', component: PasswordResetComponent },
-   { path: 'about-us', component: AboutUsComponent },
-   { path: 'contact-us', component: ContactUsComponent },
-   { path: 'faq', component: FaqComponent },
-   { path: 'terms-of-service', component: TermsOfServiceComponent },
-   { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  },
+  { path: 'reset-password', component: PasswordResetComponent },
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'contact-us', component: ContactUsComponent },
+  { path: 'faq', component: FaqComponent },
+  { path: 'terms-of-service', component: TermsOfServiceComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'disclaimer', component: DisclaimerComponent },
   { path: '**', redirectTo: 'error' }
 ];
 

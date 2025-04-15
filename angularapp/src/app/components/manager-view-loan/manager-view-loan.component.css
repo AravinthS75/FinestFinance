@@ -143,6 +143,7 @@ display: none;
   background: #333;
   outline: none;
   -webkit-appearance: none;
+  appearance: none;
   margin-bottom: 0.5rem;
 }
 

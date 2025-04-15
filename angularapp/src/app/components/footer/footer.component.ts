@@ -47,4 +47,40 @@ export class FooterComponent {
       window.location.reload();
     });
   }
+
+  contactUsNav(): void{
+    this.router.navigate(['/contact-us']).then(() => {
+      window.location.reload();
+      this.viewportScroller.scrollToPosition([0, 0]);
+    });
+  }
+
+  faqsNav(): void{
+    this.router.navigate(['/faq']).then(() => {
+      window.location.reload();
+      this.viewportScroller.scrollToPosition([0, 0]);
+    });
+  }
+
+  privacyPolicyNav(): void{
+    this.router.navigate(['/privacy-policy']).then(() => {
+      window.location.reload();
+      this.viewportScroller.scrollToPosition([0, 0]);
+    });
+  }
+
+  termsAndConditionNav(): void{
+    this.router.navigate(['/terms-of-service']).then(() => {
+      window.location.reload();
+      this.viewportScroller.scrollToPosition([0, 0]);
+    });
+  }
+
+  disclaimerNav(): void{
+    this.router.navigate(['/disclaimer']).then(() => {
+      window.location.reload();
+      this.viewportScroller.scrollToPosition([0, 0]);
+    });
+  }
+  
 }

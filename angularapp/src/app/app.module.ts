@@ -56,6 +56,7 @@ import { FaqComponent } from './components/faq/faq.component';
 import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-service.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { DisclaimerComponent } from './components/disclaimer/disclaimer.component';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import { PasswordResetComponent } from './components/password-reset/password-res
     FaqComponent,
     TermsOfServiceComponent,
     PrivacyPolicyComponent,
-    PasswordResetComponent
+    PasswordResetComponent,
+    DisclaimerComponent
   ],
   imports: [
     BrowserModule,
