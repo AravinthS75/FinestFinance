@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
 })
 export class UserService {
 
-  public apiUrl = "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api/user";
+  public apiUrl = "https://finestfinance-backendend.onrender.com/api/user";
 
   constructor(private http: HttpClient) { }
 

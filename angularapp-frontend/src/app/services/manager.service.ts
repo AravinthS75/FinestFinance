@@ -9,8 +9,8 @@ import { User } from '../models/user.model';
 })
 export class ManagerService {
 
-  public apiUrl = "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api/admin";
-  public loanUrl = "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api/loans";
+  public apiUrl = "https://finestfinance-backendend.onrender.com/api/admin";
+  public loanUrl = "https://finestfinance-backendend.onrender.com/api/loans";
 
   constructor(private http: HttpClient) { }
 

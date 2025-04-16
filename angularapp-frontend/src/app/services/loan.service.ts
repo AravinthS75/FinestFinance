@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class LoanService {
 
-  public loanUrl = "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api/loans";
+  public loanUrl = "https://finestfinance-backendend.onrender.com/api/loans";
 
-  public apiUrl = "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api/admin/all-managers"
+  public apiUrl = "https://finestfinance-backendend.onrender.com/api/admin/all-managers"
 
   constructor(private http: HttpClient) { }
 

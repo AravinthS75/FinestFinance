@@ -10,7 +10,7 @@ import { AuthUser } from '../models/auth-user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private backendURL: string = 'https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev/api';
+  private backendURL: string = 'https://finestfinance-backendend.onrender.com/api';
 
   constructor(private httpClient: HttpClient, private userStoreService: UserStoreService) {}
 
