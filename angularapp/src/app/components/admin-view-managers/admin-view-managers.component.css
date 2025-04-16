@@ -39,7 +39,6 @@ body::-webkit-scrollbar {
   max-width: 800px;
   position: relative;
   z-index: 100;
-  background: linear-gradient(45deg, #f0f4ff, #f8f9fa);
 }
 
 .search-container input {

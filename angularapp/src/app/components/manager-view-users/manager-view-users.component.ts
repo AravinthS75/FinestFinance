@@ -14,7 +14,6 @@ import { ManagerService } from '../../services/manager.service';
 })
 export class ManagerViewUsersComponent {
   users: User[] = [];
-  filteredUsers: User[] = [];
   userData: string | null = null;
   isLoading: boolean = false;
   token: string = '';
@@ -22,9 +21,6 @@ export class ManagerViewUsersComponent {
   selectedUser: User | null = null;
   isModalOpen: boolean = false;
   modalState: 'open' | 'closed' = 'closed';
-  
-  // Search term for filtering users
-  searchTerm: string = '';
 
   constructor(
     private managerService: ManagerService,
@@ -44,8 +40,6 @@ export class ManagerViewUsersComponent {
     this.managerService.getAllUsers(this.token).subscribe(
       (data) => {
         this.users = data;
-        // Initialize filteredUsers with the full list
-        this.filteredUsers = data;
         this.isLoading = false;
       },
       (errorResponse: HttpErrorResponse) => {
@@ -77,18 +71,4 @@ export class ManagerViewUsersComponent {
     this.modalState = 'closed';
   }
 
-  // Method to filter the list of users based on the search term
-  filterUsers(): void {
-    if (!this.searchTerm) {
-      // If the search term is empty, show all users
-      this.filteredUsers = this.users;
-    } else {
-      const term = this.searchTerm.toLowerCase();
-      this.filteredUsers = this.users.filter(user =>
-        user.name?.toLowerCase().includes(term) ||
-        user.email?.toLowerCase().includes(term) ||
-        (user.phone && user.phone.toLowerCase().includes(term))
-      );
-    }
-  }
 }

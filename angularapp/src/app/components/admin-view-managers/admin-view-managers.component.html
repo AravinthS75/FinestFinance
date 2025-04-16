@@ -3,7 +3,7 @@
 <div *ngIf="isLoading && !error" class="loading-message">
   <div class="loader">loading...</div>
 </div>
-<div class="users-container" *ngIf="!error">
+<div class="users-container" *ngIf="!isLoading && !error">
   <div class="search-container">
     <input
       type="text"
