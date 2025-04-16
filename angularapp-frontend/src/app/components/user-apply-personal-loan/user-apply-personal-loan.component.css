@@ -1,0 +1,458 @@
+/* Root Variables for Theming */
+:root {
+  --primary: #2563eb;
+  --secondary: #4f46e5;
+  --accent: #22d3ee;
+  --background: #f8fafc;
+  --text: #1e293b;
+  --card-bg: #ffffff;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+html, body {
+  overflow-y: auto; /* Allows scrolling */
+  max-height: 100vh; /* Prevents extra space */
+  scrollbar-width: none; /* Hides scrollbar in Firefox */
+  -ms-overflow-style: none; /* Hides scrollbar in IE/Edge */
+}
+
+html::-webkit-scrollbar,  
+body::-webkit-scrollbar {
+  display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
+}
+
+/* Main Layout */
+.main-container {
+  display: grid;
+  gap: 2rem;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  background: var(--background);
+}
+
+/* Form Section */
+.form-container {
+  background: var(--card-bg);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.form-container:hover {
+  transform: translateY(-5px);
+}
+
+/* Title with Neon Effect */
+.neon-title {
+  color: var(--primary);
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+  text-align: center;
+}
+
+.neon-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* Form Inputs */
+.cyber-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.cyber-input {
+  position: relative;
+  margin-top: 1.5%;
+}
+
+.hologram-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Input Field Styling */
+.glow-input {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.glow-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Range Slider */
+.cyber-range {
+  width: 100%;
+  height: 8px;
+  background: #e2e8f0;
+  border-radius: 4px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.cyber-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  background: var(--primary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.cyber-range::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+}
+
+.range-value {
+  text-align: center;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 0.5rem;
+  font-size: 1.2rem;
+}
+
+/* Display Cards */
+.cyber-display {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+}
+
+.display-segment {
+  text-align: center;
+  padding: 1rem;
+  background: linear-gradient(145deg, #f0f4ff, #ffffff);
+  border-radius: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.display-segment:hover {
+  transform: translateY(-3px);
+}
+
+.segment-label {
+  display: block;
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.segment-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Modern Button */
+.cyber-button {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(to right, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cyber-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
+}
+
+.cyber-button::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: rotate(45deg);
+  animation: buttonShine 3s infinite;
+}
+
+.cyber-button:disabled {
+  cursor: not-allowed;
+  /* pointer-events: none; */
+  background: #d1d5db; /* Optional: Use a lighter or disabled color */
+  color: #6b7280; /* Optional: Match text color to the disabled state */
+  box-shadow: none; /* Removes shadow for disabled buttons */
+  transform: none; /* Prevents hover animation */
+}
+
+@keyframes buttonShine {
+  0% { left: -50%; }
+  100% { left: 150%; }
+}
+
+/* Informational Sections */
+.content-container {
+  display: grid;
+  gap: 2rem;
+}
+
+.cyber-section {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease;
+}
+
+.cyber-section:hover {
+  transform: translateY(-3px);
+}
+
+.section-title {
+  color: var(--primary);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* Loan Benefits */
+.loan-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.loan-benefit-item {
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border-radius: 1rem;
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
+}
+
+.loan-benefit-item:hover {
+  transform: translateY(-5px);
+}
+
+.benefit-title {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.benefit-description {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* Steps to Apply */
+.application-steps {
+  display: grid;
+  gap: 1rem;
+  counter-reset: step;
+}
+
+.step-item {
+  padding-left: 2.5rem;
+  position: relative;
+  counter-increment: step;
+  color: var(--text);
+}
+
+.step-item::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+/* Error Message */
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  animation: shake 0.4s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Responsive Design */
+@media (min-width: 1024px) {
+  .main-container {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+  
+  .form-container {
+    position: sticky;
+    top: 2rem;
+  }
+}
+
+ol {
+  list-style: none; /* Removes the default numbers */
+  padding-left: 0;  /* Adjusts alignment */
+}
+
+.modern-success-message {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  height: fit-content;
+  width: fit-content;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  color: white;
+  font-family: "Poppins", sans-serif;
+  transition:
+    transform 0.3s ease-in-out,
+    box-shadow 0.3s ease-in-out;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+}
+
+.modern-success-message:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+.close-btn:hover {
+  opacity: 1;
+}
+
+.icon-wrapper {
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.success-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.text-wrapper .title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.text-wrapper .message {
+  margin-top: 6px;
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.modern-success-message::before {
+    content: "";
+    position: absolute;
+    top: -73%;
+    width: 100%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+    transform: rotate(45deg);
+    transition: transform 0.5s ease-in-out;
+}
+
+.modern-success-message:hover::before {
+  transform: rotate(90deg);
+  opacity: 0.5;
+}
+
+@media (min-width: 400px) and (max-width: 740px){
+  .modern-success-message {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    height: fit-content;
+    width: 305px;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    color: white;
+    font-family: "Poppins", sans-serif;
+    transition:
+      transform 0.3s ease-in-out,
+      box-shadow 0.3s ease-in-out;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+  }
+
+  .close-btn{
+    top: 2px;
+  }
+}

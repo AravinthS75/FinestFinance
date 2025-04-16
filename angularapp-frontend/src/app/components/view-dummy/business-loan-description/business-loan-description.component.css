@@ -1,0 +1,295 @@
+/* business-loan-description.component.css */
+:root {
+  --primary-blue: #0a1f44;
+  --accent-blue: #1e88e5;
+  --gold: #ffc107;
+  --white: #ffffff;
+  --light-bg: #f8f9fa;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.business-loan-container {
+  max-width: 1200px;
+  margin: 4rem auto 2rem;
+  padding: 0 2rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Hero Section */
+.business-hero {
+  text-align: center;
+  padding: 6rem 2rem;
+  background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+  color: var(--white);
+  border-radius: 15px;
+  margin-bottom: 3rem;
+  box-shadow: var(--shadow);
+}
+
+.business-title {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+.business-subtitle {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  margin-bottom: 2rem;
+}
+
+.cta-button {
+  background: var(--gold);
+  color: var(--primary-blue);
+  padding: 1rem 3rem;
+  border-radius: 30px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(255, 193, 7, 0.4);
+}
+
+/* Features Section */
+.business-features {
+  margin-bottom: 4rem;
+}
+
+.features-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.feature-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-blue);
+}
+
+.feature-card p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Eligibility Section */
+.eligibility-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.eligibility-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: 2rem;
+}
+
+.criteria-box {
+  padding: 2rem;
+  border: 2px solid var(--accent-blue);
+  border-radius: 10px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.criteria-box:hover {
+  transform: translateY(-5px);
+}
+
+.highlight {
+  color: var(--accent-blue);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 1rem 0;
+}
+
+.eligibility-list {
+  list-style: none;
+  padding: 0;
+}
+
+.eligibility-list li {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* Documents Section */
+.documents-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.doc-card {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.doc-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.doc-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--primary-blue);
+}
+
+.doc-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.doc-card li {
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+/* Fees Section */
+.fees-card {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.fee-item {
+  text-align: center;
+  padding: 2rem;
+  border: 2px solid var(--accent-blue);
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.fee-item:hover {
+  transform: translateY(-5px);
+}
+
+.fee-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--primary-blue);
+}
+
+.highlight {
+  color: var(--accent-blue);
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 1rem 0;
+}
+
+/* FAQ Section */
+.faq-container {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: var(--shadow);
+}
+
+.faq-item {
+  padding: 1.5rem;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.faq-item:hover {
+  background: var(--light-bg);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-question h3 {
+  font-size: 1.3rem;
+  margin: 0;
+  color: var(--primary-blue);
+}
+
+.faq-icon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.faq-answer {
+  padding-top: 1rem;
+}
+
+.faq-answer p {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0;
+}
+
+/* Animations */
+.animate {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .business-title {
+    font-size: 2.2rem;
+  }
+
+  .business-subtitle {
+    font-size: 1.2rem;
+  }
+
+
+  .features-grid, .eligibility-grid, .documents-grid, .fees-card {
+    grid-template-columns: 1fr;
+  }
+}

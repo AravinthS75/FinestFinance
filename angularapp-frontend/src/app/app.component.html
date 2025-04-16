@@ -1,0 +1,14 @@
+<ng-container *ngIf="isLoggedOut()">
+  <app-navbar></app-navbar>
+</ng-container>
+<ng-container *ngIf="isUser()">
+  <app-user-navbar></app-user-navbar>
+</ng-container>
+<ng-container *ngIf="isManager()">
+  <app-manager-navbar></app-manager-navbar>
+</ng-container>
+<ng-container *ngIf="isAdmin()">
+  <app-admin-navbar></app-admin-navbar>
+</ng-container>
+<router-outlet></router-outlet>
+<app-footer></app-footer>

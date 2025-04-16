@@ -1,0 +1,33 @@
+<div class="fullscreen-container">
+    <div *ngIf="user" class="profile-card">
+      <img [src]="profileImage" alt="Profile Preview" class="profile-preview">
+      <div class="user-details">
+        <p class="username">
+          <span class="material-icons-outlined">Name:</span>
+          {{ user.name }}
+        </p>
+        <p>
+          <span class="material-icons-outlined">Email:</span>
+          {{ user.email }}
+        </p>
+        <p>
+          <span class="material-icons-outlined">Phone:</span>
+          {{ user.phone }}
+        </p>
+        <p>
+          <span class="material-icons-outlined">Address:</span>
+          {{ user.address }}
+        </p>
+      </div>
+    </div>
+    
+    <div *ngIf="!user && !error" class="loading-message">
+      <div class="loading-spinner"></div>
+      <p class="loading-text">Loading user details...</p>
+    </div>
+    
+    <div *ngIf="error" class="error-message">
+      ⚠️ {{ error }}
+    </div>
+  </div>
+  

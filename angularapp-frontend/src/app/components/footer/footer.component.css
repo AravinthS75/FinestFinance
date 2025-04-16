@@ -1,0 +1,188 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
+.main-footer {
+  background-color: #222;
+  color: #fff;
+  padding: 40px 0 20px;
+  font-size: 0.9em;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Footer Content Layout */
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #444;
+  gap: 30px;
+}
+
+/* Brand Section */
+.footer-brand {
+  max-width: 400px;
+}
+
+.footer-brand .logo-link {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.footer-description {
+  margin-top: 10px;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+/* Links Section */
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-around;
+}
+
+.footer-links-col {
+  min-width: 150px;
+}
+
+.footer-links-col h4 {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.footer-links-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links-col li {
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.footer-links-col a {
+  color: #ccc;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.footer-links-col a:hover {
+  color: #fff;
+}
+
+/* Social Media Section */
+.footer-socials {
+  max-width: 400px;
+}
+
+.footer-socials h4 {
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.card {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-left: 0;
+  padding: 0;
+}
+
+.socialContainer {
+  width: 42px;
+  height: 42px;
+  background-color: rgb(44, 44, 44);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+/* Social icon hover effects */
+.containerOne:hover { background-color: #d62976; }
+.containerTwo:hover { background-color: #00acee; }
+.containerThree:hover { background-color: #0072b1; }
+.containerFour:hover { background-color: #128C7E; }
+
+.socialContainer:active {
+  transform: scale(0.9);
+}
+
+.socialSvg {
+  width: 18px;
+  height: 18px;
+}
+
+.socialSvg path {
+  fill: rgb(255, 255, 255);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  font-size: 0.85em;
+  color: #999;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .footer-brand,
+  .footer-socials {
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .footer-links {
+    justify-content: center;
+    gap: 30px;
+  margin-top: 20px;
+  }
+  
+  .footer-links-col {
+    width: 45%;
+    text-align: center;
+  }
+  
+  .card {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-links-col {
+    width: 100%;
+  }
+  
+  .socialContainer {
+    width: 38px;
+    height: 38px;
+  }
+  
+  .socialSvg {
+    width: 16px;
+    height: 16px;
+  }
+}

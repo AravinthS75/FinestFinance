@@ -1,0 +1,157 @@
+<div class="main-container">
+  <!-- Informational Content Section -->
+  <div class="content-container cyber-container">
+      <section class="cyber-section">
+          <h3 class="section-title neon-text">Why Choose Our Personal Loan</h3>
+          <div class="loan-benefits">
+              <div *ngFor="let benefit of loanBenefits" class="loan-benefit-item">
+                  <h4 class="benefit-title">{{ benefit.title }}</h4>
+                  <p class="benefit-description">{{ benefit.description }}</p>
+              </div>
+          </div>
+      </section>
+
+      <section class="cyber-section">
+          <h3 class="section-title neon-text">Features & Benefits</h3>
+          <ul class="feature-list">
+              <li *ngFor="let feature of features" class="feature-item">{{ feature }}</li>
+          </ul>
+      </section>
+
+      <section class="cyber-section">
+          <h3 class="section-title neon-text">Eligibility Criteria</h3>
+          <div class="eligibility-details">
+              <p *ngFor="let key of objectKeys(eligibilityCriteria)" class="eligibility-item">
+                  <span class="eligibility-label"><b>{{key | titlecase}}: </b></span>
+                  <span class="eligibility-value">{{eligibilityCriteria[key]}}</span>
+              </p>
+          </div>
+      </section>
+
+      <section class="cyber-section">
+        <h3 class="section-title neon-text">Documents Required</h3>
+        <div class="eligibility-details">
+            <p *ngFor="let key of objectKeys(documentsRequired)" class="eligibility-item">
+                <span class="eligibility-value">{{documentsRequired[key]}}</span>
+            </p>
+        </div>
+    </section>
+
+      <section class="cyber-section">
+          <h3 class="section-title neon-text">How to Apply</h3>
+          <ol class="application-steps">
+              <li *ngFor="let step of applicationSteps" class="step-item">{{ step }}</li>
+          </ol>
+      </section>
+  </div>
+
+  <!-- Loan Form Section -->
+  <div class="form-container cyber-container">
+      <h2 class="neon-title">APPLY FOR PERSONAL LOAN</h2>
+      <form [formGroup]="loanForm" (ngSubmit)="onSubmit()" class="cyber-form">
+          <div class="grid-container">
+              <div class="cyber-input">
+                  <label class="hologram-label">Loan Amount (₹ 20,000 to ₹ 50 Lakh)</label>
+                  <input type="number" formControlName="loanAmount" class="glow-input">
+                  <div class="cyber-bar"></div>
+                  <div *ngIf="loanForm.get('loanAmount')?.errors" class="error-message">
+                      <span *ngIf="loanForm.get('loanAmount')?.hasError('required')">Required</span>
+                      <span *ngIf="loanForm.get('loanAmount')?.hasError('min')">Min ₹20,000</span>
+                      <span *ngIf="loanForm.get('loanAmount')?.hasError('max')">Max ₹50,00,000</span>
+                  </div>
+              </div>
+              <div class="cyber-input">
+                <label class="hologram-label">Employment Type</label>
+                <select formControlName="employmentType"  class="glow-input">
+                  <option value="" disabled selected>Select Employment Type</option>
+                  <option *ngFor="let type of employmentTypes" [value]="type">{{ type }}</option>
+                </select>
+                <div class="cyber-bar"></div>
+                <div *ngIf="loanForm.get('employmentType')?.errors" class="error-message">
+                  <span *ngIf="loanForm.get('employmentType')?.hasError('required')">Employment type is required</span>
+                </div>
+              </div>
+              <div class="cyber-input">
+                  <label class="hologram-label">Purpose</label>
+                  <select formControlName="purpose" class="glow-input">
+                    <option value="" disabled selected>Select Loan Purpose</option>
+                    <option *ngFor="let purpose of loanPurposes" [value]="purpose">{{ purpose }}</option>
+                  </select>
+                  <div class="cyber-bar"></div>
+                  <div *ngIf="loanForm.get('purpose')?.errors" class="error-message">
+                    <span *ngIf="loanForm.get('purpose')?.hasError('required')">Purpose is required</span>
+                  </div>
+                </div>
+                
+                <div class="cyber-input" *ngIf="showOtherPurposeInput">
+                  <label class="hologram-label">Other Purpose Description</label>
+                  <input type="text" formControlName="otherPurposeDescription" class="glow-input" placeholder="Enter loan purpose description">
+                  <div class="cyber-bar"></div>
+                  <div *ngIf="loanForm.get('otherPurposeDescription')?.errors">
+                    <span *ngIf="loanForm.get('otherPurposeDescription')?.hasError('required')" class="error-message">Other purpose description is required</span>
+                    <span *ngIf="loanForm.get('otherPurposeDescription')?.hasError('whitespace')" class="error-message">Other purpose description cannot be empty</span>
+                  </div>
+                </div>
+              <div class="cyber-input">
+                  <label class="hologram-label">Tenure (Years)</label>
+                  <input type="range" formControlName="tenure" min="1" max="7" class="cyber-range">
+                  <div class="range-value">{{loanForm.value.tenure || 5}}</div>
+                  <div class="cyber-bar"></div>
+              </div>
+              <div class="cyber-input">
+                <label class="hologram-label">Aadhar Card (<span class="file-type">Pdf</span>)</label>
+                <input #aadharInput 
+                       type="file" 
+                       accept=".pdf" 
+                       class="glow-input" 
+                       (change)="onFileChange($event, 'aadhar')">
+                <div class="cyber-bar"></div>
+                <div *ngIf="loanForm.get('aadhar')?.errors" class="error-message">
+                  <span *ngIf="loanForm.get('aadhar')?.hasError('required')">Required</span>
+                  <span *ngIf="loanForm.get('aadhar')?.hasError('invalidFile')">Only PDF files allowed</span>
+                </div>
+              </div>
+              
+              <div class="cyber-input">
+                <label class="hologram-label">PAN Card (<span class="file-type">Pdf</span>)</label>
+                <input #panInput 
+                       type="file" 
+                       accept=".pdf" 
+                       class="glow-input" 
+                       (change)="onFileChange($event, 'pan')">
+                <div class="cyber-bar"></div>
+                <div *ngIf="loanForm.get('pancard')?.errors" class="error-message">
+                  <span *ngIf="loanForm.get('pancard')?.hasError('required')">Required</span>
+                  <span *ngIf="loanForm.get('pancard')?.hasError('invalidFile')">Only PDF files allowed</span>
+                </div>
+              </div>
+              <div class="cyber-display">
+                  <div class="display-segment">
+                      <span class="segment-label">Estimated EMI</span>
+                      <span class="segment-value neon-cyan"> {{emiAmount | number:'1.0-0'}}Rs</span>
+                  </div>
+                  <div class="display-segment">
+                      <span class="segment-label">Interest Rate</span>
+                      <span class="segment-value neon-pink">{{interestRatePerAnnum}}%</span>
+                  </div>
+              </div>
+              <button type="submit" [disabled]="!loanForm.valid" class="cyber-button">
+                  <span class="cyber-text">SUBMIT APPLICATION</span>
+                  <div class="cyber-loader"></div>
+              </button>
+          </div>
+      </form>
+    </div>
+    <div *ngIf="isSuccess" class="modern-success-message">
+        <button class="close-btn" (click)="closeSuccess()">&times;</button>
+        <div class="icon-wrapper">
+          <svg class="success-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <div class="text-wrapper">
+          <div class="title">Success!</div>
+          <div class="message">Loan application submitted successfully!</div>
+        </div>
+      </div>          
+</div>

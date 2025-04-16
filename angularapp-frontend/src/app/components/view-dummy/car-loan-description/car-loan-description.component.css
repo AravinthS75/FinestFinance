@@ -1,0 +1,422 @@
+:root {
+  --primary-blue: #0a1f44;
+  --accent-purple: #7B61FF;
+  --neon-pink: #FF10F0;
+  --electric-blue: #00F3FF;
+  --dark-bg: #0a1220;
+  --primary-blue: #0a1f44;
+  --accent-blue: #1e88e5;
+  --gold: #ffc107;
+  --white: #ffffff;
+  --light-bg: #f8f9fa;
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --white: #ffffff;
+  --black: #000000;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* General Styles */
+.car-loan-container {
+  font-family: 'Poppins', sans-serif;
+  color: var(--white);
+  background: var(--dark-bg);
+  overflow-x: hidden;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, var(--electric-blue), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Hero Section */
+.hero-section {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--dark-bg) 0%, var(--primary-blue) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 4rem;
+  background: linear-gradient(45deg, var(--electric-blue), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 50px rgba(0, 243, 255, 0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+.floating-car {
+  width: 400px;
+  height: auto;
+  margin: 2rem auto;
+  transition: all 0.3s cubic-bezier(0, 0.02, 1, 1);
+  animation: float 6s ease-in-out infinite;
+}
+
+.floating-car:hover {
+  width: 500px;
+}
+
+.car-image {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 0 20px rgba(0, 243, 255, 0.8));
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.cta-button {
+  background: linear-gradient(45deg, var(--accent-purple), var(--neon-pink));
+  border: none;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 50px;
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(123, 97, 255, 0.5);
+}
+
+/* Particle Animation */
+.particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  background: radial-gradient(circle, var(--electric-blue) 20%, transparent 70%);
+  border-radius: 50%;
+  animation: particle-float 8s infinite;
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0) scale(0.5); opacity: 0.3; }
+  50% { transform: translateY(-100px) scale(1); opacity: 0.7; }
+}
+
+/* Features Section */
+.features-section {
+  padding: 4rem 2rem;
+  background: var(--dark-bg);
+}
+
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background: var(--glass-bg);
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.3);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* General Container Styling */
+.benefits-documents-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 2rem; /* Space between columns */
+  padding: 4rem 2rem;
+  background: var(--dark-bg);
+}
+
+/* Benefits Section */
+.benefits-section,
+.documents-section {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  padding: 2rem;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.benefits-section:hover,
+.documents-section:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.3);
+}
+
+/* Section Titles */
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, var(--electric-blue), var(--neon-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Benefits Styling */
+.benefit-card {
+  background: var(--glass-bg);
+  padding: 1.5rem;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.benefit-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(123, 97, 255, 0.5);
+}
+
+.benefit-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.benefit-text {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Documents Section with Accordion Animation */
+.document-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.doc-card {
+  background: var(--glass-bg);
+  padding: 1.5rem;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.doc-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Document Header */
+.doc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.doc-header h3 {
+  font-size: 1.5rem;
+}
+
+.toggle-icon {
+  font-size: 1.5rem;
+}
+
+/* Document Content Animation */
+.doc-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.doc-content.active {
+  max-height: 500px; /* Adjust based on your content size */
+  opacity: 1;
+  transition: max-height 0.5s ease-in, opacity 0.5s ease-in;
+}
+
+.doc-content ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.doc-content li {
+  font-size: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.doc-content li:last-child {
+  border-bottom: none;
+}
+
+
+/* FAQ Section */
+.faq-section {
+  padding: 4rem 2rem;
+  background: var(--dark-bg);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.faq-card {
+  background: var(--glass-bg);
+  padding: 2rem;
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.faq-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(123, 97, 255, 0.3);
+  margin-top: 2rem;
+}
+
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+.faq-content.active {
+  max-height: 500px;
+}
+
+/* EMI Calculator Section */
+.calculator-section {
+  padding: 4rem 2rem;
+  background: var(--dark-bg);
+}
+
+.calculator-glass {
+  background: var(--glass-bg);
+  display: flex;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 2rem;
+  margin: 4rem auto;
+  width: 50%;
+  box-shadow: 0 0 40px rgba(0, 243, 255, 0.1);
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.input-group {
+  margin-bottom: 2rem;
+}
+
+input[type="range"] {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.emi-bubble {
+  background: radial-gradient(circle at 30% 30%, var(--electric-blue), var(--neon-pink));
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+}
+
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+.emi-amount {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.emi-label {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 740px) {
+  .calculator-glass {
+    width: 90%;
+    padding: 1rem;
+    margin: 2rem auto;
+    flex-direction: column-reverse;
+  }
+
+  .input-group {
+    margin-top: 2rem;
+  }
+
+  .emi-bubble {
+    width: 150px;
+    height: 150px;
+  }
+
+  .emi-amount {
+    font-size: 1.5rem;
+  }
+
+  .emi-label {
+    font-size: 0.8rem;
+  }
+}

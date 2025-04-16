@@ -1,0 +1,82 @@
+<section class="tos-section">
+    <div class="tos-container">
+      <h1 class="main-title">Finest Finance Terms of Service</h1>
+      <div class="last-updated">Last Updated: August 15, 2023</div>
+  
+      <div class="toc-container">
+        <h3 class="toc-title">Table of Contents</h3>
+        <ul class="toc-list">
+          <li *ngFor="let section of sections">
+            <a (click)="scrollTo(section.id)">{{ section.title }}</a>
+          </li>
+        </ul>
+      </div>
+  
+      <div class="content">
+        <section *ngFor="let section of sections" #section id="{{section.id}}">
+          <h2>{{ section.title }}</h2>
+          
+          <!-- Content for each section -->
+          <ng-container [ngSwitch]="section.id">
+            <!-- Introduction -->
+            <div *ngSwitchCase="'introduction'">
+              <p>Welcome to Finest Finance ("we", "our", or "us"). These Terms of Service govern your use of our loan lending platform...</p>
+            </div>
+  
+            <!-- Eligibility -->
+            <div *ngSwitchCase="'eligibility'">
+              <p>To use our services, you must:</p>
+              <ul>
+                <li>Be at least 21 years of age</li>
+                <li>Reside in our service areas</li>
+                <li>Have a valid government-issued ID</li>
+                <li>Maintain satisfactory creditworthiness</li>
+              </ul>
+            </div>
+  
+            <!-- Loan Terms -->
+            <div *ngSwitchCase="'loan-terms'">
+              <p>All loans are subject to:</p>
+              <ul>
+                <li>Approval based on credit assessment</li>
+                <li>Interest rates between 8.5% - 24% APR</li>
+                <li>Minimum repayment period of 6 months</li>
+                <li>Processing fees up to 2.5% of loan amount</li>
+              </ul>
+            </div>
+  
+            <!-- User Responsibilities -->
+            <div *ngSwitchCase="'responsibilities'">
+              <p>You agree to:</p>
+              <ul>
+                <li>Provide accurate information</li>
+                <li>Maintain repayment schedule</li>
+                <li>Update contact information</li>
+                <li>Report suspicious activity immediately</li>
+              </ul>
+            </div>
+  
+            <!-- Privacy -->
+            <div *ngSwitchCase="'privacy'">
+              <p>We collect and use personal information as outlined in our Privacy Policy. We implement SSL encryption and...</p>
+            </div>
+  
+            <!-- Termination -->
+            <div *ngSwitchCase="'termination'">
+              <p>We reserve the right to suspend services for:</p>
+              <ul>
+                <li>Violation of these terms</li>
+                <li>Suspected fraudulent activity</li>
+                <li>Non-payment for 90+ days</li>
+              </ul>
+            </div>
+          </ng-container>
+        </section>
+  
+        <div class="disclaimer">
+          <p><strong>Note:</strong> This is a simplified template. Consult legal counsel for complete compliance.</p>
+          <p>Contact us at financefinest94&#64;gmail.com for questions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
