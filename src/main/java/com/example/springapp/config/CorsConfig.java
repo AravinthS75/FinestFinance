@@ -17,7 +17,7 @@ public class CorsConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList(
             "https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev",
-            "https://psychic-spork-7ww59r94q67cr6jv-8080.app.github.dev"
+            "https://finestfinance-backendend.onrender.com"
         ));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));

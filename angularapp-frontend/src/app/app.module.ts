@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -30,7 +30,8 @@ import { UserNavbarComponent } from './components/user-navbar/user-navbar.compon
 import { UserPayEmiComponent } from './components/user-pay-emi/user-pay-emi.component';
 import { UserViewLoanComponent } from './components/user-view-loan/user-view-loan.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localeIN from '@angular/common/locales/en-IN';
 import { UserStoreService } from './services/user-store.service';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -57,6 +58,8 @@ import { TermsOfServiceComponent } from './components/terms-of-service/terms-of-
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { DisclaimerComponent } from './components/disclaimer/disclaimer.component';
+
+registerLocaleData(localeIN);
 
 @NgModule({
   declarations: [
@@ -131,7 +134,8 @@ import { DisclaimerComponent } from './components/disclaimer/disclaimer.componen
       useClass: AuthInterceptor,
       multi: true
     },
-    provideHttpClient(withInterceptorsFromDi())
+    provideHttpClient(withInterceptorsFromDi()),
+    { provide: LOCALE_ID, useValue: 'en-IN' }
   ],
   bootstrap: [AppComponent]
 })

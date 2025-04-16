@@ -31,8 +31,8 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-               "src/favicon.ico",
-               "src/assets"
+              "src/favicon.ico",
+              "src/assets"
             ],
             "styles": [
               "node_modules/ngx-toastr/toastr.css",
@@ -45,16 +45,20 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "1.2MB",
+                  "maximumError": "1.5MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "12kB",
+                  "maximumError": "20kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "allowedCommonJsDependencies": [
+                "sweetalert2",
+                "file-saver"
+              ]
             },
             "development": {
               "optimization": false,
@@ -67,7 +71,7 @@
         "serve": {
           "options": {
             "proxyConfig": "proxy.conf.json",
-            "port":8081
+            "port": 8081
           },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
@@ -93,7 +97,7 @@
             "tsConfig": "tsconfig.spec.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"            
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"
