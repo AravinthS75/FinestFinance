@@ -5,12 +5,13 @@ import { catchError } from 'rxjs/operators';
 import { User } from '../models/user.model';
 import { UserStoreService } from './user-store.service';
 import { AuthUser } from '../models/auth-user.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private backendURL: string = 'https://finestfinance-backendend.onrender.com/api';
+  private backendURL: string = environment.apiUrl+'api';
 
   constructor(private httpClient: HttpClient, private userStoreService: UserStoreService) {}
 

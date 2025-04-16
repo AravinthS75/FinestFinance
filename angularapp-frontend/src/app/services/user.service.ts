@@ -2,13 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { User } from '../models/user.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  public apiUrl = "https://finestfinance-backendend.onrender.com/api/user";
+  public apiUrl = environment.apiUrl+"api/user";
 
   constructor(private http: HttpClient) { }
 

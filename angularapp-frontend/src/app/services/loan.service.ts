@@ -2,15 +2,16 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Loan } from '../models/loan.model';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoanService {
 
-  public loanUrl = "https://finestfinance-backendend.onrender.com/api/loans";
+  public loanUrl = environment.apiUrl+"api/loans";
 
-  public apiUrl = "https://finestfinance-backendend.onrender.com/api/admin/all-managers"
+  public apiUrl = environment.apiUrl+"api/admin/all-managers"
 
   constructor(private http: HttpClient) { }
 

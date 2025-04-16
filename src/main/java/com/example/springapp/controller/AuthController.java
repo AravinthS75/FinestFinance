@@ -21,7 +21,7 @@ import com.example.springapp.service.PasswordResetService;
 import com.example.springapp.service.UserService;
 
 @RestController
-@CrossOrigin(origins = "https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev", allowedHeaders = "*")
+@CrossOrigin(origins = {"https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev", "https://finest-finance.netlify.app"}, allowedHeaders = "*")
 public class AuthController {
 
     @Autowired

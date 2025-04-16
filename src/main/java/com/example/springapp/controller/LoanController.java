@@ -15,7 +15,7 @@ import com.example.springapp.service.LoanServiceImpl;
 
 @RestController
 @RequestMapping("/api/loans")
-@CrossOrigin(allowedHeaders = "*", origins = "https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev")
+@CrossOrigin(allowedHeaders = "*", origins = {"https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev", "https://finest-finance.netlify.app"})
 public class LoanController {
 
     @Autowired

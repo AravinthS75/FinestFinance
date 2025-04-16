@@ -10,7 +10,7 @@ import com.example.springapp.model.User;
 import com.example.springapp.repository.UserRepository;
 
 @RestController
-@CrossOrigin(origins = "https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev", allowedHeaders = "*")
+@CrossOrigin(origins = {"https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev", "https://finest-finance.netlify.app"}, allowedHeaders = "*")
 @RequestMapping("/api/user")
 public class UserController {
 

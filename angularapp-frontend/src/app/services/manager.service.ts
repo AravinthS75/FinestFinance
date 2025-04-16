@@ -3,14 +3,15 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Loan } from '../models/loan.model';
 import { User } from '../models/user.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ManagerService {
 
-  public apiUrl = "https://finestfinance-backendend.onrender.com/api/admin";
-  public loanUrl = "https://finestfinance-backendend.onrender.com/api/loans";
+  public apiUrl = environment.apiUrl+"api/admin";
+  public loanUrl = environment.apiUrl+"api/loans";
 
   constructor(private http: HttpClient) { }
 
