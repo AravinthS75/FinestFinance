@@ -256,6 +256,7 @@ export class UserApplyPersonalLoanComponent implements OnInit {
         error: (err) => {
           console.log(loanData);
           console.error('Loan application failed:', err);
+          console.error('Loan application failed:', err.response);
           Swal.fire({
             title: 'Error!',
             text: 'Failed to submit the loan application. Please try again.',
