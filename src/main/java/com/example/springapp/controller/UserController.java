@@ -20,6 +20,11 @@ public class UserController {
     @Autowired
     private JwtUtils jwtService;
 
+    @GetMapping("/health")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("Backend is healthy");
+    }
+
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserDetails(@PathVariable Long userId, @RequestHeader("Authorization") String authHeader) {
         String token = authHeader.replace("Bearer ", "");
