@@ -49,8 +49,9 @@ public class LoanServiceImpl implements LoanService{
 
             loan.setStatus("PENDING");
             loan.setUser(user);
-            loan.setPendingAmount(loan.getEmiAmount()*Integer.parseInt(loan.getTenure()));
+            loan.setPendingAmount(loan.getEmiAmount() * Double.parseDouble(loan.getTenure()));
             loan.setInterestRatePerAnnum(loan.getInterestRatePerAnnum() != null ? loan.getInterestRatePerAnnum() : 12.5);
+            loan.setPendingAmount(loan.getEmiAmount() * loan.getTenure());
             loan.setEmiAmount(loan.getEmiAmount());
             loan.setLoanVarient(loan.getLoanVarient());
             loan.setPurpose(loan.getPurpose());

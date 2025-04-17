@@ -39,7 +39,7 @@ public class Loan {
     private String employmentType;
     private String businessType;
     private Double interestRatePerAnnum;
-    private String tenure;
+    private Integer tenure;
     @Column(name = "reject_reason")
     private String rejectReason;
     private Double emiAmount;
@@ -57,7 +57,7 @@ public class Loan {
 
     public Loan(Long id, User user, User assignedManager, Double loanAmount, Double pendingAmount, String purpose,
                 String loanVarient, String propertyType, String employmentType, String businessType,
-                Double interestRatePerAnnum, String tenure, String rejectReason, Double emiAmount, Date dueDate,
+                Double interestRatePerAnnum, Integer tenure, String rejectReason, Double emiAmount, Date dueDate,
                 String status, Date createdAt, Date updatedAt, String approverName, String aadharCard, String panCard) {
         this.id = id;
         this.user = user;
@@ -130,11 +130,11 @@ public class Loan {
         this.interestRatePerAnnum = interestRatePerAnnum;
     }
 
-    public String getTenure() {
+    public Integer getTenure() {
         return tenure;
     }
 
-    public void setTenure(String tenure) {
+    public void setTenure(Integer tenure) {
         this.tenure = tenure;
     }
 
