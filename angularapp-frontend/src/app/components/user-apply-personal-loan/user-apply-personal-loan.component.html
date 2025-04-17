@@ -110,6 +110,9 @@
                   <span *ngIf="loanForm.get('aadhar')?.hasError('required')">Required</span>
                   <span *ngIf="loanForm.get('aadhar')?.hasError('invalidFile')">Only PDF files allowed</span>
                 </div>
+                <div *ngIf="loanForm.get('aadhar')?.hasError('fileTooLarge') && loanForm.get('aadhar')?.touched">
+                  <small class="error-text">File is too large. Maximum size is 5MB.</small>
+                </div>
               </div>
               
               <div class="cyber-input">
@@ -123,6 +126,9 @@
                 <div *ngIf="loanForm.get('pancard')?.errors" class="error-message">
                   <span *ngIf="loanForm.get('pancard')?.hasError('required')">Required</span>
                   <span *ngIf="loanForm.get('pancard')?.hasError('invalidFile')">Only PDF files allowed</span>
+                </div>
+                <div *ngIf="loanForm.get('pancard')?.hasError('fileTooLarge') && loanForm.get('pancard')?.touched">
+                  <small class="error-text">File is too large. Maximum size is 5MB.</small>
                 </div>
               </div>
               <div class="cyber-display">

@@ -172,28 +172,35 @@ export class UserApplyPersonalLoanComponent implements OnInit {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
     const control = type === 'aadhar' ? this.loanForm.get('aadhar') : this.loanForm.get('pancard');
-
+    
+    const MAX_FILE_SIZE_MB = 5; // Max file size (in MB)
+    const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024; // Convert to bytes
+  
     if (file) {
       const extension = file.name.split('.').pop()?.toLowerCase();
-
       if (extension !== 'pdf') {
-        control?.setErrors({ invalidFile: true });
+        control?.setErrors({ invalidFileType: true });
         return;
       }
-
+  
+      if (file.size > MAX_FILE_SIZE_BYTES) {
+        control?.setErrors({ fileTooLarge: true });
+        return;
+      }
+  
       if (type === 'aadhar') {
         this.aadharFile = file;
       } else {
         this.panFile = file;
       }
-
+  
       control?.setErrors(null);
       control?.setValue(file.name);
     } else {
       control?.setErrors({ required: true });
       control?.markAsTouched();
     }
-  }
+  }  
 
 
   onSubmit(): void {
@@ -256,7 +263,6 @@ export class UserApplyPersonalLoanComponent implements OnInit {
         error: (err) => {
           console.log(loanData);
           console.error('Loan application failed:', err);
-          console.error('Loan application failed:', err.response);
           Swal.fire({
             title: 'Error!',
             text: 'Failed to submit the loan application. Please try again.',
