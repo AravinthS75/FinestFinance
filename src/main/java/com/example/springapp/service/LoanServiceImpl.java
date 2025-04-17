@@ -193,7 +193,7 @@ public class LoanServiceImpl implements LoanService{
         LocalDate newDueDate = dueDateLocal.plusMonths(1);
         loan.setDueDate(Date.from(newDueDate.atStartOfDay(ZoneId.systemDefault()).toInstant()));
     
-        long tenureMonths = Long.parseLong(loan.getTenure().split(" ")[0]);
+        long tenureMonths = loan.getTenure();
         long monthsPaid = ChronoUnit.MONTHS.between(
             loan.getCreatedAt().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
             newDueDate
