@@ -1,6 +1,8 @@
 package com.example.springapp.repository;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.example.springapp.model.Loan;
 
 import org.springframework.data.jpa.repository.JpaRepository;
