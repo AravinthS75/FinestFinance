@@ -49,7 +49,9 @@ public class Loan {
     private Date updatedAt;
     private String approverName;
 
+    @Column(columnDefinition = "TEXT")
     private String aadharCard;
+    @Column(columnDefinition = "TEXT")
     private String panCard;
 
     public Loan() {
