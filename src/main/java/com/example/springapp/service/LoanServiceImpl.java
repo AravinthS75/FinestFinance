@@ -117,7 +117,7 @@ public class LoanServiceImpl implements LoanService{
     }
 
     public Loan updateLoanStatus(Long loanId, String status, String rejectReason) {
-        Loan loan = loanRepository.findById(loanId).orElseThrow();
+        Loan loan = loanRepository.findById(loanId).get();
         loan.setStatus(status);
     
         if ("REJECTED".equals(status)) {
@@ -154,7 +154,7 @@ public class LoanServiceImpl implements LoanService{
 
     public Loan setLoanApprover(Long userId, Long loanId, Long managerId ){
         User user = userRepository.findById(userId).get();
-        Loan loanOfUser = loanRepository.findById(loanId);
+        Loan loanOfUser = loanRepository.findById(loanId).get();
         User manager = userRepository.findById(managerId);
         if(manager.getId() == managerId){
             loanOfUser.setAssignedManager(manager);
@@ -167,7 +167,7 @@ public class LoanServiceImpl implements LoanService{
     }
 
     public Loan processEmiPayment(Long loanId) {
-        Loan loan = loanRepository.findById(loanId).orElseThrow(() -> new RuntimeException("Loan not found"));
+        Loan loan = loanRepository.findById(loanId).get();
     
         if (!"APPROVED".equals(loan.getStatus())) {
             throw new RuntimeException("Loan is not approved");

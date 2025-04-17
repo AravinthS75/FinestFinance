@@ -31,7 +31,7 @@ public class UserController {
 
         String role = jwtService.extractRole(token);
 
-        User userDetails = userRepo.findById(userId);
+        User userDetails = userRepo.findById(userId).get();
         if (userDetails == null || (!role.equals("ROLE_USER") && !role.equals("ROLE_MANAGER") && !role.equals("ROLE_ADMIN"))) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
@@ -49,7 +49,7 @@ public class UserController {
 
         String role = jwtService.extractRole(token);
 
-        User existingUser = userRepo.findById(userId);
+        User existingUser = userRepo.findById(userId).get();
 
         if (existingUser == null || (!role.equals("ROLE_USER") && !role.equals("ROLE_MANAGER") && !role.equals("ROLE_ADMIN"))) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
