@@ -106,12 +106,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       };
       this.service.signUp(user).subscribe({
         next: response => {
-          console.log('Registration successful', response);
           this.formSubmitted = true;
           this.isNoData = false;
           this.error = null;
           this.registrationForm.reset();
-          // Reset validation flags manually after successful reset
           this.validatePasswordConditions('');
         },
         error: (errorResponse: HttpErrorResponse) => {
@@ -125,8 +123,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
         }
       });
     } else {
-       console.log("Form is invalid", this.registrationForm.errors);
-       // Optional: Focus the first invalid field
        this.focusFirstInvalidField();
     }
   }

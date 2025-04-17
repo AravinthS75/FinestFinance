@@ -100,7 +100,6 @@ export class UserViewLoanComponent implements OnInit {
   openModal(loan: Loan): void {
     this.selectedLoan = loan;
     this.tenure = loan.tenure ? Number(loan.tenure) : 0;
-    console.log(loan);
   }
 
   closeModal(): void {

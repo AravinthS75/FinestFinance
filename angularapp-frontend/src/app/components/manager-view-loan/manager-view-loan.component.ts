@@ -193,15 +193,11 @@ onSearch(): void {
 
   openDocumentPopup(type: 'aadhar' | 'pan') {
     this.selectedDocumentType = type;
-    console.log('Selected Document Type:', type);
-    console.log('Aadhar Card Data:', this.selectedLoan?.aadharCard);
-    console.log('Pan Card Data:', this.selectedLoan?.panCard);
   
     this.selectedDocumentUrl = type === 'aadhar' 
         ? this.getSafeAadharUrl() 
         : this.getSafePanUrl();
     
-    console.log('Selected Document URL:', this.selectedDocumentUrl);
     this.showDocumentPopup = true;
   }
   

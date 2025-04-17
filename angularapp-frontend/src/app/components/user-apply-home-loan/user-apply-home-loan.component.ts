@@ -243,7 +243,6 @@ export class UserApplyHomeLoanComponent implements OnInit {
 
       this.loanService.userApplyPersonalLoan(this.token, this.userId, loanData).subscribe({
         next: (response) => {
-          console.log('Loan application successful:', response);
           this.isSuccess = true;
           this.initializeForm();
           this.aadharFile = null;
