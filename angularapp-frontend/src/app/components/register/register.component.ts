@@ -102,7 +102,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         email: this.registrationForm.get('email')?.value,
         password: this.registrationForm.get('password')?.value,
         phone: this.registrationForm.get('mobileNumber')?.value,
-        // role: this.registrationForm.get('role')?.value
+        role: this.registrationForm.get('role')?.value
       };
       this.service.signUp(user).subscribe({
         next: response => {
