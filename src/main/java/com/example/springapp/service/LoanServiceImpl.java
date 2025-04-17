@@ -34,7 +34,11 @@ public class LoanServiceImpl implements LoanService{
         String role = jwtService.extractRole(token);
 
         if (role.equals("ROLE_USER")) {
-            User user = userRepository.findById(userId);
+            User user = userRepository.findById(userId).get();
+            
+            if (user == null) {
+                throw new RuntimeException("User not found");
+            }
 
             if (loan.getLoanAmount() == null) {
                 throw new RuntimeException("Loan amount is required");
@@ -149,8 +153,8 @@ public class LoanServiceImpl implements LoanService{
     }
 
     public Loan setLoanApprover(Long userId, Long loanId, Long managerId ){
-        User user = userRepository.findById(userId);
-        Loan loanOfUser = loanRepository.findById(loanId).get();
+        User user = userRepository.findById(userId).get();
+        Loan loanOfUser = loanRepository.findById(loanId);
         User manager = userRepository.findById(managerId);
         if(manager.getId() == managerId){
             loanOfUser.setAssignedManager(manager);

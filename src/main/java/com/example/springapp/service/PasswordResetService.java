@@ -80,7 +80,7 @@ public class PasswordResetService {
     public String resetUserPassword(String token, String password){
         Long validToken = userService.validatePasswordResetToken(token);
         if(validToken!=null){
-            User user = userRepository.findById(validToken);
+            User user = userRepository.findById(validToken).get();
             user.setPassword(passwordEncoder.encode(password));
             userRepository.save(user);
             return "Password reset successfull!";
