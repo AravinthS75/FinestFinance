@@ -34,7 +34,7 @@ public class LoanServiceImpl implements LoanService{
         String role = jwtService.extractRole(token);
 
         if (role.equals("ROLE_USER")) {
-            User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));;
+            User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
 
             if (loan.getLoanAmount() == null) {
                 throw new RuntimeException("Loan amount is required");
