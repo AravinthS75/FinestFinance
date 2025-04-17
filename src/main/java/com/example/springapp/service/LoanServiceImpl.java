@@ -34,7 +34,7 @@ public class LoanServiceImpl implements LoanService{
         String role = jwtService.extractRole(token);
 
         if (role.equals("ROLE_USER")) {
-            User user = userRepository.findById(userId).get();
+            User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
             
             if (user == null) {
                 throw new RuntimeException("User not found");
@@ -117,7 +117,7 @@ public class LoanServiceImpl implements LoanService{
     }
 
     public Loan updateLoanStatus(Long loanId, String status, String rejectReason) {
-        Loan loan = loanRepository.findById(loanId).get();
+        Loan loan = loanRepository.findById(loanId).orElseThrow(() -> new RuntimeException("Loan not found"));
         loan.setStatus(status);
     
         if ("REJECTED".equals(status)) {
@@ -153,9 +153,9 @@ public class LoanServiceImpl implements LoanService{
     }
 
     public Loan setLoanApprover(Long userId, Long loanId, Long managerId ){
-        User user = userRepository.findById(userId).get();
-        Loan loanOfUser = loanRepository.findById(loanId).get();
-        User manager = userRepository.findById(managerId);
+        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+        Loan loanOfUser = loanRepository.findById(loanId).orElseThrow(() -> new RuntimeException("Loan not found"));
+        User manager = userRepository.findById(managerId).orElseThrow(() -> new RuntimeException("Manager not found"));
         if(manager.getId() == managerId){
             loanOfUser.setAssignedManager(manager);
             loanOfUser.setApproverName(manager.getName());
@@ -167,7 +167,7 @@ public class LoanServiceImpl implements LoanService{
     }
 
     public Loan processEmiPayment(Long loanId) {
-        Loan loan = loanRepository.findById(loanId).get();
+        Loan loan = loanRepository.findById(loanId).orElseThrow(() -> new RuntimeException("Loan not found"));
     
         if (!"APPROVED".equals(loan.getStatus())) {
             throw new RuntimeException("Loan is not approved");

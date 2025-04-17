@@ -244,6 +244,8 @@ export class UserApplyPersonalLoanComponent implements OnInit {
 
       this.loanService.userApplyPersonalLoan(this.token, this.userId, loanData).subscribe({
         next: (response) => {
+          console.log(loanData);
+          console.log('Loan application submitted successfully:', response);
           this.isSuccess = true;
           this.initializeForm();
           this.aadharFile = null;
@@ -252,6 +254,7 @@ export class UserApplyPersonalLoanComponent implements OnInit {
           this.panInput.nativeElement.value = '';
         },
         error: (err) => {
+          console.log(loanData);
           console.error('Loan application failed:', err);
           Swal.fire({
             title: 'Error!',
@@ -263,6 +266,7 @@ export class UserApplyPersonalLoanComponent implements OnInit {
         }
       });
     }).catch((error) => {
+      console.log(loanData);
       console.error('Error reading files:', error);
       Swal.fire({
         title: 'Error!',
