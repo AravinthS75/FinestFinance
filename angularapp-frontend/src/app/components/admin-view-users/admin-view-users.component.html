@@ -83,7 +83,8 @@
         <p><strong>Loan Amount:</strong> {{ loan.loanAmount }}</p>
         <p><strong>Status:</strong> {{ loan.status }}</p>
         <p><strong>Approver:</strong> {{ loan.approverName }}</p>
-        <p><strong>Due Date:</strong> {{ loan.dueDate | date:'dd-MM-yyyy' }}</p>
+        <p *ngIf="loan.dueDate"><strong>Due Date:</strong> {{ loan.dueDate | date:'dd-MM-yyyy' }}</p>
+        <p *ngIf="loan.rejectReason"><strong>Reject Reason:</strong> {{ loan.rejectReason }}</p>
         <p><strong>EMI Amount:</strong> {{ loan.emiAmount }}</p>
         <p><strong>Interest Rate:</strong> {{ loan.interestRatePerAnnum }}%</p>
         <p><strong>Loan Variant:</strong> {{ loan.loanVarient }}</p>

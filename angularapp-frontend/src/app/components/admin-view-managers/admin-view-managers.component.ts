@@ -41,7 +41,6 @@ export class AdminViewManagersComponent {
     this.adminService.getAllManagers(this.token).subscribe(
       (data) => {
         this.managers = data;
-        // Initialize filtered list with all managers
         this.filteredManagers = data;
         this.isLoading = false;
       },
@@ -74,10 +73,8 @@ export class AdminViewManagersComponent {
     this.modalState = 'closed';
   }
 
-  // Method to filter the list of managers based on searchTerm
   filterManagers(): void {
     if (!this.searchTerm) {
-      // If the search term is empty, show all managers
       this.filteredManagers = this.managers;
     } else {
       const lowerSearchTerm = this.searchTerm.toLowerCase();
