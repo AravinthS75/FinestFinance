@@ -271,6 +271,7 @@ body::-webkit-scrollbar {
   box-shadow: 0 0.25rem 0.5rem var(--shadow-color);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   color: var(--text-color);
+  animation: tiltCard 2s linear infinite;
 }
 
 .benefit-card:hover {
@@ -290,10 +291,6 @@ body::-webkit-scrollbar {
   100% {
     transform: rotate(0deg);
   }
-}
-
-.benefit-card:hover {
-  animation: tiltCard 2s linear infinite;
 }
 
 .benefit-title {
