@@ -87,13 +87,16 @@ export class PasswordResetComponent implements OnInit, OnDestroy {
             }
             else {
               this.toastr.error('Password reset failed', 'The token is expired', {closeButton: true});
+              console.log(response);
             }
           },
           error: (error) => {
-            this.toastr.error('Password reset failed', 'Reset failed', {closeButton: true});
+              console.log(error);
+              this.toastr.error('Password reset failed', 'Reset failed', {closeButton: true});
           }
         });
       } else {
+        console.log('Token is null');
         this.toastr.error('Token is invalid', 'Invalid Token', {closeButton: true});
       }
     }
