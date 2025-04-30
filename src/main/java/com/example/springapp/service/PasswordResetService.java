@@ -61,7 +61,7 @@ public class PasswordResetService {
     }
 
     private void sendPasswordResetEmail(User user, String token) {
-        String resetUrl = "https://psychic-spork-7ww59r94q67cr6jv-8081.app.github.dev/reset-password?pass_reset=" + token;
+        String resetUrl = "https://finest-finance.netlify.app/reset-password?pass_reset=" + token;
         String subject = "Password Reset Request";
         String content = "Hi " + user.getName() + "!\n\n"
             + "We received a request to reset your password. Click the link below to proceed:\n\n"
