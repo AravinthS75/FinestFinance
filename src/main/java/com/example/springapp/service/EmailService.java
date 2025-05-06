@@ -26,7 +26,7 @@ public class EmailService {
             
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(content, false);
+            helper.setText(content, true);
             
             javaMailSender.send(mimeMessage);
             logger.info("Email sent successfully to: {}", to);
