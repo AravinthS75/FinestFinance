@@ -93,7 +93,7 @@ public class PasswordResetService {
             + "    }"
             + "  </style>"
             + "</head>"
-            + "<body>"
+            + "<body style=\"background-color:rgb(29, 27, 27); color: #00ffea; font-family: 'Courier New', monospace; line-height: 1.5; padding: 20px;\">"
             + "  <p style=\"margin-left: 15%;\">Hi <strong>" + user.getName() + "</strong>,</p>"
             + "  <p style=\"margin-left: 15%;\">We received a request to reset your password.</p>"
             + "  <p style=\"margin-left: 15%;\">Click the button below to reset your password.</p>"
