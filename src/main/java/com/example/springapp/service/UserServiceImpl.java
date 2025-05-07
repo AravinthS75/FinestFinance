@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
         }
          else {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRole("MANAGER");
+            user.setRole("USER");
             return userRepository.save(user);
         }
     }
