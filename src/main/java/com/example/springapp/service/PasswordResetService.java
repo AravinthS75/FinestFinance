@@ -106,7 +106,7 @@ public class PasswordResetService {
             + "         background: linear-gradient(45deg, #ff00cc, #3333ff);"
             + "         color: #ffffff !important;"
             + "         text-decoration: none;"
-            + "         margin-left: 25%;"
+            + "         margin-left: 22%;"
             + "         font-weight: bold;"
             + "         border-radius: 6px;"
             + "         box-shadow: 0 0 8px #ff00cc,0 0 16px #3333ff;"
