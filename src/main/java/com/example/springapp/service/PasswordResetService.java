@@ -117,7 +117,7 @@ public class PasswordResetService {
             + "  </p>"
             + "  <p style=\"font-size:0.9em; color:#888888; margin-left:15%\">"
             + "    This link expires in <strong>1 hour</strong>.<br>"
-            + "    If you didn't ask, simply ignore this message."
+            + "    If you didn't request, please ignore this email."
             + "  </p>"
             + "  <p style=\"margin-left:15%\">— Finest Finance Team</p>"
             + "</body>"
