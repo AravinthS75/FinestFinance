@@ -76,6 +76,7 @@ body::-webkit-scrollbar {
 .user-card {
   position: relative;
   border-radius: 20px;
+  max-height: max-content;
   min-height: max-content;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.9);
