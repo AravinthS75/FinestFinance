@@ -135,6 +135,14 @@ body::-webkit-scrollbar {
     color: #ff0000;
   }
   
+  .no-results{
+    margin-left: 39%;
+    margin-top: 8%;
+    p:nth-child(1){
+      margin-left: 8%;
+    }
+  }
+
   .modal-overlay {
     position: fixed;
     top: 0;
