@@ -39,7 +39,7 @@
         </div>
     </div>
 
-    <div class="loading-message">
+    <div *ngIf="isLoading && !error" class="loading-message">
         <div class="loader">
             <div data-glitch="Loading..." class="glitch">Loading...</div>
         </div>

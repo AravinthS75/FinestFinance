@@ -156,7 +156,8 @@ body::-webkit-scrollbar {
 }
 
 .loading-message {
-  margin-left: 35%;
+  margin-top: 10%;
+  margin-left: 42%;
 }
 
 .glitch {
