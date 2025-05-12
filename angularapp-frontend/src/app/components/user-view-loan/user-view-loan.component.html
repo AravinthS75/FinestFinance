@@ -167,7 +167,7 @@
       </button>
     </div>
     
-    <div class="page-summary">
+    <div class="page-summary" *ngIf="!error && !isLoading">
       Showing {{ (currentPage-1)*itemsPerPage + 1 }} - 
       {{ Math.min(currentPage*itemsPerPage, filteredLoans.length) }} of {{ filteredLoans.length }} loans
     </div>
