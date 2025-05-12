@@ -643,6 +643,7 @@ margin: 0.2rem 0;
   font-size: 1.2rem;
   padding: 1rem;
   padding-bottom: 5rem;
+  margin-top: 10%;
   border-radius: var(--border-radius);
   animation: shake 0.5s ease-in-out;
 }
