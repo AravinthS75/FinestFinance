@@ -48,6 +48,7 @@ export class AdminDashboardComponent implements OnInit {
     this.userService.getUserDetails(userId, token).subscribe(
       (data) => {
         this.user = data;
+        this.user.address = this.user.address || "Please update your address";
         this.userDetailsAvailable = true;
         if (data.profilePicture) {
           const imageUrl = `data:image/jpeg;base64,${data.profilePicture}`;
