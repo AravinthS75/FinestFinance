@@ -144,7 +144,7 @@
   <div *ngIf="error" class="error-message">
     ⚠️ {{ error }}
   </div>
-  <div class="pagination-controls" *ngIf="!isLoading && !error">
+  <div class="pagination-controls" *ngIf="!isLoading && !error && displayedLoans.length !== 0">
     <div class="pagination-container">
       <button class="pagination-btn prev" 
               (click)="previousPage()" 
@@ -167,7 +167,7 @@
       </button>
     </div>
     
-    <div class="page-summary" *ngIf="!error && !isLoading">
+    <div class="page-summary">
       Showing {{ (currentPage-1)*itemsPerPage + 1 }} - 
       {{ Math.min(currentPage*itemsPerPage, filteredLoans.length) }} of {{ filteredLoans.length }} loans
     </div>
