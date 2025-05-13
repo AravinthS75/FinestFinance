@@ -284,8 +284,12 @@ body::-webkit-scrollbar {
     transform: rotate(0deg);
   }
 
-  50% {
+  30% {
     transform: rotate(1deg);
+  }
+
+  70%{
+    transform: rotate(-1deg);
   }
 
   100% {
