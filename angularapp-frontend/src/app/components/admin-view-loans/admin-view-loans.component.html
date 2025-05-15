@@ -1,5 +1,16 @@
 <div class="dashboard-container">
-
+    <div *ngIf="isAssiginingManager" class="spinner-overlay">
+      <div class="dot-spinner">
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+        <div class="dot-spinner__dot"></div>
+      </div>
+    </div>
     <h1 class="cyberpunk-heading">LOAN MANAGEMENT CONSOLE</h1>
 
     <button class="cyber-button export-btn" (click)="exportToCSV()">
@@ -315,4 +326,3 @@
             NEXT »
         </button>
     </div>
-</div>

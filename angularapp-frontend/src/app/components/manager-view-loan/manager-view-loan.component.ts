@@ -28,6 +28,8 @@ export class ManagerViewLoanComponent {
   loans: Loan[] = [];
   loanUser: any = {};
   selectedLoan: Loan | null = null;
+  isAccepting: boolean = false;
+  isRejecting: boolean = false;
   searchQuery: string = '';
   userData: string | null = null;
   managerName: string | null = null;
@@ -132,6 +134,7 @@ onSearch(): void {
   }
 
   approveLoan(): void {
+    this.isAccepting = true;
     if (this.selectedLoan?.id) {
       const action$ = this.managerService.updateLoanStatus(this.token, this.selectedLoan.id, 'APPROVED', "");
   
@@ -141,11 +144,13 @@ onSearch(): void {
           if (index > -1) {
             this.loans[index] = updatedLoan;
           }
+          this.isAccepting = false;
           this.selectedLoan = null;
           this.ngOnInit();
           this.toastr.success('Approved loan successfully', 'Approval Success', {closeButton:true});
         },
         error: (err) => {
+          this.isAccepting = false;
           this.toastr.error('Failed to approve the loan. Please try again.', 'Approval Failed', {closeButton: true});
         }
       });
@@ -278,6 +283,7 @@ selectRejectionReason(reason: string) {
 }
 
 confirmRejection() {
+  this.isRejecting = true;
   if (this.selectedRejectionReason && this.selectedLoan?.id) {
     this.managerService.updateLoanStatus(this.token, this.selectedLoan.id, 'REJECTED', this.selectedRejectionReason)
       .subscribe({
@@ -287,11 +293,13 @@ confirmRejection() {
             this.loans[index] = updatedLoan;
           }
           this.closeRejectionPopup();
+          this.isRejecting = false;
           this.selectedLoan = null;
           this.ngOnInit();
           this.toastr.success('Rejected loan successfully', 'Rejection Success', {closeButton:true});
         },
         error: (err) => {
+          this.isRejecting = false;
           this.toastr.error('Failed to reject the loan. Please try again.', 'Rejection Failed', {closeButton: true});
         }
       });

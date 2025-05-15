@@ -29,6 +29,7 @@ export class AdminViewLoansComponent implements OnInit {
     loanUser: any = {};
     selectedLoan: Loan | null = null;
     showManagerPopup = false;
+    isAssiginingManager: boolean = false;
     showAllDetailsPopup: boolean = false;
     managers: any[] = [];
     managerLoading: boolean = false;
@@ -171,6 +172,7 @@ export class AdminViewLoansComponent implements OnInit {
     }
     
     assignManager(managerId: number) {
+        this.isAssiginingManager = true;
         if (!this.selectedLoan) return;
         const userId = this.selectedLoan.user?.id;
         const loanId = this.selectedLoan.id;
@@ -182,13 +184,17 @@ export class AdminViewLoansComponent implements OnInit {
         this.loanService.adminSetAssignedManager(this.token, userId, loanId, managerId)
             .subscribe({
                 next: (updatedLoan) => {
+                    this.isAssiginingManager = false;
                     this.selectedLoan = updatedLoan;
                     this.showManagerPopup = false;
                     this.adminService.getAllLoans(this.token).subscribe(loans => this.loans = loans);
                     this.ngOnInit();
                     this.openLoanDetails(this.selectedLoan);
                 },
-                error: (err) => this.toastr.error('Failed to assign manager. Please try again.', 'Assign Failed', { closeButton: true })
+                error: (err) => {
+                    this.toastr.error('Failed to assign manager. Please try again.', 'Assign Failed', { closeButton: true })
+                    this.isAssiginingManager = false;
+                }
             });
     }
 

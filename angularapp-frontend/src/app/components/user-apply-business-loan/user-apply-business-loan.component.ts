@@ -19,6 +19,7 @@ export class UserApplyBusinessLoanComponent implements OnInit {
   loanForm!: FormGroup;
   isSuccess: boolean = false;
   emiAmount: number = 0;
+  applying: boolean = false;
   eligibility: number = 0;
   userId: number | null = null;
   interestRatePerAnnum: number = 18;
@@ -201,6 +202,7 @@ export class UserApplyBusinessLoanComponent implements OnInit {
   onSubmit(): void {
     // Manual validation check
     let isValid = true;
+    this.applying = true;
     
     if (!this.aadharFile) {
       this.loanForm.get('aadhar')?.setErrors({ required: true });
@@ -246,6 +248,7 @@ export class UserApplyBusinessLoanComponent implements OnInit {
       this.loanService.userApplyPersonalLoan(this.token, this.userId, loanData).subscribe({
         next: (response) => {
           this.isSuccess = true;
+          this.applying = false;
           this.initializeForm();
           this.aadharFile = null;
           this.panFile = null;
@@ -254,6 +257,7 @@ export class UserApplyBusinessLoanComponent implements OnInit {
         },
         error: (err) => {
           console.error('Loan application failed:', err);
+          this.applying = false;
           Swal.fire({
             title: 'Error!',
             text: 'Failed to submit the loan application. Please try again.',
@@ -265,6 +269,7 @@ export class UserApplyBusinessLoanComponent implements OnInit {
       });
     }).catch((error) => {
       console.error('Error reading files:', error);
+      this.applying = false;
       Swal.fire({
         title: 'Error!',
         text: 'Failed to process the uploaded files. Please try again.',
