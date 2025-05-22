@@ -281,6 +281,7 @@
     background: var(--secondary-gradient);
     border: none;
     padding: 0.8rem 1.5rem;
+    margin-left: 32%;
     border-radius: 8px;
     color: #fff;
     cursor: pointer;
